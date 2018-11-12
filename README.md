@@ -8,30 +8,25 @@ If you have bcgovr installed and you use RStudio, click the 'Insert BCDevex Badg
 bcgov-rstats-public-presentations
 ============================
 
-### Usage
+This repository is for materials related to public presentations given by B.C. government public servants on the topic of R (#rstats). If you have given a presentation and would like to contribute your materials to this repository, please open a pull request. Individual presentations are given their own sub-directory. Please contribute your materials to that sub-directory.
 
-Describe data being used (links), and how to run. Eg:
+Note that internal presentations and materials can be found in the [bcgov-useR repo](https://github.com/bcgov/bcgov-useR).
 
-There are four core scripts that are required for the analysis, they need to be run in order:
+### Why?
+To share practices, inspire each other & support continuous learning using [R](https://www.r-project.org/) for data science in the BC Public Service.
 
--   01\_clean.R
--   02\_analysis.R
--   03\_visualize.R
--   04\_output.R
 
-#### Example
+### Presentations
 
-This is a basic example which shows you how to solve a common problem:
+2018-11-07: [EARL Seattle (Martin Monkman)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-11-07_EARL_Seattle)
 
-``` r
-## basic example code
-```
+
 
 ### Project Status
 
 ### Getting Help or Reporting an Issue
 
-To report bugs/issues/feature requests, please file an [issue](https://github.com/bcgov/bcgov-rstats-public-presentations/issues/).
+To report bugs/issues/feature requests, please file an [issue](https://github.com/bcgov/bcgov-useR/issues/).
 
 ### How to Contribute
 
