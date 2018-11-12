@@ -12,10 +12,6 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0
 -->
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 I had the pleasure of attending the [EARL (Enterprise Applications of the R Language) Conference held in Seattle on 2018-11-07](https://earlconf.com/2018/seattle/), and the honour of being one of the speakers. The EARL conferences occupy a unique niche in the R conference universe, bringing together the I-use-it-at-work contingent of the R community. The Seattle event was, from my perspective (I use R at work, and lead a team of data scientists that uses R) a fantastic conference. Full marks to the folks from [Mango Solutions](https://www.mango-solutions.com/) for organizing it!
 
 The conference started with a keynote from the always-brilliant [Julia Silge](https://juliasilge.com/), who spoke about using R for text analysis. She's an undisputed leader in this field (the book she co-authored with David Robinson, [_Text Mining with R: A Tidy Approach_](https://www.tidytextmining.com/), is already a cornerstone resource), and although I'd heard her deliver some of the same material at the Joint Statistical Meetings in July, this talk
