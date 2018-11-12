@@ -15,14 +15,14 @@ Note that internal presentations and materials can be found in the [bcgov-useR r
 ### Why?
 To share practices, inspire each other & support continuous learning using [R](https://www.r-project.org/) for data science in the BC Public Service.
 
+***
 
 ### Presentations
 
 2018-11-07: [EARL Seattle (Martin Monkman)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-11-07_EARL_Seattle)
 
 
-
-### Project Status
+***
 
 ### Getting Help or Reporting an Issue
 
