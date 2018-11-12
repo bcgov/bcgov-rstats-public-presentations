@@ -1,15 +1,16 @@
----
-title: 'EARL Seattle: recap'
-author: "Martin Monkman"
-date: "November 11, 2018"
-output: html_document
----
 <!--
 Copyright 2018 Province of British Columbia
 
 This work is licensed under the Creative Commons Attribution 4.0 International License.
 To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
 -->
+
+
+# EARL Seattle: recap
+
+author: Martin Monkman
+
+date: 2018-11-11
 
 
 I had the pleasure of attending the [EARL (Enterprise Applications of the R Language) Conference held in Seattle on 2018-11-07](https://earlconf.com/2018/seattle/), and the honour of being one of the speakers. The EARL conferences occupy a unique niche in the R conference universe, bringing together the I-use-it-at-work contingent of the R community. The Seattle event was, from my perspective (I use R at work, and lead a team of data scientists that uses R) a fantastic conference. Full marks to the folks from [Mango Solutions](https://www.mango-solutions.com/) for organizing it!
