@@ -8,6 +8,8 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0
 
 # EARL Seattle: recap
 
+## _draft_
+
 author: Martin Monkman
 
 date: 2018-11-11
