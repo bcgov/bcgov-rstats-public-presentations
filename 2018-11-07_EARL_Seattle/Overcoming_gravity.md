@@ -1,3 +1,10 @@
+<!--
+Copyright 2018 Province of British Columbia
+
+This work is licensed under the Creative Commons Attribution 4.0 International License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+-->
+
 # Overcoming gravity & achieving escape velocity
 
 
@@ -52,7 +59,7 @@ I will present about the
 BC Stats, the provincial statistics agency in British Columbia, got its start in 1894 with the passing of the _Legislative Library and Statistics Bureau Act_. 
 
 
-![alt text](images/BC_library-stats-act_1894.jpg "BC Legislative Library & Statistics Bureau Act, 1894")
+![BC Legislative Library & Statistics Bureau Act, 1894](images/BC_library-stats-act_1894.jpg "BC Legislative Library & Statistics Bureau Act, 1894")
 
 
 That legislation has been updated, and we now operate under the authority of the [Statistics Act](http://www.bclaws.ca/civix/document/id/complete/statreg/96439_01). This act provides protection to personal and business information that we collect, and spells out the mandate of the branch:
@@ -64,7 +71,7 @@ In practical terms, we operate as an internal consultancy, providing statistical
 Our workflow looks like the model of data science in Grolemund & Wickham's [_R for Data Science_](https://r4ds.had.co.nz/index.html) (although we are also directly involved in the collection of the data, in advance of the "import" step):
 
 
-![alt text](images/data-science-collection.png "The data science process")
+![The data science process](images/data-science-collection.png "The data science process")
 
 
 
@@ -72,7 +79,7 @@ Our workflow looks like the model of data science in Grolemund & Wickham's [_R f
 
 The tools we have been using in our data science workflow has been a mix of proprietary programs, from the ubiquitous Microsoft Excel and Access, to specialized tools like SPSS and STATA, and on to the arcane [APL](https://en.wikipedia.org/wiki/APL_(programming_language)).
 
-![alt text](images/software_collection.png "software tools")
+![software tools](images/software_collection.png "software tools")
 
 
 But none of these tools hit all the marks for open, reproducible research. Some store the data in proprietary formats, making it difficult to move data between tools without significant manual intervention. Some are GUIs, and we know [you can't do data science in a GUI](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui). This also means there's no code sharing, so collaboration is impeded (if not impossible). And some come with costly license fees.
@@ -83,7 +90,7 @@ So I was curious if R would be something useful for us in our work.
 
 In 2012 I set out to learn more, first by downloading and installing R on my work computer. But when I attempted to install R onto my work computer about five years ago, I got this sort of message:
 
-![alt text](images/admin_privilege_message.png "You don`t have admin privilege")
+![You don't have admin privilege](images/admin_privilege_message.png "You don't have admin privilege")
 
 
 
@@ -93,7 +100,7 @@ But being new to R, I was naive as to which packages I would need to install for
 
 So I went home and installed R on my personal computer. This allowed me to learn R, a process I have sporadically documented on my blog bayesball.blogspot.com (also part of the R-Bloggers). This also led me to become a contributor to the [Lahman package](https://cran.r-project.org/web/packages/Lahman/index.html), a collection of baseball data.
 
-![alt text](images/Lahman_hex.png "Lahman package hex sticker")
+![Lahman package hex sticker](images/Lahman_hex.png "Lahman package hex sticker")
 
 
 
@@ -109,13 +116,13 @@ One example: research ethics. I don't think that anyone would argue that ethical
 
 But these policies and procedures accumulate, sometimes conflicting with one another.
 
-![alt text](images/EstherDerby_tweet_addpolicy.PNG "Esther Derby: added policy tweet")
+![Esther Derby: added policy tweet](images/EstherDerby_tweet_addpolicy.PNG "Esther Derby: added policy tweet")
 
 
 These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball[^1]. 
 
 
-![alt text](images/Orbiting_cover.jpg "Orbiting the Giant Hairball")
+![Orbiting the Giant Hairball](images/Orbiting_cover.jpg "Orbiting the Giant Hairball")
 
 
 
@@ -125,15 +132,13 @@ These corporate policies--while originally well-intentioned--can inhibit innovat
 
 And the Hairball is a recurring theme in popular culture. One example is the character of Mordac the Preventer of IT in the _Dilbert_ comic strip. 
 
-```{r, echo=FALSE, fig.align='left'}
+![Dilbert: Mordac the Preventer](images/informationprevention.gif "Mordac the Preventer")
 
-knitr::include_graphics("images/informationprevention.gif") 
-
-```
 
 
 And it's often those who want to jump on the "innovation" train who are the most constrained:
 
+!
 
 ```{r, echo=FALSE, out.height= "400x", fig.align='left'}
 
