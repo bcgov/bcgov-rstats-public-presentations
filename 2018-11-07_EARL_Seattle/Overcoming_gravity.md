@@ -56,11 +56,10 @@ I will present about the
 
 ## BC Stats: a bit of context
 
+
+<img src="images/BC_library-stats-act_1894.jpg" alt="BC Legislative Library & Statistics Bureau Act, 1894" width="400"/>
+
 BC Stats, the provincial statistics agency in British Columbia, got its start in 1894 with the passing of the _Legislative Library and Statistics Bureau Act_. 
-
-
-![BC Legislative Library & Statistics Bureau Act, 1894](images/BC_library-stats-act_1894.jpg "BC Legislative Library & Statistics Bureau Act, 1894")
-
 
 That legislation has been updated, and we now operate under the authority of the [Statistics Act](http://www.bclaws.ca/civix/document/id/complete/statreg/96439_01). This act provides protection to personal and business information that we collect, and spells out the mandate of the branch:
 
@@ -71,7 +70,7 @@ In practical terms, we operate as an internal consultancy, providing statistical
 Our workflow looks like the model of data science in Grolemund & Wickham's [_R for Data Science_](https://r4ds.had.co.nz/index.html) (although we are also directly involved in the collection of the data, in advance of the "import" step):
 
 
-![The data science process](images/data-science-collection.png "The data science process")
+<img src="images/data-science-collection.png" alt="The data science process" width="400"/>
 
 
 
@@ -79,7 +78,8 @@ Our workflow looks like the model of data science in Grolemund & Wickham's [_R f
 
 The tools we have been using in our data science workflow has been a mix of proprietary programs, from the ubiquitous Microsoft Excel and Access, to specialized tools like SPSS and STATA, and on to the arcane [APL](https://en.wikipedia.org/wiki/APL_(programming_language)).
 
-![software tools](images/software_collection.png "software tools")
+
+<img src="images/software_collection.png" alt="software tools" width="400"/)
 
 
 But none of these tools hit all the marks for open, reproducible research. Some store the data in proprietary formats, making it difficult to move data between tools without significant manual intervention. Some are GUIs, and we know [you can't do data science in a GUI](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui). This also means there's no code sharing, so collaboration is impeded (if not impossible). And some come with costly license fees.
@@ -90,7 +90,7 @@ So I was curious if R would be something useful for us in our work.
 
 In 2012 I set out to learn more, first by downloading and installing R on my work computer. But when I attempted to install R onto my work computer about five years ago, I got this sort of message:
 
-![You don't have admin privilege](images/admin_privilege_message.png "You don't have admin privilege")
+<img src="images/admin_privilege_message.png" alt="You don't have admin privilege" width="400"/)
 
 
 
@@ -100,7 +100,8 @@ But being new to R, I was naive as to which packages I would need to install for
 
 So I went home and installed R on my personal computer. This allowed me to learn R, a process I have sporadically documented on my blog bayesball.blogspot.com (also part of the R-Bloggers). This also led me to become a contributor to the [Lahman package](https://cran.r-project.org/web/packages/Lahman/index.html), a collection of baseball data.
 
-![Lahman package hex sticker](images/Lahman_hex.png "Lahman package hex sticker")
+
+<img src="images/Lahman_hex.png" alt="Lahman package hex sticker">
 
 
 
@@ -116,7 +117,10 @@ One example: research ethics. I don't think that anyone would argue that ethical
 
 But these policies and procedures accumulate, sometimes conflicting with one another.
 
-![Esther Derby: added policy tweet](images/EstherDerby_tweet_addpolicy.PNG "Esther Derby: added policy tweet")
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ppl seem to think about adding processes, policies, procedures...but not retiring any of them. Sort of like always buying new clothes, without ever clearing out the closet of stuff that now longer works or fits.</p>&mdash; estherderby (@estherderby) <a href="https://twitter.com/estherderby/status/999367593625612293?ref_src=twsrc%5Etfw">May 23, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball[^1]. 
@@ -130,44 +134,27 @@ These corporate policies--while originally well-intentioned--can inhibit innovat
 
 
 
-And the Hairball is a recurring theme in popular culture. One example is the character of Mordac the Preventer of IT in the _Dilbert_ comic strip. 
-
-![Dilbert: Mordac the Preventer](images/informationprevention.gif "Mordac the Preventer")
-
-
-
-And it's often those who want to jump on the "innovation" train who are the most constrained:
-
-!
-
-```{r, echo=FALSE, out.height= "400x", fig.align='left'}
-
-knitr::include_graphics("images/digital_transformation.JPG") 
-
-```
-
-
-https://www.instagram.com/p/BpYiky-BISZ/?utm_source=ig_web_button_share_sheet
-
-
-
+And the Hairball is a recurring theme in popular culture. One example is the character of [Mordac the Preventer of IT](http://dilbert.com/search_results?terms=Mordac) in the _Dilbert_ comic strip. 
 
 Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star Trek: Deep Space Nine_ to _Futurama_, is full of Hairballs. And many of those Hairballs are associated with government organizations.[^1] One of my favourites (?) are the Vogons in _The Hitchhiker's Guide to the Galaxy_, described as "Not actually evil, but bad-tempered, bureaucratic, officious and callous."
 
-
-```{r, echo=FALSE, out.height= "400x", fig.align='left'}
-
-knitr::include_graphics("images/vogons_resubmit.jpg") 
-
-```
-
+<img src="images/vogons_resubmit.jpg" alt="Vogons" width="400"/>
 
 
 As they say, it's funny because it's true. 
 
-And the Hairball makes our lives challenging. 
+And although the the Hairball makes our lives challenging, it's often those who want to jump on the "innovation" train who are the most constrained:
 
-There are numerous real-life examples; twitter is full of people expressing frustration with the Hairball. Here's one from the academy, articulating one manner students across the planet encounter the Hairball:
+
+<img src="images/digital_transformation.JPG" alt="https://www.instagram.com/p/BpYiky-BISZ/">
+
+Source: https://www.instagram.com/p/BpYiky-BISZ/
+
+
+
+There are numerous real-life examples; twitter is full of people expressing frustration with the Hairball. 
+
+Here's one from the academy, articulating one manner students across the planet encounter the Hairball:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The hardest part of grad school is making sure you meet all the arbitrary style guidelines set forth by all the &quot;important&quot; people in the grad school office. <a href="https://t.co/rxD1o3DHuW">https://t.co/rxD1o3DHuW</a></p>&mdash; DOCTOR Greg (@StatsInTheWild) <a href="https://twitter.com/StatsInTheWild/status/1023396704505286657?ref_src=twsrc%5Etfw">July 29, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -175,15 +162,16 @@ There are numerous real-life examples; twitter is full of people expressing frus
 
 
 
+
+
 So the policies of the Hairball usually come from a place of reasonable intentions, but often lead to unintended consequences.
 
 
 
+***
 
 
 ### What it does
-
-
 
 ### and how it impacts our work
 
@@ -204,30 +192,19 @@ https://twitter.com/AdamGruer/status/1013538660132589568
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
+As Sean Boots has noted, the hairball limits access to hardware as well as software:
 
-Sean Boots, ["Use the tools that you need to do good work"](https://digital.canada.ca/2018/06/27/tools-to-do-good-work/) (2018-06-27)
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">New blog post from me! 👋 On why your department’s standard computers probably won’t cut it for modern digital work: <a href="https://t.co/asS5odSLXq">https://t.co/asS5odSLXq</a> <a href="https://twitter.com/hashtag/GCdigital?src=hash&amp;ref_src=twsrc%5Etfw">#GCdigital</a> <a href="https://t.co/e9gmrvx6qx">pic.twitter.com/e9gmrvx6qx</a></p>&mdash; Sean Boots (@sboots) <a href="https://twitter.com/sboots/status/1014145932018049024?ref_src=twsrc%5Etfw">July 3, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-https://twitter.com/sboots/status/1014145932018049024
 
-In response to Boots' tweet:
+(Full article: Sean Boots, ["Use the tools that you need to do good work"](https://digital.canada.ca/2018/06/27/tools-to-do-good-work/) (2018-06-27))
 
-https://twitter.com/don_cooper/status/1014170397732790272
+
+There were many great responses to Boots' tweet, including this one:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Reminds me of the days when Finance ran IT...a request for Internet access was met with “you don’t need access to the Internet...that will cost $50/seat”.    See the theme?  IT wants to control IT.  Finance wants to control $.  Both r service providers who don’t provide service</p>&mdash; Don Cooper (@don_cooper) <a href="https://twitter.com/don_cooper/status/1014170397732790272?ref_src=twsrc%5Etfw">July 3, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
-And Mackenzie notes that the hairball keeps getting bigger as an organization grows, and as time passes.
-
-
-https://twitter.com/estherderby/status/999367593625612293
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ppl seem to think about adding processes, policies, procedures...but not retiring any of them. Sort of like always buying new clothes, without ever clearing out the closet of stuff that now longer works or fits.</p>&mdash; estherderby (@estherderby) <a href="https://twitter.com/estherderby/status/999367593625612293?ref_src=twsrc%5Etfw">May 23, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
 
 
 
@@ -237,10 +214,7 @@ https://twitter.com/estherderby/status/999367593625612293
 ## In Orbit
 ### or, the view from here
 
-
-```{r, echo=FALSE, out.width= "400x", fig.align='left'}
-
-knitr::include_graphics("images/nasa_astronaut_canadarm.jpg") 
+<img src="images/nasa_astronaut_canadarm.jpg" alt="astronaut in space" width="400"/>
 
 ```
 
