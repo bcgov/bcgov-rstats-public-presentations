@@ -234,13 +234,15 @@ And that example made its way into the presentation ["You Can't Do Data Science 
 <img src="images/WickhamH_youcantdodatascienceinagui.PNG" alt="You Can't Do Data Science in a GUI" width="400"/>
 
 
+And then in the summer, my favourite. The useR! 2018 conference was held in Brisbane, and the organizers had the brilliant idea of making a hex map of Australia, using R package hex stickers. 
+
+<img src="images/useR_AUS.jpg" alt="Australia hex sticker map" width="400"/>
 
 
+We were excited when we saw that it featured not one but two of the packages that B.C. Government staff have submitted to CRAN, [`tidyhydat`](https://github.com/ropensci/tidyhydat) (between `ggplot2` and the conference sticker, which is at Brisbane on the east coast) and [`bcmaps`](https://github.com/bcgov/bcmaps) (at the [Surveyor Generals Corner](https://en.wikipedia.org/wiki/Surveyor_Generals_Corner)).
 
 
-* Jenny Bryan tweeting the fact that B.C. Government's github site has over 200 repositories.
-
-* useR! 2018's justifiably famous hex map of Australia featured two packages that BC Government staff have submitted to CRAN
+<img src="images/bcmaps-sticker.png" alt="bcmaps" width="250"/>
 
 
 
