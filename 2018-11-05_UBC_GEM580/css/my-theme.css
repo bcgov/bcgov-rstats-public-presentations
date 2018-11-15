@@ -1,0 +1,23 @@
+.remark-slide-content {
+  background-size: contain;
+}
+
+.title-slide {
+  /* background-image: url(https://user-images.githubusercontent.com/2816635/36622448-05b25e08-18b2-11e8-82f7-ff7f71baaa09.png); */
+  background-size: cover;
+}
+
+.leaflet {
+  margin: auto !important;
+}
+
+.img-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 550px;
+}
+
+.pink span {
+  color: red;
+}

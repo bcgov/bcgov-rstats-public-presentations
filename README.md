@@ -19,6 +19,8 @@ To share practices, inspire each other & support continuous learning using [R](h
 
 ### Presentations
 
+2018-11-05: [UBC GEM 580 lecture (Andy Teucher)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-11-05_UBC_GEM580)
+
 2018-11-07: [EARL Seattle (Martin Monkman)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-11-07_EARL_Seattle)
 
 
