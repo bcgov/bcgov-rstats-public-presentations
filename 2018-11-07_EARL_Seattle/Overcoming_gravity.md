@@ -245,9 +245,16 @@ We were excited when we saw that it featured not one but two of the packages tha
 <img src="images/bcmaps-sticker.png" alt="bcmaps" width="250"/>
 
 
+### Three examples of how BC Stats has been using R
 
+#### Voter List Quality estimation
 
-Some examples of how BC Stats has been using R:
+After each general election in British Columbia since 2005, BC Stats has worked with the province's independent electoral agency, [Elections BC](https://elections.bc.ca/), to estimate the quality of the list of voters. This is in two directions: my colleagues with expertise in demographics, who prepare local area population estimates and projections, estimate _coverage_ (the proportion of eligible adults who are registered to vote) and I have led the analysis of _currency_ (how accurate the existing voter records are). In previous iterations of the project, we had undertaken the estimate using many of the tools listed above (notably SPSS and Excel), but for this cycle my colleague Julie Hawkins (@JulieHawkins) and I did the work entirely in R. (For more details about analysis, see the [2013 Voters List Quality Measurement](https://elections.bc.ca/docs/rpt/vl/2013-VotersListQualityStudy.pdf) report; note that the 2017 report has not yet been published, and used a logistic regression rather than multiple imputation.)
+
+Of particular note was Julie's use of the [`bookdown`](https://bookdown.org/) package; she incorporated many R script and R Markdown files to create a single output. This wasn't entirely seamless, though, as the client's expectation was that we would send a Word document, and it was not as effective as, say, an HTML file would have been. For more information about the process, see Julie's presentation ["R from Start to Finish: A Case Study"](https://github.com/bcgov/bcgov-useR/blob/master/2018/jhawkins_case_study/pdf/jhawkins_case_study.pdf) at the bcgov-useR day on 2018-10-11.
+
+<img src="images/bookdown_hex.png" alt="bcmaps" width="250"/>
+
 
 * WES automation
 
@@ -255,7 +262,6 @@ Some examples of how BC Stats has been using R:
 
 * Shiny
 
-* cansim 
 
 
 
