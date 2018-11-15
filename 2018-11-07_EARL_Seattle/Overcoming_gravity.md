@@ -96,7 +96,7 @@ In 2012 I set out to learn more, first by downloading and installing R on my wor
 
 I then discovered that getting R installed meant requesting that someone from our IT department request a 30 minute window of admin priviledge on my machine, then when that was granted, they were able to install the software and any packages I'd specified. The whole process took approximately two weeks.
 
-But being new to R, I was naive as to which packages I would need to install for some core functionality, how frequently they would need to be updated, and how confronting a new data science problem would lead me to a solution that required packages I didn't yet have. So I quickly got frustrated by my inability use my work computer to do what I wanted in R. 
+But being new to R and the open source/multi-package model, I was naive about as to which packages I would need to install for some core functionality, how frequently they would need to be updated, and how confronting a new data science problem would lead me to a solution that required packages I didn't yet have. So I quickly got frustrated by my inability use my work computer to do what I wanted in R. 
 
 So I went home and installed R on my personal computer. This allowed me to learn R, a process I have sporadically documented on my blog bayesball.blogspot.com (also part of the R-Bloggers). This also led me to become a contributor to the [Lahman package](https://cran.r-project.org/web/packages/Lahman/index.html), a collection of baseball data.
 
@@ -157,11 +157,6 @@ There are numerous real-life examples; twitter is full of people expressing frus
 Here's one from the academy, articulating one manner students across the planet encounter the Hairball:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The hardest part of grad school is making sure you meet all the arbitrary style guidelines set forth by all the &quot;important&quot; people in the grad school office. <a href="https://t.co/rxD1o3DHuW">https://t.co/rxD1o3DHuW</a></p>&mdash; DOCTOR Greg (@StatsInTheWild) <a href="https://twitter.com/StatsInTheWild/status/1023396704505286657?ref_src=twsrc%5Etfw">July 29, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-[^4]
-
-
-
 
 
 So the policies of the Hairball usually come from a place of reasonable intentions, but often lead to unintended consequences.
@@ -180,7 +175,6 @@ And the gravity of the Hairball "exercises an inexorable pull into mediocrity"[^
 https://twitter.com/NormaPadron_/status/1002308667499261958
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">This is true across all types of orgs— I fundamentally believe that good deal of what’s attributed to bad culture/lack of engagement is  due to not providing the right tools and data to enable folks to work at their best<br><br>Innovation can’t be forced but environment can be changed <a href="https://t.co/RXlqtPhI11">https://t.co/RXlqtPhI11</a></p>&mdash; Norma A. Padrón (@NormaPadron_) <a href="https://twitter.com/NormaPadron_/status/1002308667499261958?ref_src=twsrc%5Etfw">May 31, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
@@ -189,13 +183,11 @@ And I know that I'm not alone in encountering the hairball when implementing R i
 https://twitter.com/AdamGruer/status/1013538660132589568
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Can anybody point me to some good resources for starting a conversation with the IT department about making  <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> , <a href="https://twitter.com/hashtag/rstudio?src=hash&amp;ref_src=twsrc%5Etfw">#rstudio</a> , shiny etc an accepted part of software kit? As far as I know most of our servers are windows OS %&gt;%</p>&mdash; Adam Gruer (@AdamGruer) <a href="https://twitter.com/AdamGruer/status/1013538660132589568?ref_src=twsrc%5Etfw">July 1, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 As Sean Boots has noted, the hairball limits access to hardware as well as software:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">New blog post from me! 👋 On why your department’s standard computers probably won’t cut it for modern digital work: <a href="https://t.co/asS5odSLXq">https://t.co/asS5odSLXq</a> <a href="https://twitter.com/hashtag/GCdigital?src=hash&amp;ref_src=twsrc%5Etfw">#GCdigital</a> <a href="https://t.co/e9gmrvx6qx">pic.twitter.com/e9gmrvx6qx</a></p>&mdash; Sean Boots (@sboots) <a href="https://twitter.com/sboots/status/1014145932018049024?ref_src=twsrc%5Etfw">July 3, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 (Full article: Sean Boots, ["Use the tools that you need to do good work"](https://digital.canada.ca/2018/06/27/tools-to-do-good-work/) (2018-06-27))
@@ -204,7 +196,6 @@ As Sean Boots has noted, the hairball limits access to hardware as well as softw
 There were many great responses to Boots' tweet, including this one:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Reminds me of the days when Finance ran IT...a request for Internet access was met with “you don’t need access to the Internet...that will cost $50/seat”.    See the theme?  IT wants to control IT.  Finance wants to control $.  Both r service providers who don’t provide service</p>&mdash; Don Cooper (@don_cooper) <a href="https://twitter.com/don_cooper/status/1014170397732790272?ref_src=twsrc%5Etfw">July 3, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
@@ -216,16 +207,35 @@ There were many great responses to Boots' tweet, including this one:
 
 <img src="images/nasa_astronaut_canadarm.jpg" alt="astronaut in space" width="400"/>
 
-```
 
 
 The Province of British Columbia--and here I'm speaking of the public service narrowly defined, a group of roughly 25,000 civil servants organized (currently) into 21 ministries and public agencies (or departments)--has, like other organizations, created its own hairball. 
 
 And BC Stats has had nearly a century and a quarter to develop our own little hairball within the bigger one.
 
-But in spite of that, we are getting some recognition in the R community:
+But in spite of that, R users in the B.C. public service are getting some recognition in the R community:
 
-* Hadley Wickham is citing the work of my colleagues in the Ministry of Environment in his talks:
+In January 2018, my colleagues in the State of Environment Reporting team published the package `bcmaps` to CRAN, and Jenny Bryan tweeted:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I still can’t get over the fact that my province publishes <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> packages  on CRAN and has 243 <a href="https://twitter.com/github?ref_src=twsrc%5Etfw">@github</a> repos. <a href="https://t.co/DjU066CuSf">https://t.co/DjU066CuSf</a></p>&mdash; Jenny Bryan (@JennyBryan) <a href="https://twitter.com/JennyBryan/status/954251663086256128?ref_src=twsrc%5Etfw">January 19, 2018</a></blockquote>
+
+
+Then, about six weeks later Hadley Wickham initiated this exchange with Stephanie Hazlitt, the head of the State of Environment Reporting team:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I&#39;m looking for a data analysis .R/.Rmd on GitHub with data understandable by a lay audience, that shows analysis changes over time. Any ideas?</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/971452620983427073?ref_src=twsrc%5Etfw">March 7, 2018</a></blockquote>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">If you mean analysis code changes, we updated this population data analysis code shifting to tidyverse 📦 &amp; style -&gt; master vs 2018-update branches  <a href="https://t.co/9yt5zd1Xpp">https://t.co/9yt5zd1Xpp</a></p>&mdash; Stephanie Hazlitt (@stephhazlitt) <a href="https://twitter.com/stephhazlitt/status/971460589846331392?ref_src=twsrc%5Etfw">March 7, 2018</a></blockquote>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Exactly what I’m looking for - thanks!</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/971461971852787712?ref_src=twsrc%5Etfw">March 7, 2018</a></blockquote>
+
+
+And that example made its way into the presentation ["You Can't Do Data Science in a GUI"](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui)
+
+<img src="images/WickhamH_youcantdodatascienceinagui.PNG" alt="You Can't Do Data Science in a GUI" width="400"/>
+
+
+
+
 
 
 * Jenny Bryan tweeting the fact that B.C. Government's github site has over 200 repositories.
