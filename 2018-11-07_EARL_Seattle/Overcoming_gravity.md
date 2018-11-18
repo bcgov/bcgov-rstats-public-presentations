@@ -247,7 +247,7 @@ We were excited when we saw that it featured not one but two of the packages tha
 
 ### Three examples of how BC Stats has been using R
 
-#### Voter List Quality estimation
+#### Voter List Quality: estimation and report preparation
 
 After each general election in British Columbia since 2005, BC Stats has worked with the province's independent electoral agency, [Elections BC](https://elections.bc.ca/), to estimate the quality of the list of voters. This is in two directions: my colleagues with expertise in demographics, who prepare local area population estimates and projections, estimate _coverage_ (the proportion of eligible adults who are registered to vote) and I have led the analysis of _currency_ (how accurate the existing voter records are). In previous iterations of the project, we had undertaken the estimate using many of the tools listed above (notably SPSS and Excel), but for this cycle my colleague Julie Hawkins (@JulieHawkins) and I did the work entirely in R. (For more details about analysis, see the [2013 Voters List Quality Measurement](https://elections.bc.ca/docs/rpt/vl/2013-VotersListQualityStudy.pdf) report; note that the 2017 report has not yet been published, and used a logistic regression rather than multiple imputation.)
 
@@ -256,13 +256,21 @@ Of particular note was Julie's use of the [`bookdown`](https://bookdown.org/) pa
 <img src="images/bookdown_hex.png" alt="bcmaps" width="250"/>
 
 
-* WES automation
 
-* bookdown
+#### Work Environment Survey: data table automation
 
-* Shiny
+The Work Environment Survey is a major service product provided by BC Stats. The flagship is the voluntary census of the B.C. Public Service which runs every two years, and there are many other public sector organizations in British Columbia for whom the survey provides valuable information that guides human resource decision-making and strategy.
+
+Stephanie Yurchak (@stephanieyurchak)
 
 
+#### Work Environment Survey: data table automation
+
+Reporting the results of the [BC Student Outcomes](http://outcomes.bcstats.gov.bc.ca/Default/Home.aspx) surveys was, in part, provided through a dashboard data visualization tool. The original was written in WHAT. This software had limited functionality, and proved to be a challenge to update.
+
+A new version of the dashboard has been written using [Shiny](https://shiny.rstudio.com/), and will be deployed using the [shinyapps.io](http://www.shinyapps.io/) service provided by RStudio in the near future.
+
+Nasim Taba (@Northbreeze)
 
 
 
