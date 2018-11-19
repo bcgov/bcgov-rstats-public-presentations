@@ -209,9 +209,7 @@ There were many great responses to Boots' tweet, including this one:
 
 
 
-The Province of British Columbia--and here I'm speaking of the public service narrowly defined, a group of roughly 25,000 civil servants organized (currently) into 21 ministries and public agencies (or departments)--has, like other organizations, created its own hairball. 
-
-And BC Stats has had nearly a century and a quarter to develop our own little hairball within the bigger one.
+The Province of British Columbia--and here I'm speaking of the public service narrowly defined, a group of roughly 25,000 civil servants organized (currently) into 21 ministries and public agencies (or departments)--has, like other organizations, created its own hairball. And BC Stats has had nearly a century and a quarter to develop our own little hairball within the bigger one.
 
 But in spite of that, R users in the B.C. public service are getting some recognition in the R community:
 
@@ -247,7 +245,7 @@ We were excited when we saw that it featured not one but two of the packages tha
 
 ### Three examples of how BC Stats has been using R
 
-#### Voter List Quality: estimation and report preparation
+#### 1. Voter List Quality: estimation and report preparation
 
 After each general election in British Columbia since 2005, BC Stats has worked with the province's independent electoral agency, [Elections BC](https://elections.bc.ca/), to estimate the quality of the list of voters. This is in two directions: my colleagues with expertise in demographics, who prepare local area population estimates and projections, estimate _coverage_ (the proportion of eligible adults who are registered to vote) and I have led the analysis of _currency_ (how accurate the existing voter records are). In previous iterations of the project, we had undertaken the estimate using many of the tools listed above (notably SPSS and Excel), but for this cycle my colleague Julie Hawkins (@JulieHawkins) and I did the work entirely in R. (For more details about analysis, see the [2013 Voters List Quality Measurement](https://elections.bc.ca/docs/rpt/vl/2013-VotersListQualityStudy.pdf) report; note that the 2017 report has not yet been published, and used a logistic regression rather than multiple imputation.)
 
@@ -257,21 +255,19 @@ Of particular note was Julie's use of the [`bookdown`](https://bookdown.org/) pa
 
 
 
-#### Work Environment Survey: data table automation
+#### 2. Work Environment Survey: data table generation
 
-The Work Environment Survey is a major service product provided by BC Stats. The flagship is the voluntary census of the B.C. Public Service which runs every two years, and there are many other public sector organizations in British Columbia for whom the survey provides valuable information that guides human resource decision-making and strategy.
+The Work Environment Survey is a major service product provided by BC Stats. The flagship is the voluntary census of the B.C. Public Service which runs every two years, and there are many other public sector organizations in British Columbia for whom the survey provides valuable information that guides human resource decision-making and strategy. One of the data products delivered as part of this service is a comprehensive set of data tables, with multiple survey questions tabulated by multiple demographic and organizational categories...in such a way that confidentiality is not compromised (it's not possible to identify a single individual's response). For this, the ubiquity of Microsoft Excel means that it's the format in which these tables are requested by our clients.
 
-Stephanie Yurchak (@stephanieyurchak)
+Stephanie Yurchak (@stephanieyurchak) has written a set of R scripts that, using [the tidyverse packages](https://www.tidyverse.org/) and [`xlsx`](https://cran.r-project.org/web/packages/xlsx/index.html), take the individual survey responses and tabulate them into formatted multi-sheet Excel files.
 
 
-#### Work Environment Survey: data table automation
+
+#### 3. BC Student Outcomes Survey: reporting results via dashboard
 
 Reporting the results of the [BC Student Outcomes](http://outcomes.bcstats.gov.bc.ca/Default/Home.aspx) surveys was, in part, provided through a dashboard data visualization tool. The original was written in WHAT. This software had limited functionality, and proved to be a challenge to update.
 
-A new version of the dashboard has been written using [Shiny](https://shiny.rstudio.com/), and will be deployed using the [shinyapps.io](http://www.shinyapps.io/) service provided by RStudio in the near future.
-
-Nasim Taba (@Northbreeze)
-
+A new version of the dashboard has been written by Nasim Taba (@Northbreeze) using [Shiny](https://shiny.rstudio.com/), which will be deployed using the [shinyapps.io](http://www.shinyapps.io/) service provided by RStudio in the near future. By using Shiny, the workflow to incoroporate new data as is comes available, and new features, will be straightforward, and something that BC Stats staff will be able to implement. And by using GitHub, it will be easy for our clients to create issues for new features or to notify us of problems.
 
 
 
@@ -281,27 +277,23 @@ Nasim Taba (@Northbreeze)
 ### or, things that enabled getting into orbit
 
 
-```{r, echo=FALSE, out.height= "400x", fig.align='left'}
+<img src="images/Estes_launchpad_01.jpg" alt="launch pad" width="250"/>
 
-knitr::include_graphics("images/Estes_launchpad_01.jpg") 
 
-```
 
 
 > "Escape velocity is the speed needed to break free from the gravitational attraction of a massive body without further propulsion. Achieving it takes lots of energy, especially if the gravitational pull is strong."
 
 
+But what changed that enabled us to get here? It wasn't that long ago we couldn't install R, and now we've made some important strides forward.
+
+#### 1. Administrative Priviledge
+
+We can now make the case, as per the Administrative Privilege Policy, to make a case that individuals require administrative priviledge to install software on their computer to meet their business needs. 
+
+<img src="images/admin_privilege_policy.PNG" alt="admin privilege policy" width="250"/>
 
 
-
-
-So I sought out information about the Administrative Privilege Policy for our ministry, thinking that there might be a way to make a request to have it granted. I found this rather lengthy policy document:
-
-```{r, echo=FALSE, out.width= "400x", fig.align='left'}
-
-knitr::include_graphics("images/admin_privilege_policy.PNG") 
-
-```
 
 You may note that in the first paragraph the reader is referred to a second policy document, the BC Government's Information Security Policy. The Hairball!
 
