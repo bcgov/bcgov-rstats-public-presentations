@@ -143,7 +143,7 @@ Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star T
 
 As they say, it's funny because it's true. 
 
-And although the the Hairball makes our lives challenging, it's often those who want to jump on the "innovation" train who are the most constrained by the Hairball:
+And although the Hairball makes our lives challenging, it's often those who want to jump on the "innovation" train who are the most constrained by the Hairball:
 
 
 <img src="images/digital_transformation.JPG" alt="https://www.instagram.com/p/BpYiky-BISZ/">
