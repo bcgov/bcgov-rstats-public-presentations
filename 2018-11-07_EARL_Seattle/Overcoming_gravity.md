@@ -143,7 +143,7 @@ Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star T
 
 As they say, it's funny because it's true. 
 
-And although the the Hairball makes our lives challenging, it's often those who want to jump on the "innovation" train who are the most constrained:
+And although the the Hairball makes our lives challenging, it's often those who want to jump on the "innovation" train who are the most constrained by the Hairball:
 
 
 <img src="images/digital_transformation.JPG" alt="https://www.instagram.com/p/BpYiky-BISZ/">
@@ -159,7 +159,7 @@ Here's one from the academy, articulating one manner students across the planet 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The hardest part of grad school is making sure you meet all the arbitrary style guidelines set forth by all the &quot;important&quot; people in the grad school office. <a href="https://t.co/rxD1o3DHuW">https://t.co/rxD1o3DHuW</a></p>&mdash; DOCTOR Greg (@StatsInTheWild) <a href="https://twitter.com/StatsInTheWild/status/1023396704505286657?ref_src=twsrc%5Etfw">July 29, 2018</a></blockquote>
 
 
-So the policies of the Hairball usually come from a place of reasonable intentions, but often lead to unintended consequences.
+In short, the policies of the Hairball usually come from a place of reasonable intentions, but often lead to unintended consequences.
 
 
 
@@ -171,6 +171,9 @@ So the policies of the Hairball usually come from a place of reasonable intentio
 ### and how it impacts our work
 
 And the gravity of the Hairball "exercises an inexorable pull into mediocrity"[^2]. Because it can be exhausting to deal with the Hairball (whether that's working with it, around it, or against it), the very presence of the Hairball can act as an inhibitor. As Mackenzie says, it has an impact on how people approach their work.
+
+
+An example from twitter:
 
 https://twitter.com/NormaPadron_/status/1002308667499261958
 
@@ -211,7 +214,7 @@ There were many great responses to Boots' tweet, including this one:
 
 The Province of British Columbia--and here I'm speaking of the public service narrowly defined, a group of roughly 25,000 civil servants organized (currently) into 21 ministries and public agencies (or departments)--has, like other organizations, created its own hairball. And BC Stats has had nearly a century and a quarter to develop our own little hairball within the bigger one.
 
-But in spite of that, R users in the B.C. public service are getting some recognition in the R community:
+But in spite of the challenges I mentioned previously, in recent months R users in the B.C. public service are getting some significant recognition in the R community.
 
 In January 2018, my colleagues in the State of Environment Reporting team published the package `bcmaps` to CRAN, and Jenny Bryan tweeted:
 
@@ -227,7 +230,7 @@ Then, about six weeks later Hadley Wickham initiated this exchange with Stephani
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Exactly what I’m looking for - thanks!</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/971461971852787712?ref_src=twsrc%5Etfw">March 7, 2018</a></blockquote>
 
 
-And that example made its way into the presentation ["You Can't Do Data Science in a GUI"](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui)
+That example then made its way into the presentation ["You Can't Do Data Science in a GUI"](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui)
 
 <img src="images/WickhamH_youcantdodatascienceinagui.PNG" alt="You Can't Do Data Science in a GUI" width="400"/>
 
@@ -257,18 +260,19 @@ Of particular note was Julie's use of the [`bookdown`](https://bookdown.org/) pa
 
 #### 2. Work Environment Survey: data table generation
 
-The Work Environment Survey is a major service product provided by BC Stats. The flagship is the voluntary census of the B.C. Public Service which runs every two years, and there are many other public sector organizations in British Columbia for whom the survey provides valuable information that guides human resource decision-making and strategy. One of the data products delivered as part of this service is a comprehensive set of data tables, with multiple survey questions tabulated by multiple demographic and organizational categories...in such a way that confidentiality is not compromised (it's not possible to identify a single individual's response). For this, the ubiquity of Microsoft Excel means that it's the format in which these tables are requested by our clients.
+The [Work Environment Survey](https://www2.gov.bc.ca/gov/content/data/statistics/government/employee-research/wes) is a major service product provided by BC Stats. The flagship is the voluntary census of the B.C. Public Service which runs every two years, and there are many other public sector organizations in British Columbia for whom the survey provides valuable information that guides human resource decision-making and strategy. One of the data products delivered as part of this service is a comprehensive set of data tables, with multiple survey questions tabulated by multiple demographic and organizational categories...in such a way that confidentiality is not compromised (it's not possible to identify a single individual's response). For this, the ubiquity of Microsoft Excel means that it's the format in which these tables are requested by our clients.
 
-Stephanie Yurchak (@stephanieyurchak) has written a set of R scripts that, using [the tidyverse packages](https://www.tidyverse.org/) and [`xlsx`](https://cran.r-project.org/web/packages/xlsx/index.html), take the individual survey responses and tabulate them into formatted multi-sheet Excel files.
+Stephanie Yurchak (@stephanieyurchak) has written a set of R scripts that, using [the tidyverse packages](https://www.tidyverse.org/) and [`xlsx`](https://cran.r-project.org/web/packages/xlsx/index.html), takes the individual survey response data and tabulates them into formatted multi-sheet Excel files. This has improved the accuracy of the tables (by reducing the number of manual steps), and is far more efficient than the previous process.
 
 
 
 #### 3. BC Student Outcomes Survey: reporting results via dashboard
 
-Reporting the results of the [BC Student Outcomes](http://outcomes.bcstats.gov.bc.ca/Default/Home.aspx) surveys was, in part, provided through a dashboard data visualization tool. The original was written in WHAT. This software had limited functionality, and proved to be a challenge to update.
+Reporting the results of the [BC Student Outcomes](http://outcomes.bcstats.gov.bc.ca/Default/Home.aspx) surveys was, in part, provided through a dashboard data visualization tool. The original was written in WHAT. Compared to other data visualization tools, this software had limited functionality, and proved to be a challenge to update.
 
-A new version of the dashboard has been written by Nasim Taba (@Northbreeze) using [Shiny](https://shiny.rstudio.com/), which will be deployed using the [shinyapps.io](http://www.shinyapps.io/) service provided by RStudio in the near future. By using Shiny, the workflow to incoroporate new data as is comes available, and new features, will be straightforward, and something that BC Stats staff will be able to implement. And by using GitHub, it will be easy for our clients to create issues for new features or to notify us of problems.
+A new version of the dashboard has been written by Nasim Taba (@Northbreeze) using [Shiny](https://shiny.rstudio.com/), which will be deployed using the [shinyapps.io](http://www.shinyapps.io/) service provided by RStudio in the near future. By using Shiny, it will be a straightforward workflow to add new features and to incoroporate new data as is comes available. This workflow is something that BC Stats staff will be able to implement, rather than having to rely on specialized IT resources. And by using GitHub, it will be easy for our clients to create issues for new features or to notify us of problems.
 
+<img src="images/bookdown_hex.png" alt="bcmaps" width="250"/>
 
 
 ***
