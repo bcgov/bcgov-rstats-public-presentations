@@ -243,7 +243,7 @@ And then in the summer, my favourite. The useR! 2018 conference was held in Bris
 We were excited when we saw that it featured not one but two of the packages that B.C. Government staff have submitted to CRAN, [`tidyhydat`](https://github.com/ropensci/tidyhydat) (between `ggplot2` and the conference sticker, which is at Brisbane on the east coast) and [`bcmaps`](https://github.com/bcgov/bcmaps) (at [Surveyor Generals Corner](https://en.wikipedia.org/wiki/Surveyor_Generals_Corner)).
 
 
-<img src="images/bcmaps-sticker.png" alt="bcmaps" width="250"/>
+<img src="images/bcmaps-sticker.png" alt="bcmaps" width="200"/>
 
 
 ### Three examples of how BC Stats has been using R
@@ -254,7 +254,7 @@ After each general election in British Columbia since 2005, BC Stats has worked 
 
 Of particular note was Julie's use of the [`bookdown`](https://bookdown.org/) package; she incorporated many R script and R Markdown files to create a single output. This wasn't entirely seamless, though, as the client's expectation was that we would send a Word document, and it was not as effective as, say, an HTML file would have been. For more information about the process, see Julie's presentation ["R from Start to Finish: A Case Study"](https://github.com/bcgov/bcgov-useR/blob/master/2018/jhawkins_case_study/pdf/jhawkins_case_study.pdf) at the bcgov-useR day on 2018-10-11.
 
-<img src="images/bookdown_hex.png" alt="bcmaps" width="250"/>
+<img src="images/bookdown_hex.png" alt="bookdown" width="150"/>
 
 
 
@@ -268,11 +268,11 @@ Stephanie Yurchak (@stephanieyurchak) has written a set of R scripts that, using
 
 #### 3. BC Student Outcomes Survey: reporting results via dashboard
 
-Reporting the results of the [BC Student Outcomes](http://outcomes.bcstats.gov.bc.ca/Default/Home.aspx) surveys was, in part, provided through a dashboard data visualization tool. The original was written in WHAT. Compared to other data visualization tools, this software had limited functionality, and proved to be a challenge to update.
+Reporting the results of the [BC Student Outcomes](http://outcomes.bcstats.gov.bc.ca/Default/Home.aspx) surveys was, in part, provided through a dashboard data visualization tool. The original was written in [Kendo UI](https://www.telerik.com/kendo-ui), a JavaScript user interface builder. While it has data visualization options, this software has limited functionality (for example, no option to include statistical transformations or maps in the interface), in our sphere a limited number of people proficient in its use, and ultimately proved to be a challenge to update.
 
 A new version of the dashboard has been written by Nasim Taba (@Northbreeze) using [Shiny](https://shiny.rstudio.com/), which will be deployed using the [shinyapps.io](http://www.shinyapps.io/) service provided by RStudio in the near future. By using Shiny, it will be a straightforward workflow to add new features and to incoroporate new data as is comes available. This workflow is something that BC Stats staff will be able to implement, rather than having to rely on specialized IT resources. And by using GitHub, it will be easy for our clients to create issues for new features or to notify us of problems.
 
-<img src="images/bookdown_hex.png" alt="bcmaps" width="250"/>
+<img src="images/shiny.jpg" alt="Shiny" width="150"/>
 
 
 ***
@@ -308,8 +308,27 @@ You may note that in the first paragraph the reader is referred to a second poli
 
 The Province of British Columbia has created a space that allows for the experimental use of open source tools (including R), open development, and open data. This operating environment has allowed BC Stats and other data analysis shops within the B.C. Public Service to go into orbit around the Hairball, including the adoption of R and the implementation of the robust data science workflow that R facilitates.
 
+But the creation of this space was the consequence of a series of smaller decisions that built one upon the other.
 
-- admin exemption
+#### Open data
+
+The first was the government's commitment to open data, and the [Open Information and Open Data Policy](https://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/information-management-technology/information-privacy/resources/policies-guidelines/open-information-open-data-policy.pdf) of 2011. In order to provide access to open data resources, the DataBC program area chose [CKAN](https://ckan.org/) as their portal software. This open source tool requires, in the terms of use, that the code used to create a portal, be published in an open manner. (Check out the [B.C. Data Catalogue](https://catalogue.data.gov.bc.ca/dataset?download_audience=Public).)
+
+
+#### Open code
+
+With a requirement for open, published code then led to the establishment of the B.C. Government's GitHub space. 
+
+* licensing
+
+(The DataBC catalogue's [CKAN repo](https://github.com/bcgov/ckanext-bcgov).)
+
+
+#### Collaborative coding
+
+* DevEx
+
+
 
 - open data [(DataBC)](https://data.gov.bc.ca/)
 
@@ -318,6 +337,8 @@ The Province of British Columbia has created a space that allows for the experim
   - open data platform requires open development (posting of code)
 
 - BC DevEx ([bcdevexchange.org](https://bcdevexchange.org/))
+
+
 
 
 
