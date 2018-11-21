@@ -317,41 +317,32 @@ The first was the government's commitment to open data, and the [Open Informatio
 
 #### Open code
 
-With a requirement for open, published code then led to the establishment of the B.C. Government's GitHub space. 
+With a requirement for open, published code then led to the establishment of the [B.C. Government's GitHub space](https://github.com/bcgov). 
 
-* licensing
+We can now use GitHub for our version-controlled R projects, confident that the lawyers are comfortable that [licensing](https://github.com/bcgov/BC-Policy-Framework-For-GitHub/blob/master/BC-Open-Source-Development-Employee-Guide/Licenses.md) is properly dealt with.
 
-(The DataBC catalogue's [CKAN repo](https://github.com/bcgov/ckanext-bcgov).)
+(Looking for the DataBC catalogue's [CKAN repo](https://github.com/bcgov/ckanext-bcgov)?)
 
 
 #### Collaborative coding
 
-* DevEx
-
-
-
-- open data [(DataBC)](https://data.gov.bc.ca/)
-
-- [github.com/bcgov](https://github.com/bcgov)
- 
-  - open data platform requires open development (posting of code)
-
-- BC DevEx ([bcdevexchange.org](https://bcdevexchange.org/))
+And with a GitHub platform, the range of possible answers to the question of how the government could have a different relationship with the development community changed. The BC  BC Developers’ Exchange (DevEx for short) ([bcdevexchange.org](https://bcdevexchange.org/)) is now posting opportunities for collaborative coding, including some interesting R projects posted by BC Stats and other agencies.
 
 
 
 
 
-### The Team
+### The astronauts
 
-- "Coalition of the Willing"
+Through this process, there have been a relatively small group of individuals involved...the people I see at R meetups are the same ones I bump into at DataBC meetings and DevEx presentations. 
 
-- _Good to Great_ 
+The connections that have been made through the open data initiatives, the DevEx, and GitHub have been with people who are interested in orbiting the hairball. They are not always part of the R or data science community in the B.C. Government, but they are certainly people who want to orbit in their own way.
 
-  - get the right people on the bus, and then find the right seat for them
-  
-  - _Design Thinking_ reference to right people
 
+<img src="images/STS116.jpg" alt="Space Shuttle crew STS-116" width="250"/>
+
+
+What we are looking for are people who are able to find the goals of the organization, and work towards those goals, instead of being focussed on the processes.
 
 
 
