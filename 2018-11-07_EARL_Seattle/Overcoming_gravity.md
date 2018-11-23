@@ -334,9 +334,7 @@ And with a GitHub platform, the range of possible answers to the question of how
 
 ### The astronauts
 
-Through this process, there have been a relatively small group of individuals involved...the people I see at R meetups are the same ones I bump into at DataBC meetings and DevEx presentations. 
-
-The connections that have been made through the open data initiatives, the DevEx, and GitHub have been with people who are interested in orbiting the hairball. They are not always part of the R or data science community in the B.C. Government, but they are certainly people who want to orbit in their own way.
+Throughout this process, it has been a relatively small group of individuals involved...the people I see at R meetups are the same ones I bump into at DataBC meetings and at DevEx presentations. The connections that have been made through the open data initiatives, the DevEx, and GitHub have been with people who are interested in orbiting the Hairball. They are not always part of the R or data science community in the B.C. Government, but they are certainly people who want to orbit in their own way.
 
 
 <img src="images/STS116.jpg" alt="Space Shuttle crew STS-116" width="250"/>
@@ -356,20 +354,42 @@ What we are looking for are people who are able to find the goals of the organiz
 ### or, things we're doing to make sure we don't crash back into the hairball
 
 
+Without continuous course corrections, the orbit of a satellite will inevitably degrade. 
 
-```{r, echo=FALSE, out.width="400x", fig.align='left'}
 
-knitr::include_graphics("images/800px-Skylab.jpg") 
-
-```
-
+<img src="images/800px-Skylab.jpg" alt="Shiny" width="250"/>
 
 Skylab[^6]: the NASA space station launched in 1973 (following the end of the Apollo moon landings), in 1979 it fell out of orbit and landed in Western Australia. 
+
+
 
 We are mindful of the fact that getting into orbit is one thing--staying there is quite another. So we continue to push in a variety of directions to ensure that we have the momentum to stay in orbit and not get pulled back into The Hairball.
 
 
-#### technology / solutions
+#### Building the team
+
+We are developing the R skills of and adding new people as we build a team of data scientists at BC Stats. 
+
+One of the most important elements is to ensure we have a diverse set of talents. This was stressed in the recent article by Angela Bassa, ["Managing a Data Science Team"](https://hbr.org/2018/10/managing-a-data-science-team):
+
+> What does a great hiring process look like? For one thing, it doesn’t just focus on technical skills. Social skills like empathy and communication are undervalued in data science and the disciplines from which data scientists usually emerge, but they’re critical for a team. Make this a part of your hiring (but not in a way that amounts to hiring just for ‘culture fit’ and reinforces your affinity and confirmation biases). Instead of focusing on whether you can get along with a candidate, ask yourself if there is a lens though which this person sees the world that expands the boundaries of the team’s knowledge sphere—and value that dimension as highly as you value other attributes such as technical ability and domain expertise. This is why it is important to prioritize diversity. That includes diversity of academic discipline and professional experience but also of lived experience and perspective.
+
+
+#### Building the capacity of the team
+
+With a diverse team, we have a diverse set of professional development needs. People are at different stages of building their R skills, so we've relied on a few different modes. It's important to recognize that not only do some people prefer different approaches to learning, everyone can benefit from a variety of learning venues. We've given people the time and space to be self-directed, to carve out time in their schedules for online learing (whether that's a one-hour webinar or a Coursera course that requires many hours over multiple weeks), and some classroom time. (Time for a shout-out to Dr. Charlotte Wickham, who has led sessions for BC Stats including [An Introduction to R and RStudio with the tidyverse](https://github.com/cwickham/r_intro_bc_stats) and [Advanced R](https://github.com/cwickham/advanced-r)!)
+
+
+
+#### Technology
+
+Many of the solutions that R provides--whether it's web-based data visualizations or natural language processing (NLP)--push at the fringes of technology. And the Hairball is not always keen on some of those new technologies. In particular, cloud solutions have been a particular challenge, as the physical location is not part of their inherent nature--it's The Cloud, after all.
+
+
+<img src="images/49nocloud.jpg" alt="There is no cloud..." width="250"/>
+
+The laws and regulations in Canada and British Columbia that govern privacy and the protection of personal information require that the data remain within Canada. And this means, for example, that we can't use a cloud NLP tool, with its amorphous nature, to analyze responses to open-ended survey questions, as those responses are covered by this legislation.
+
 
 - shinyapps.io
 
@@ -383,19 +403,6 @@ We are mindful of the fact that getting into orbit is one thing--staying there i
 
 - 
 
-
-#### professional development
-
-- online training
-
-- Dr. Charlotte Wickman
-
-
-#### team 
-
-Angela Bassa's recent HBR article[^7]
-
-- value diversity of "academic discipline and professional experience but also of lived experience and perspective"
 
 
 #### community 
