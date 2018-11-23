@@ -388,48 +388,25 @@ Many of the solutions that R provides--whether it's web-based data visualization
 
 <img src="images/49nocloud.jpg" alt="There is no cloud..." width="250"/>
 
-The laws and regulations in Canada and British Columbia that govern privacy and the protection of personal information require that the data remain within Canada. And this means, for example, that we can't use a cloud NLP tool, with its amorphous nature, to analyze responses to open-ended survey questions, as those responses are covered by this legislation.
+The laws and regulations in Canada and British Columbia that govern privacy and the protection of personal information require that the data remain within Canada. And this means, for example, that we can't use a cloud NLP tool, with its amorphous nature, to analyze responses to open-ended survey questions, as those responses are covered by this legislation. In short, cloud computing can bring risk; and as we saw earlier, the Hairball is averse to risk.
+
+With that said, cloud computing offers some significant efficiencies. One example is RStudio's [shinyapps.io](shinyapps.io) service for deployment of Shiny applications. Led by efforts from BC Stats, we've now jumped through all of the hoops, and demonstrated that by using data covered under the B.C. Government's open data license and with code posted with an open license to the B.C. Goverment GitHub page, that there is no risk...and we now have deployed Shiny apps to the cloud.
 
 
-- shinyapps.io
+#### Collaborative efforts
 
-- RStudio Connect
+We are embracing collaborative efforts across the B.C. Government with tools such as the [bcgovr](https://github.com/bcgov/bcgovr) package, which automates the creation of an R project that meets the province's GitHub guidelines. 
 
-
-
-#### collaborative efforts
-
-- packages (Stephanie Kirmer's talk!)
-
-- 
+As well, we see the Developer's Exchange and the opportunities we will post there as a way to collaborate with the developer community outside the government. And those connections will help us strenthen our relationships across the R community.
 
 
+#### Community 
 
-#### community 
+One initiative we've recently organized was a [bcgov useR day](https://github.com/bcgov/bcgov-useR). We asked people from across the public service to give short presentations about how they are using R, and ended with a two-hour help-a-thon. The idea was to get help on a problem you are tackling, or to help others (in the spirit of "to teach is to learn twice"). It was a great success, and we're looking forward to another one in the spring.
 
-- bcgov useR day
+We are working on strengthening our connections to the academic community of R users. One particular case is the University of British Columbia's Masters of Data Science program. The degree program ends with a six-week capstone project, and BC Stats has been proud to have participated in both years that the program has been in existence. I believe that the students got a good experience working on a real-world business-focussed data science challenge with real-world (i.e. messy) data. And I know that BC Stats has benefited from learning about new techniques that have application to our work.
 
-  - help-a-thon
-
-- Victoria & Vancouver RLadies
-
-- academic connections
-
-  - UBC Master of Data Science
-
-- social media: yammer, slack
-
-- proposal for Vancouver to host useR! 2020
-
-
-#### Guidelines, not rules
-
-- Hilary Parker "Opininated Analysis Development"
- 
-- Gabe Becker: EARL 2017 talk
-
-Important ideas but it's a balance--we don't want to create our very own R-centric hairballs that disempower and constrain the data scientists
-
+And in the spirit of building the global R community, I have led the development of a proposal for Vancouver, British Columbia to host the R Foundation's [useR! 2020 conference](https://www.r-project.org/conferences.html). I know we'll have some stiff competition from other great cities across North America...but I have my fingers crossed!
 
 
 
@@ -441,7 +418,7 @@ Policies and procedures are a fact of life in any organization. The book by Gord
 
 BC Stats, in our adoption and implementation of R, has gone into orbit. And we intend on staying there.
 
-But it's not just branches of the larger organization--like BC Stats is part of the British Columbia government--that have to deal with The Hairball. Individuals confront it too, and it can be frustrating. Here's professor who has identified that his personal style is at odds with The Hairball:
+But it's not just branches of the larger organization--like BC Stats is part of the British Columbia government--that have to deal with The Hairball. We as individuals confront it too, and it can be frustrating. Here's a tweet from Jeff Leek, a professor who has identified that his personal style is at odds with The Hairball:
 
 https://twitter.com/jtleek/status/987043234168934404
 
@@ -454,6 +431,9 @@ Gordon Mackenzie gives us a tool as individuals, which will help us better cope 
 If we recognize that The Hairball exists, it can become easier--more tolerable--for us to deal with "process productivity". As Mackenzie puts it, we need to "find the goals of the organization that touch your heart and release your passion to follow those goals." [^8]
 
 > It is a delicate balance, resisting the hypnotic spell of an organization's culture and, at the same time, remaining committed from the heart to the personally relevant goals of the organization. But if you can achieve that balance and maintain it, you will be out of the Hairball and into Orbit, the only place where you can tap your one-of-a-kind magic, your genius, your limitless creativity.
+
+
+<img src="images/orbiting.jpg" alt="orbiting" width="250"/>
 
 
 
