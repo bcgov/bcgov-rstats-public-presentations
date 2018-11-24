@@ -10,7 +10,9 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0
 
 
 author: Martin Monkman
-date of most recent revision: 2018-11-13
+
+date of most recent revision: 2018-11-23
+
 
 **EARL, Seattle 2018-11-07**
 
@@ -113,7 +115,7 @@ It is a truth universally acknowledged that large organizations (public and priv
 
 It's worth remembering that the policies and procedures that cause this grief are, almost invariably, created with the aim of achieving a valid goal. 
 
-One example: research ethics. I don't think that anyone would argue that ethical research is a bad idea; the protocols and evaluation processes prior to launching research on human subjects are intended to minimize the harm those individuals are subject to. But there's a substantial literature on how the process of implementing research ethics gets in the way of the outcome of research; a recent paper asks the question "Are we minimizing harm or maximizing bureacracy?"[^5]
+One example: research ethics. I don't think that anyone would argue that ethical research is a bad idea; the protocols and evaluation processes prior to launching research on human subjects are intended to minimize the harm those individuals are subject to. But there's a substantial literature on how the process of implementing research ethics gets in the way of the outcome of research; a recent paper asks the question "Are we minimizing harm or maximizing bureacracy?"[^1]
 
 But these policies and procedures accumulate, sometimes conflicting with one another.
 
@@ -123,7 +125,7 @@ But these policies and procedures accumulate, sometimes conflicting with one ano
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball[^1]. 
+These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball[^2]. 
 
 
 ![Orbiting the Giant Hairball](images/Orbiting_cover.jpg "Orbiting the Giant Hairball")
@@ -136,7 +138,7 @@ These corporate policies--while originally well-intentioned--can inhibit innovat
 
 And the Hairball is a recurring theme in popular culture. One example is the character of [Mordac the Preventer of IT](http://dilbert.com/search_results?terms=Mordac) in the _Dilbert_ comic strip. 
 
-Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star Trek: Deep Space Nine_ to _Futurama_, is full of Hairballs. And many of those Hairballs are associated with government organizations.[^1] One of my favourites (?) are the Vogons in _The Hitchhiker's Guide to the Galaxy_, described as "Not actually evil, but bad-tempered, bureaucratic, officious and callous."
+Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star Trek: Deep Space Nine_ to _Futurama_, is full of Hairballs. And many of those Hairballs are associated with government organizations.[^3] One of my favourites are the Vogons in _The Hitchhiker's Guide to the Galaxy_, described as "Not actually evil, but bad-tempered, bureaucratic, officious and callous."
 
 <img src="images/vogons_resubmit.jpg" alt="Vogons" width="400"/>
 
@@ -170,12 +172,11 @@ In short, the policies of the Hairball usually come from a place of reasonable i
 
 ### and how it impacts our work
 
-And the gravity of the Hairball "exercises an inexorable pull into mediocrity"[^2]. Because it can be exhausting to deal with the Hairball (whether that's working with it, around it, or against it), the very presence of the Hairball can act as an inhibitor. As Mackenzie says, it has an impact on how people approach their work.
+And the gravity of the Hairball "exercises an inexorable pull into mediocrity"[^4]. Because it can be exhausting to deal with the Hairball (whether that's working with it, around it, or against it), the very presence of the Hairball can act as an inhibitor. As Mackenzie says, it has an impact on how people approach their work.
 
 
 An example from twitter:
 
-https://twitter.com/NormaPadron_/status/1002308667499261958
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">This is true across all types of orgs— I fundamentally believe that good deal of what’s attributed to bad culture/lack of engagement is  due to not providing the right tools and data to enable folks to work at their best<br><br>Innovation can’t be forced but environment can be changed <a href="https://t.co/RXlqtPhI11">https://t.co/RXlqtPhI11</a></p>&mdash; Norma A. Padrón (@NormaPadron_) <a href="https://twitter.com/NormaPadron_/status/1002308667499261958?ref_src=twsrc%5Etfw">May 31, 2018</a></blockquote>
 
@@ -183,7 +184,6 @@ https://twitter.com/NormaPadron_/status/1002308667499261958
 
 And I know that I'm not alone in encountering the hairball when implementing R in our workflow:
 
-https://twitter.com/AdamGruer/status/1013538660132589568
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Can anybody point me to some good resources for starting a conversation with the IT department about making  <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> , <a href="https://twitter.com/hashtag/rstudio?src=hash&amp;ref_src=twsrc%5Etfw">#rstudio</a> , shiny etc an accepted part of software kit? As far as I know most of our servers are windows OS %&gt;%</p>&mdash; Adam Gruer (@AdamGruer) <a href="https://twitter.com/AdamGruer/status/1013538660132589568?ref_src=twsrc%5Etfw">July 1, 2018</a></blockquote>
 
@@ -235,7 +235,7 @@ That example then made its way into the presentation ["You Can't Do Data Science
 <img src="images/WickhamH_youcantdodatascienceinagui.PNG" alt="You Can't Do Data Science in a GUI" width="400"/>
 
 
-And then in the summer, my favourite. The useR! 2018 conference was held in Brisbane, and the organizers had the brilliant idea of making a hex map of Australia, using R package hex stickers. 
+And then in the summer, my favourite. The useR! 2018 conference was held in Brisbane, and [the organizers had the brilliant idea of making a hex map of Australia, using R package hex stickers](https://blog.mitchelloharawild.com/blog/user-2018-feature-wall/). 
 
 <img src="images/useR_AUS.jpg" alt="Australia hex sticker map" width="400"/>
 
@@ -359,7 +359,7 @@ Without continuous course corrections, the orbit of a satellite will inevitably 
 
 <img src="images/800px-Skylab.jpg" alt="Shiny" width="250"/>
 
-Skylab[^6]: the NASA space station launched in 1973 (following the end of the Apollo moon landings), in 1979 it fell out of orbit and landed in Western Australia. 
+Skylab[^5]: the NASA space station launched in 1973 (following the end of the Apollo moon landings), in 1979 it fell out of orbit and landed in Western Australia. 
 
 
 
@@ -442,20 +442,14 @@ If we recognize that The Hairball exists, it can become easier--more tolerable--
 
 ### Footnotes
 
-[^1] Rob Thomas, ["From the Vogons to Bob - Public Servants in Space"](https://innovation.govspace.gov.au/vogons-bob-public-servants-space), 2016-01-15
+[^1]: Karen Robson & Reana Maier, ["Research ethics: are we minimizing harm or maximizing bureaucracy?"](https://www.universityaffairs.ca/opinion/in-my-opinion/research-ethics-are-we-minimizing-harm-or-maximizing-bureaucracy/), _Universtiy Affairs_, 2018-10-08
 
-[^1]: Gordon Mackenzie, _Orbiting the Giant Hairball: A Corporate Fool's Guide to Surviving With Grace_, Penguin Random House, 1998.
+[^2]: Gordon Mackenzie, _Orbiting the Giant Hairball: A Corporate Fool's Guide to Surviving With Grace_, Penguin Random House, 1998.
 
-[^2]: [_Orbiting the Giant Hairball_ product page](https://www.penguinrandomhouse.com/books/330616/orbiting-the-giant-hairball-by-gordon-mackenzie/9780670879830/)
+[^3]: Rob Thomas, ["From the Vogons to Bob - Public Servants in Space"](https://innovation.govspace.gov.au/vogons-bob-public-servants-space), 2016-01-15
 
-[^3]: Douglas Adams, _Hitchhiker's Guide to the Galaxy_
+[^4]: [_Orbiting the Giant Hairball_ product page](https://www.penguinrandomhouse.com/books/330616/orbiting-the-giant-hairball-by-gordon-mackenzie/9780670879830/)
 
-[^4]: [@StatsInTheWild tweet](https://twitter.com/StatsInTheWild/status/1023396704505286657)
+[^5]: [Skylab Wikipedia entry](https://en.wikipedia.org/wiki/Skylab)
 
-[^5]: Karen Robson & Reana Maier, ["Research ethics: are we minimizing harm or maximizing bureaucracy?"](https://www.universityaffairs.ca/opinion/in-my-opinion/research-ethics-are-we-minimizing-harm-or-maximizing-bureaucracy/), _Universtiy Affairs_, 2018-10-08
-
-[^6]: [Skylab Wikipedia entry](https://en.wikipedia.org/wiki/Skylab)
-
-[^7]: Angela Bassa, ["Managing a Data Science Team"](https://hbr.org/2018/10/managing-a-data-science-team), Harvard Business Review, 2018-10-24
-
-[^8]: Mackenzie, p53.
+[^6]: Mackenzie, p53.
