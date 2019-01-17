@@ -81,7 +81,7 @@ Our workflow looks like the model of data science in Grolemund & Wickham's [_R f
 The tools we have been using in our data science workflow has been a mix of proprietary programs, from the ubiquitous Microsoft Excel and Access, to specialized tools like SPSS and STATA, and on to the arcane [APL](https://en.wikipedia.org/wiki/APL_(programming_language)).
 
 
-<img src="images/software_collection.png" alt="software tools" width="400"/)
+<img src="images/software_collection.png" alt="software tools" width="400"/>
 
 
 But none of these tools hit all the marks for open, reproducible research. Some store the data in proprietary formats, making it difficult to move data between tools without significant manual intervention. Some are GUIs, and we know [you can't do data science in a GUI](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui). This also means there's no code sharing, so collaboration is impeded (if not impossible). And some come with costly license fees.
@@ -92,13 +92,15 @@ So I was curious if R would be something useful for us in our work.
 
 In 2012 I set out to learn more, first by downloading and installing R on my work computer. But when I attempted to install R onto my work computer about five years ago, I got this sort of message:
 
-<img src="images/admin_privilege_message.png" alt="You don't have admin privilege" width="400"/)
+<img src="images/admin_privilege_message.png" alt="You don't have admin privilege" width="400"/>
 
 
 
 I then discovered that getting R installed meant requesting that someone from our IT department request a 30 minute window of admin priviledge on my machine, then when that was granted, they were able to install the software and any packages I'd specified. The whole process took approximately two weeks.
 
 But being new to R and the open source/multi-package model, I was naive about as to which packages I would need to install for some core functionality, how frequently they would need to be updated, and how confronting a new data science problem would lead me to a solution that required packages I didn't yet have. So I quickly got frustrated by my inability use my work computer to do what I wanted in R. 
+
+<img src="images/Moss_toss.gif" alt="Moss tosses his computer" width="400"/>
 
 So I went home and installed R on my personal computer. This allowed me to learn R, a process I have sporadically documented on my blog bayesball.blogspot.com (also part of the R-Bloggers). This also led me to become a contributor to the [Lahman package](https://cran.r-project.org/web/packages/Lahman/index.html), a collection of baseball data.
 
@@ -122,7 +124,6 @@ But these policies and procedures accumulate, sometimes conflicting with one ano
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ppl seem to think about adding processes, policies, procedures...but not retiring any of them. Sort of like always buying new clothes, without ever clearing out the closet of stuff that now longer works or fits.</p>&mdash; estherderby (@estherderby) <a href="https://twitter.com/estherderby/status/999367593625612293?ref_src=twsrc%5Etfw">May 23, 2018</a>
 </blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball[^2]. 
