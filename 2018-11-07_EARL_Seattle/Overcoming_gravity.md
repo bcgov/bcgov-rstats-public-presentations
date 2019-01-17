@@ -102,7 +102,7 @@ But being new to R and the open source/multi-package model, I was naive about as
 
 <img src="images/Moss_toss.gif" alt="Moss tosses his computer" width="400"/>
 
-So I went home and installed R on my personal computer. This allowed me to learn R, a process I have sporadically documented on my blog bayesball.blogspot.com (also part of the R-Bloggers). This also led me to become a contributor to the [Lahman package](https://cran.r-project.org/web/packages/Lahman/index.html), a collection of baseball data.
+So I went home and installed R on my personal computer. This allowed me to learn R, a process I have sporadically documented on my blog [bayesball.blogspot.com](http://bayesball.blogspot.com/) (also part of the [R-Bloggers](https://www.r-bloggers.com/)). This also led me to become a contributor to the [Lahman package](https://cran.r-project.org/web/packages/Lahman/index.html), a collection of baseball data.
 
 
 <img src="images/Lahman_hex.png" alt="Lahman package hex sticker">
