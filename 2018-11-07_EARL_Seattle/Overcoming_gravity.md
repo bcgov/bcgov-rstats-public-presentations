@@ -11,7 +11,7 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0
 
 author: Martin Monkman
 
-date of most recent revision: 2018-11-23
+date of most recent revision: 2019-01-17
 
 
 **EARL, Seattle 2018-11-07**
