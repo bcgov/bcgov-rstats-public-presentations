@@ -84,7 +84,7 @@ The tools we have been using in our data science workflow has been a mix of prop
 <img src="images/software_collection.png" alt="software tools" width="400"/>
 
 
-But none of these tools hit all the marks for open, reproducible research. Some store the data in proprietary formats, making it difficult to move data between tools without significant manual intervention. Some are GUIs, and we know [you can't do data science in a GUI](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui). This also means there's no code sharing, so collaboration is impeded (if not impossible). And some come with costly license fees.
+But none of these tools hit all the marks for open, reproducible research. Some store the data in proprietary formats, making it difficult to move data between tools without significant manual intervention. Some are GUIs, and we know [you can't do data science in a GUI](https://speakerdeck.com/hadley/you-cant-do-data-science-in-a-gui) (See also [^1]). This also means there's no code sharing, so collaboration is impeded (if not impossible). And some come with costly license fees.
 
 But then in approximately 2008 or '09 I started to hear about these open source tools that are revolutionizing statistical analysis and this new-fangled “data science” thing, 
 
@@ -119,7 +119,7 @@ It is a truth universally acknowledged that large organizations (public and priv
 
 It's worth remembering that the policies and procedures that cause this grief are, almost invariably, created with the aim of achieving a valid goal. 
 
-One example: research ethics. I don't think that anyone would argue that ethical research is a bad idea; the protocols and evaluation processes prior to launching research on human subjects are intended to minimize the harm those individuals are subject to. But there's a substantial literature on how the process of implementing research ethics gets in the way of the outcome of research; a recent paper asks the question "Are we minimizing harm or maximizing bureacracy?"[^1]
+One example: research ethics. I don't think that anyone would argue that ethical research is a bad idea; the protocols and evaluation processes prior to launching research on human subjects are intended to minimize the harm those individuals are subject to. But there's a substantial literature on how the process of implementing research ethics gets in the way of the outcome of research; a recent paper asks the question "Are we minimizing harm or maximizing bureacracy?"[^2]
 
 But these policies and procedures accumulate, sometimes conflicting with one another.
 
@@ -128,7 +128,7 @@ But these policies and procedures accumulate, sometimes conflicting with one ano
 </blockquote>
 
 
-These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball[^2]. 
+These corporate policies--while originally well-intentioned--can inhibit innovations. Gordon Macdonald has dubbed these policies, procedures, and cultures The Giant Hairball [^3]. 
 
 
 ![Orbiting the Giant Hairball](images/Orbiting_cover.jpg "Orbiting the Giant Hairball")
@@ -141,7 +141,7 @@ These corporate policies--while originally well-intentioned--can inhibit innovat
 
 And the Hairball is a recurring theme in popular culture. One example is the character of [Mordac the Preventer of IT](http://dilbert.com/search_results?terms=Mordac) in the _Dilbert_ comic strip. 
 
-Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star Trek: Deep Space Nine_ to _Futurama_, is full of Hairballs. And many of those Hairballs are associated with government organizations.[^3] One of my favourites are the Vogons in _The Hitchhiker's Guide to the Galaxy_, described as "Not actually evil, but bad-tempered, bureaucratic, officious and callous."
+Science fiction--particularly the dystopian variety--, from _Brazil_ and _Star Trek: Deep Space Nine_ to _Futurama_, is full of Hairballs. And many of those Hairballs are associated with government organizations. [^4] One of my favourites are the Vogons in _The Hitchhiker's Guide to the Galaxy_, described as "Not actually evil, but bad-tempered, bureaucratic, officious and callous."
 
 <img src="images/vogons_resubmit.jpg" alt="Vogons" width="400"/>
 
@@ -175,7 +175,7 @@ In short, the policies of the Hairball usually come from a place of reasonable i
 
 ### and how it impacts our work
 
-And the gravity of the Hairball "exercises an inexorable pull into mediocrity"[^4]. Because it can be exhausting to deal with the Hairball (whether that's working with it, around it, or against it), the very presence of the Hairball can act as an inhibitor. As Mackenzie says, it has an impact on how people approach their work.
+And the gravity of the Hairball "exercises an inexorable pull into mediocrity" [^5]. Because it can be exhausting to deal with the Hairball (whether that's working with it, around it, or against it), the very presence of the Hairball can act as an inhibitor. As Mackenzie says, it has an impact on how people approach their work.
 
 
 An example from twitter:
@@ -362,7 +362,7 @@ Without continuous course corrections, the orbit of a satellite will inevitably 
 
 <img src="images/800px-Skylab.jpg" alt="Shiny" width="250"/>
 
-Skylab[^5]: the NASA space station launched in 1973 (following the end of the Apollo moon landings), in 1979 it fell out of orbit and landed in Western Australia. 
+Skylab [^6]: the NASA space station launched in 1973 (following the end of the Apollo moon landings), in 1979 it fell out of orbit and landed in Western Australia. 
 
 
 
@@ -431,7 +431,7 @@ https://twitter.com/jtleek/status/987043234168934404
 
 Gordon Mackenzie gives us a tool as individuals, which will help us better cope when we encounter The Hairball in our day-to-day lives. The sub-title of the book is "A Corporate Fool's Guide to Surviving with Grace".
 
-If we recognize that The Hairball exists, it can become easier--more tolerable--for us to deal with "process productivity". As Mackenzie puts it, we need to "find the goals of the organization that touch your heart and release your passion to follow those goals." [^8]
+If we recognize that The Hairball exists, it can become easier--more tolerable--for us to deal with "process productivity". As Mackenzie puts it, we need to "find the goals of the organization that touch your heart and release your passion to follow those goals." [^7]
 
 > It is a delicate balance, resisting the hypnotic spell of an organization's culture and, at the same time, remaining committed from the heart to the personally relevant goals of the organization. But if you can achieve that balance and maintain it, you will be out of the Hairball and into Orbit, the only place where you can tap your one-of-a-kind magic, your genius, your limitless creativity.
 
@@ -445,14 +445,17 @@ If we recognize that The Hairball exists, it can become easier--more tolerable--
 
 ### Footnotes
 
-[^1]: Karen Robson & Reana Maier, ["Research ethics: are we minimizing harm or maximizing bureaucracy?"](https://www.universityaffairs.ca/opinion/in-my-opinion/research-ethics-are-we-minimizing-harm-or-maximizing-bureaucracy/), _Universtiy Affairs_, 2018-10-08
+[^1]: Domino, 2018-04-12, ["Data Scientist? Programmer? Are They Mutually Exclusive?"](https://blog.dominodatalab.com/data-scientist-programmer-mutually-exclusive/), comments on Hadley Wickham's ACM Chicago talk "YOu Can't Do Data Science in a GUI", including video clips.
 
-[^2]: Gordon Mackenzie, _Orbiting the Giant Hairball: A Corporate Fool's Guide to Surviving With Grace_, Penguin Random House, 1998.
 
-[^3]: Rob Thomas, ["From the Vogons to Bob - Public Servants in Space"](https://innovation.govspace.gov.au/vogons-bob-public-servants-space), 2016-01-15
+[^2]: Karen Robson & Reana Maier, ["Research ethics: are we minimizing harm or maximizing bureaucracy?"](https://www.universityaffairs.ca/opinion/in-my-opinion/research-ethics-are-we-minimizing-harm-or-maximizing-bureaucracy/), _Universtiy Affairs_, 2018-10-08
 
-[^4]: [_Orbiting the Giant Hairball_ product page](https://www.penguinrandomhouse.com/books/330616/orbiting-the-giant-hairball-by-gordon-mackenzie/9780670879830/)
+[^3]: Gordon Mackenzie, _Orbiting the Giant Hairball: A Corporate Fool's Guide to Surviving With Grace_, Penguin Random House, 1998.
 
-[^5]: [Skylab Wikipedia entry](https://en.wikipedia.org/wiki/Skylab)
+[^4]: Rob Thomas, ["From the Vogons to Bob - Public Servants in Space"](https://innovation.govspace.gov.au/vogons-bob-public-servants-space), 2016-01-15
 
-[^6]: Mackenzie, p53.
+[^5]: [_Orbiting the Giant Hairball_ product page](https://www.penguinrandomhouse.com/books/330616/orbiting-the-giant-hairball-by-gordon-mackenzie/9780670879830/)
+
+[^6]: [Skylab Wikipedia entry](https://en.wikipedia.org/wiki/Skylab)
+
+[^7]: Mackenzie, p53.
