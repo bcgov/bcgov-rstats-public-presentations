@@ -98,7 +98,7 @@ In 2012 I set out to learn more, first by downloading and installing R on my wor
 
 I then discovered that getting R installed meant requesting that someone from our IT department request a 30 minute window of admin priviledge on my machine, then when that was granted, they were able to install the software and any packages I'd specified. The whole process took approximately two weeks.
 
-But being new to R and the open source/multi-package model, I was naive about as to which packages I would need to install for some core functionality, how frequently they would need to be updated, and how confronting a new data science problem would lead me to a solution that required packages I didn't yet have. The installation of those packages, of course, required admin priviledge I didn't have, so I had to go through the whole request process again. And again. 
+But being new to R and the open source/multi-package model, I was naive as to which packages I would need to install for some core functionality, how frequently they would need to be updated, and how confronting a new data science problem would lead me to a solution that required packages I didn't yet have. The installation of those packages, of course, required admin priviledge I didn't have, so I had to go through the whole request process again. And again. 
 
 So I quickly got frustrated by my inability use my work computer to do what I wanted in R. 
 
@@ -117,7 +117,7 @@ So I went home and installed R on my personal computer. This allowed me to learn
 
 It is a truth universally acknowledged that large organizations (public and private sector) develop policies, procedures, and cultures that standardize and streamline business processes, with the aim of making the organization more cost-efficient and to minimize risk.
 
-It's worth remembering that the policies and procedures that cause this grief are, almost invariably, created with the aim of achieving a valid goal. 
+It's worth remembering that the policies and procedures that cause the grief like I had trying to install R are, almost invariably, created with the aim of achieving a valid goal. 
 
 One example: research ethics. I don't think that anyone would argue that ethical research is a bad idea; the protocols and evaluation processes prior to launching research on human subjects are intended to minimize the harm those individuals are subject to. But there's a substantial literature on how the process of implementing research ethics gets in the way of the outcome of research; a recent paper asks the question "Are we minimizing harm or maximizing bureacracy?"[^2]
 
