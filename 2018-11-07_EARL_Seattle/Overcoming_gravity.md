@@ -391,7 +391,7 @@ Many of the solutions that R provides--whether it's web-based data visualization
 
 <img src="images/49nocloud.jpg" alt="There is no cloud..." width="250"/>
 
-[_Credit: Chris Watterston](http://www.chriswatterston.com/); available as [stickers, tshirts, etc](http://www.chriswatterston.com/store)_
+_[Credit: Chris Watterston](http://www.chriswatterston.com/); available as [stickers, tshirts, etc](http://www.chriswatterston.com/store)_
 
 The laws and regulations in Canada and British Columbia that govern privacy and the protection of personal information require that the data remain within Canada. And this means, for example, that we can't use a cloud NLP tool, with its amorphous nature, to analyze responses to open-ended survey questions, as those responses are covered by this legislation. In short, cloud computing can bring risk; and as we saw earlier, the Hairball is averse to risk.
 
