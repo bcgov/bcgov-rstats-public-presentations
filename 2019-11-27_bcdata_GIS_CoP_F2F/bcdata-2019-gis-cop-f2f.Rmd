@@ -82,3 +82,31 @@ GIS CoP Face to Face
 
 2: Ministry of Citizens' Services
 ]
+
+---
+
+Why R
+
+---
+
+BC Data Catalogue
+
+---
+
+BCGW Data Distribution Service
+
+---
+
+class: middle
+
+.Large.pull-left[
+one `function()`
+
+two `function()`
+
+I need a `function()`
+]
+
+.pull-right[
+ ![](img/rfbf.png)
+]
