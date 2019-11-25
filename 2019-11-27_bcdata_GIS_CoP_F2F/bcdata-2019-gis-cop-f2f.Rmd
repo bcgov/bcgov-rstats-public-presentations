@@ -85,11 +85,48 @@ GIS CoP Face to Face
 
 ---
 
-Why R
+background-image: url(img/full-cycle.png)
 
 ---
 
-BC Data Catalogue
+background-image: url(img/Rlogo.png)
+
+## Open source programming language
+## Data analysis focus
+## Cross-platform
+
+???
+
+# What is R?
+
+- R is an open-source programming language for data analysis and visualization.
+- In many ways it is similar to other general purpose interpreted languages like Python, but unlike Python, R was originally created as a statistical programming language and so it is designed from the ground up around the manipulation, analysis, and visualization of data - it is now often considered the 'lingua franca' of data.
+- It also easy to make publication-quality graphics.
+- R is available for Windows, MacOS and most popular Linux distributions.
+- You can run it interactively by typing directly into the console, or from a sequence of commands written in text files, or "scripts". Scripts can be run against a dataset to produce a defined output, such as a chart or another dataset which contains the results of the analysis.
+
+---
+
+background-image: url(img/R-flow.png)
+
+???
+
+# Why R?
+
+The entire workflow can be done efficiently in **R**, including:
+
+- reading in raw data from many different sources - spatial and non-spatial, 
+- preparing the data for analysis, including easily integrating tabular and spatial data,
+- performing spatial data manipulation and analysis,
+- performing statistical analysis
+- creating publication-quality graphs and figures.
+- All your iteration happens in one place, and is recorded in scripts
+- **enables reproducible, repeatable, shareable analysis**
+
+---
+
+background-image: url(img/bcdc.png)
+background-size: cover
 
 ---
 
@@ -110,3 +147,10 @@ I need a `function()`
 .pull-right[
  ![](img/rfbf.png)
 ]
+
+???
+
+- As with most FOSS projects, initially made to solve personal problem, 
+and several people had the same problem
+- Solve (shared) friction point of manual searching and downloading data from BCDC
+and getting it into R
