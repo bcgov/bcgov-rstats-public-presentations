@@ -130,7 +130,17 @@ background-size: cover
 
 ---
 
+background-image: url(img/dds.png)
+background-size: cover
+
+???
+
 BCGW Data Distribution Service
+
+Way better than it was before
+
+- Still a manual process
+- Can't be scripted, not repeatable
 
 ---
 
