@@ -144,6 +144,23 @@ Way better than it was before
 
 ---
 
+# Application Programming Interfaces (APIs)
+
+![](img/bc_api.png)
+
+???
+
+APIs
+
+Data BC provides important APIs:
+- the catalogue
+  - search and query data in the catalogue
+- Web mapping service
+  - download spatial data 
+    - image overlay or the features themselves as points, lines, polygons
+
+---
+
 class: middle
 
 .Large.pull-left[
