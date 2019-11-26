@@ -203,7 +203,9 @@ class: inverse, middle
 - **`bcdc_get_data()`** 
   - Get catalogue data
 - **`bcdc_query_geodata()`** 
-  - Get & query B.C. geospatial data available through a [Web Service](https://www2.gov.bc.ca/gov/content?id=95D78D544B244F34B89223EF06DF74E)
+  - Get & query B.C. geospatial data from a web service
+- Available from CRAN:
+  - `install.packages("bcdata")`
 ]
 
 .pull-right[
@@ -219,6 +221,7 @@ class: inverse, middle
 Search the B.C. Data Catalogue
 
 ```{r}
+library(bcdata)
 bcdc_search("school programs")
 ```
 
@@ -389,11 +392,12 @@ crd_mun <- left_join(crd_mun, st_drop_geometry(grn_intersected_summary),
 ---
 
 ```{r}
-library(ggplot2)
-
-ggplot(crd_mun) + 
-  geom_sf(aes(fill = as.numeric(percent_green))) + 
-  scale_fill_viridis_c()
+mapview(crd_mun, zcol = "percent_green")
 ```
 
+---
 
+## Kudos
+
+Simon Norris
+Michelle Douville
