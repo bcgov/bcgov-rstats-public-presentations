@@ -214,6 +214,16 @@ class: inverse, middle
 
 ---
 
+## `bcdc_search()`
+
+Search the B.C. Data Catalogue
+
+```{r}
+bcdc_search("school programs")
+```
+
+---
+
 ## `bcdc_get_record()`
 
 Get the metadata for a record in the B.C. Data Catalogue
@@ -327,7 +337,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 
 ### Get the data with `collect()`
 
-```{r fig.width=11}
+```{r fig.width=10}
 crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
   select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
   filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
@@ -335,4 +345,55 @@ crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-are
 
 mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION")
 ```
+
+---
+
+### Let's find the 'greenest' city in the CRD
+
+In addition to normal logical predicates (`==`. `!=`, `>`, `<`, etc.),
+`filter()` can take *geometric predicates*:
+
+`EQUALS`, `DISJOINT`, `INTERSECTS`, `TOUCHES`, `CROSSES`, `WITHIN`, `CONTAINS`, 
+`OVERLAPS`, `RELATE`, `DWITHIN`, `BEYOND`
+
+```{r}
+crd_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>% 
+  select(PARK_NAME, PARK_TYPE, PARK_PRIMARY_USE) %>% 
+  filter(INTERSECTS(crd_mun)) %>% 
+  collect()
+```
+
+---
+
+```{r, fig.width=10}
+muni_map <- mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION")
+muni_map + 
+  mapview(crd_greenspaces, col.regions = "darkolivegreen")
+```
+
+---
+
+```{r}
+library(sf)
+grn_intersected <- st_intersection(crd_greenspaces, crd_mun)
+
+grn_intersected_summary <- group_by(grn_intersected, ADMIN_AREA_ABBREVIATION) %>% 
+  summarise(grn_area = sum(st_area(geometry)))
+
+crd_mun <- left_join(crd_mun, st_drop_geometry(grn_intersected_summary), 
+                     by = "ADMIN_AREA_ABBREVIATION") %>% 
+  mutate(muni_area = st_area(geometry),
+         percent_green = (grn_area / muni_area) * 100)
+```
+
+---
+
+```{r}
+library(ggplot2)
+
+ggplot(crd_mun) + 
+  geom_sf(aes(fill = as.numeric(percent_green))) + 
+  scale_fill_viridis_c()
+```
+
 
