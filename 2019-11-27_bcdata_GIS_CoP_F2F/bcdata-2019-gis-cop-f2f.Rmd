@@ -59,7 +59,10 @@ library(dplyr)
 library(bcdata)
 library(sf)
 library(mapview)
+library(lwgeom)
+library(rmapshaper)
 ```
+
 
 class: middle, inverse, no-number
 
@@ -340,12 +343,19 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 
 ### Get the data with `collect()`
 
-```{r fig.width=10}
+```{r}
 crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
   select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
   filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
   collect()
+```
 
+```{r echo=FALSE}
+library(rmapshaper)
+crd_mun <- ms_simplify(crd_mun) %>% st_make_valid()
+```
+
+```{r fig.width=10}
 mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION")
 ```
 
@@ -366,6 +376,11 @@ crd_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>%
   collect()
 ```
 
+```{r echo=FALSE}
+crd_greenspaces2 <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>% 
+  st_collection_extract("POLYGON")
+```
+
 ---
 
 ```{r, fig.width=10}
@@ -376,11 +391,12 @@ muni_map +
 
 ---
 
-```{r}
+```{r warning=FALSE}
 library(sf)
 grn_intersected <- st_intersection(crd_greenspaces, crd_mun)
 
-grn_intersected_summary <- group_by(grn_intersected, ADMIN_AREA_ABBREVIATION) %>% 
+grn_intersected_summary <- group_by(grn_intersected, 
+                                    ADMIN_AREA_ABBREVIATION) %>% 
   summarise(grn_area = sum(st_area(geometry)))
 
 crd_mun <- left_join(crd_mun, st_drop_geometry(grn_intersected_summary), 
@@ -399,5 +415,10 @@ mapview(crd_mun, zcol = "percent_green")
 
 ## Kudos
 
+.Large[
 Simon Norris
+
 Michelle Douville
+
+DataBC
+]
