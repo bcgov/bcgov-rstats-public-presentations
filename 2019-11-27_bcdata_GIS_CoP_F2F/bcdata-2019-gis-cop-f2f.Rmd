@@ -133,11 +133,12 @@ The entire workflow can be done efficiently in **R**, including:
 - **enables reproducible, repeatable, shareable analysis**
 
 ---
+exclude: true
 
 background-image: url(img/bcdc.png)
 background-size: cover
 
----
+--- 
 
 background-image: url(img/dds.png)
 background-size: cover
@@ -207,8 +208,6 @@ class: inverse, middle
   - Get catalogue data
 - **`bcdc_query_geodata()`** 
   - Get & query B.C. geospatial data from a web service
-- Available from CRAN:
-  - `install.packages("bcdata")`
 ]
 
 .pull-right[
@@ -218,6 +217,7 @@ class: inverse, middle
 ]
 
 ---
+exclude: true
 
 ## `bcdc_search()`
 
@@ -229,6 +229,7 @@ bcdc_search("school programs")
 ```
 
 ---
+exclude: true
 
 ## `bcdc_get_record()`
 
@@ -237,6 +238,7 @@ Get the metadata for a record in the B.C. Data Catalogue
 ![](img/bc-school-programs.png)
 
 ---
+exclude: true
 
 ```r
 library(bcdata)
@@ -260,6 +262,7 @@ bcdc_get_record("bc-schools-programs-offered-in-schools")
 ```
 
 ---
+exclude: true
 
 ```r
 #> Resources: ( 2 )
@@ -304,7 +307,8 @@ bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', resource = 'a393f
 
 ```{r eval=FALSE}
 bcdc_get_data("bc-airports", resource = "4d0377d9-e8a1-429b-824f-0ce8f363512c")
-
+```
+```{r}
 ### OR use BCGW name #####
 airports <- bcdc_get_data("WHSE_IMAGERY_AND_BASE_MAPS.GSR_AIRPORTS_SVW")
 
@@ -377,7 +381,7 @@ crd_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>%
 ```
 
 ```{r echo=FALSE}
-crd_greenspaces2 <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>% 
+crd_greenspaces <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>% 
   st_collection_extract("POLYGON")
 ```
 
@@ -413,12 +417,37 @@ mapview(crd_mun, zcol = "percent_green")
 
 ---
 
-## Kudos
-
-.Large[
-Simon Norris
+.large.left-column[
+BC Data Catalogue Team
 
 Michelle Douville
 
-DataBC
+Simon Norris
+
+Our bosses for giving us time/space for innovation and collaboration
+]
+
+.right-column[
+![](https://media.giphy.com/media/26gsjCZpPolPr3sBy/giphy.gif)
+]
+
+---
+
+class: middle
+
+.large.pull-left[
+<br/>
+- Install from CRAN:
+  - cran.r-project.org/package=bcdata
+  - `install.packages("bcdata")`
+- Help & documentation:
+  - bcgov.github.io/bcdata
+- Issues/bugs:
+  - github.com/bcgov/bcdata/issues
+]
+
+.pull-right[
+<img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
+
+.footnote[https://bcgov.github.io/bcdata]
 ]
