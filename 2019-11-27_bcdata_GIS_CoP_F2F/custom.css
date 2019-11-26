@@ -10,6 +10,11 @@ pre {
   text-shadow: none;
 }
 
+
+.remark-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+  font-size: 65%;
+}
+
 .no-number .remark-slide-number {
   display: none;
 }
