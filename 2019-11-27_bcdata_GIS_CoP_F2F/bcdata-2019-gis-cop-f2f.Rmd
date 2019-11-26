@@ -306,7 +306,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc")
 
 ---
 
-### Select columns with `select()`
+### Select columns (attributes) with `select()`
 
 ```{r}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -315,7 +315,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 
 ---
 
-### Filter rows with `filter()`
+### Filter rows (features) with `filter()`
 
 ```{r}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -327,7 +327,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 
 ### Get the data with `collect()`
 
-```{r}
+```{r fig.width=11}
 crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
   select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
   filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
