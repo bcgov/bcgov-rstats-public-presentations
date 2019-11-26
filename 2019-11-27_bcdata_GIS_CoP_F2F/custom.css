@@ -1,6 +1,6 @@
 pre {
   /* wrap code instead of scroll */
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
 }
 
 .remark-slide .inverse thead,
@@ -12,7 +12,7 @@ pre {
 
 
 .remark-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
-  font-size: 65%;
+  font-size: 75%;
 }
 
 .no-number .remark-slide-number {
@@ -30,6 +30,19 @@ pre {
   width: 35%;
   float: right;
   text-align: center;
+  padding-top: 2em;
+}
+
+.wide-left {
+  color: #777;
+  width: 60%;
+  height: 92%;
+  float: left;
+}
+
+.wide-right {
+  width: 35%;
+  float: right;
   padding-top: 2em;
 }
 
