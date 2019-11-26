@@ -211,7 +211,6 @@ class: inverse, middle
 .pull-right[
 <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
 
-.footnote[https://bcgov.github.io/bcdata]
 ]
 
 ---
@@ -235,45 +234,11 @@ Get the metadata for a record in the B.C. Data Catalogue
 
 ---
 
-```r
+```{r}
 library(bcdata)
 bcdc_get_record("bc-schools-programs-offered-in-schools")
-#> B.C. Data Catalogue Record:
-#>     BC Schools - Programs Offered in Schools 
-#> 
-#> Name: bc-schools-programs-offered-in-schools (ID: b1f27d1c-244a-410e-a361-931fac62a524 )
-#> Permalink: https://catalogue.data.gov.bc.ca/dataset/b1f27d1c-244a-410e-a361-931fac62a524
-#> Sector: Education
-#> Licence: Open Government Licence - British Columbia
-#> Type: Dataset
-#> Last Updated: 2017-02-02 
-#> 
-#> Description:
-#>     BC Schools English Language Learners, French Immersion, Francophone, Career
-#>     Preparation, Aboriginal Support Services, Aboriginal Language and Culture,
-#>     Continuing Education and Career Technical Programs offered in BC schools up to
-#>     2013/2014. 
-#> 
 ```
 
----
-
-```r
-#> Resources: ( 2 )
-#> 1) ProgramsOfferedinSchools.txt
-#>      format: txt 
-#>      url: http://www.bced.gov.bc.ca/reporting/odefiles/ProgramsOfferedinSchools.txt 
-#>      resource: a393f8cf-51ec-42c6-8449-4cea4c75385c 
-#>      available in R via bcdata:  TRUE 
-#>      code: bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', resource = 'a393f8cf-51ec-42c6-8449-4cea4c75385c')
-#> 
-#> 2) ProgramsOfferedinSchools.xlsx
-#>      format: xlsx 
-#>      url: http://www.bced.gov.bc.ca/reporting/odefiles/ProgramsOfferedinSchools.xlsx 
-#>      resource: 1e34098e-70d3-454d-a0fb-e4f8f477d0c0 
-#>      available in R via bcdata:  TRUE 
-#>      code: bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', resource = '1e34098e-70d3-454d-a0fb-e4f8f477d0c0')
-```
 ---
 
 ## `bcdc_get_data()` - tabular data
@@ -339,6 +304,10 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 ---
 
 ### Get the data with `collect()`
+```{r, echo=FALSE}
+mapviewOptions(legend.pos = 'topleft')
+```
+
 
 ```{r fig.width=10}
 crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -346,7 +315,7 @@ crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-are
   filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
   collect()
 
-mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION")
+mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", layer = "ADMIN_AREA")
 ```
 
 ---
@@ -369,7 +338,7 @@ crd_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>%
 ---
 
 ```{r, fig.width=10}
-muni_map <- mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION")
+muni_map <- mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", layer = "ADMIN_AREA")
 muni_map + 
   mapview(crd_greenspaces, col.regions = "darkolivegreen")
 ```
@@ -392,7 +361,7 @@ crd_mun <- left_join(crd_mun, st_drop_geometry(grn_intersected_summary),
 ---
 
 ```{r}
-mapview(crd_mun, zcol = "percent_green")
+mapview(crd_mun, zcol = "percent_green", layer = "percent-green")
 ```
 
 ---
@@ -401,3 +370,24 @@ mapview(crd_mun, zcol = "percent_green")
 
 Simon Norris
 Michelle Douville
+BC Data Catalogue Team
+FOSS
+
+---
+
+---
+
+class: inverse, middle
+
+.large.pull-left[
+<br/>
+- Available from CRAN:
+  - `install.packages("bcdata")`
+- Docs, manuals:
+  - https://bcgov.github.io/bcdata
+]
+
+.pull-right[
+<img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
+
+]
