@@ -41,6 +41,7 @@ options(htmltools.dir.version = FALSE)
 options(width = 90)
 options(max_print = 5)
 options(silence_named_get_record_warning = TRUE)
+options(crayon.enabled = TRUE)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -92,9 +93,6 @@ GIS CoP Face to Face
 2: Ministry of Citizens' Services
 ]
 
----
-
-background-image: url(img/full-cycle.png)
 
 ---
 
@@ -116,6 +114,10 @@ background-image: url(img/Rlogo.png)
 
 ---
 
+background-image: url(img/full-cycle.png)
+
+---
+
 background-image: url(img/R-flow.png)
 
 ???
@@ -133,6 +135,11 @@ The entire workflow can be done efficiently in **R**, including:
 - **enables reproducible, repeatable, shareable analysis**
 
 ---
+
+background-image: url(img/R-flow-import.png)
+
+---
+
 exclude: true
 
 background-image: url(img/bcdc.png)
@@ -150,6 +157,7 @@ BCGW Data Distribution Service
 Way better than it was before
 
 - Still a manual process
+- GUI
 - Can't be scripted, not repeatable
 
 ---
@@ -168,6 +176,7 @@ Data BC provides important APIs:
 - Web mapping service
   - download spatial data 
     - image overlay (WMS) OR the features themselves as points, lines, polygons (WFS)
+    - most warehouse objects with public record in the catalogue
 
 ---
 
@@ -191,6 +200,7 @@ I need a `function()`
 and several people had the same problem
 - Solve (shared) friction point of manual searching and downloading data from BCDC
 and getting it into R
+- conversation
 
 ---
 
@@ -214,6 +224,14 @@ class: inverse, middle
 <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
 
 ]
+
+???
+
+- Collaboration
+- first R package (personally) - sat in a room with a whiteboard and mapped out desired functionality and syntax
+- Great approach
+- Think landed in a good place
+- **Today focus on _getting_ data**
 
 ---
 exclude: true
@@ -297,7 +315,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc")
 
 ```{r}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
-  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME)
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) #<<
 ```
 
 ---
@@ -307,7 +325,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 ```{r}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
   select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
-  filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District")
+  filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") #<<
 ```
 
 ---
@@ -322,7 +340,7 @@ mapviewOptions(legend.pos = 'topleft')
 crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
   select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
   filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
-  collect()
+  collect() #<<
 ```
 
 
@@ -348,7 +366,7 @@ In addition to normal logical predicates (`==`. `!=`, `>`, `<`, etc.),
 ```{r}
 crd_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>% 
   select(PARK_NAME, PARK_TYPE, PARK_PRIMARY_USE) %>% 
-  filter(INTERSECTS(crd_mun)) %>% 
+  filter(INTERSECTS(crd_mun)) %>% #<<
   collect()
 ```
 
