@@ -294,14 +294,14 @@ bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', resource = 'a393f
 ## `bcdc_get_data()` - spatial data
 
 ```{r eval=FALSE}
-bcdc_get_data("bc-airports", resource = "4d0377d9-e8a1-429b-824f-0ce8f363512c")
+bcdc_get_data("ferry-terminals", resource = "40d2b150-06a8-488c-8d88-d9df978d696d")
 ```
 ```{r}
 ### OR use BCGW name #####
-airports <- bcdc_get_data("WHSE_IMAGERY_AND_BASE_MAPS.GSR_AIRPORTS_SVW")
+ferries <- bcdc_get_data("WHSE_IMAGERY_AND_BASE_MAPS.GSR_FERRY_TERMINALS_SV")
 
 library(mapview)
-mapview(airports)
+mapview(ferries)
 ```
 
 ---
