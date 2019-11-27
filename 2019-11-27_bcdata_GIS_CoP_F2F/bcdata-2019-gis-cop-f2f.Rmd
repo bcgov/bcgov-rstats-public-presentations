@@ -1,7 +1,7 @@
 ---
-title: "Introduction to Vector Data with R"
-subtitle: "Practical Examples Using sf, ggplot2 and dplyr"
-author: "Andy Teucher <br> Ministry of Environment and Climate Change Strategy <br><br> Sam Albers <br> Ministry of Citizens' Services <br><br> "
+title: "Introduction to bcdata"
+subtitle: "An R package for getting data from the BC Data Catalogue"
+author: "Andy Teucher (Ministry of Environment and Climate Change Strategy), Sam Albers, and Stephanie Hazlitt (Ministry of Citizens' Services)"
 date: 2019-11-27
 output:
   xaringan::moon_reader:
@@ -318,6 +318,11 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
   select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) #<<
 ```
 
+???
+
+Familiar syntax
+Processing on server
+
 ---
 
 ### Filter rows (features) with `filter()`
@@ -445,3 +450,21 @@ mapview(crd_mun, zcol = "percent_green", layer = "Percent Green")
 .left-column[
 <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
 ]
+
+---
+
+## Bonus slide!
+
+Get VRI for ~ 10kmx10km area NW of Prince George
+
+```{r}
+tictoc::tic()
+vri_pg <- bcdc_query_geodata("WHSE_FOREST_VEGETATION.VEG_COMP_LYR_R1_POLY") %>% 
+  filter(BBOX(c(1196754.2218,1005314.8161,1206862.4977,1015887.0438), 
+              crs = "EPSG:3005")) %>% 
+  collect()
+tictoc::toc()
+
+mapview(vri_pg, zcol = "PROJ_AGE_1")
+
+```
