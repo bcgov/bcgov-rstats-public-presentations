@@ -465,6 +465,6 @@ vri_pg <- bcdc_query_geodata("WHSE_FOREST_VEGETATION.VEG_COMP_LYR_R1_POLY") %>%
   collect()
 tictoc::toc()
 
-mapview(vri_pg, zcol = "PROJ_AGE_1")
+plot(vri_pg["PROJ_AGE_1"])
 
 ```
