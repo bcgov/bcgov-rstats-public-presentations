@@ -41,16 +41,18 @@ options(htmltools.dir.version = FALSE)
 options(width = 90)
 options(max_print = 5)
 options(silence_named_get_record_warning = TRUE)
+
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 options(crayon.enabled = TRUE)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
   #echo = FALSE,
-  comment = "#>",
+  comment = "",
   warning = FALSE,
   message = FALSE,
   fig.path = "graphics/prod/figs",
-  fig.width = 8,
+  fig.width = 10,
   fig.height = 5
 )
 
@@ -307,8 +309,6 @@ mapview(airports)
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc")
 ```
 
-.footnote[https://catalogue.data.gov.bc.ca/dataset/municipalities-legally-defined-administrative-areas-of-bc]
-
 ---
 
 ### Select columns (attributes) with `select()`
@@ -349,7 +349,7 @@ library(rmapshaper)
 crd_mun <- ms_simplify(crd_mun) %>% st_make_valid()
 ```
 
-```{r fig.width=10}
+```{r}
 mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", layer = "Municipality")
 ```
 
@@ -379,7 +379,7 @@ crd_greenspaces <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>%
 
 ---
 
-```{r, fig.width=10}
+```{r}
 muni_map <- mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", 
                     layer = "Municipality")
 
