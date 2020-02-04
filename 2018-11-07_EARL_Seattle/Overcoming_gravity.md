@@ -92,7 +92,7 @@ So I was curious if R would be something useful for us in our work.
 
 In 2012 I set out to learn more, first by downloading and installing R on my work computer. But when I attempted to install R onto my work computer about five years ago, I got this sort of message:
 
-<img src="images/admin_privilege_message.png" alt="You don't have admin privilege" width="400"/>
+<img src="images/R_install_admin.PNG" alt="You don't have admin privilege" width="400"/>
 
 
 
