@@ -1,0 +1,10 @@
+libs/
+*.html
+*.RData
+*.rdb
+*.rdx
+data/
+scratch/
+prod/
+.DS_Store
+bcdata-2019-gis-cop-f2f_cache
