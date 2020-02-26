@@ -1,0 +1,12 @@
+libs/
+*.html
+*.RData
+*.rdb
+*.rdx
+data/
+scratch/
+prod/
+.DS_Store
+bcdata-2020-lunch-and-learn_cache
+*.docx
+*.svg
