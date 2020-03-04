@@ -120,9 +120,16 @@ background-image: url(http://vietkings.org/userfiles/Parthenon.jpg)
 
 
 ---
-background-image: url(img/full-cycle.png)
+class: middle, inverse
 
-# A workflow
+.pull-left[
+## A workflow?
+]
+
+.pull-right[
+<center><blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">Save me from myself and having to remember all this when files change <a href="https://t.co/hVeSFQOimj">pic.twitter.com/hVeSFQOimj</a></p>&mdash; Dr. Brianna McHorse 🏳️
+🌈 (@fossilosophy) <a href="https://twitter.com/fossilosophy/status/966408174470299648?ref_src=twsrc%5Etfw">February 21, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
+]
 
 ---
 class: middle, inverse
@@ -137,6 +144,7 @@ background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe186
 
 ---
 background-image: url(img/data-science-workflow.png)
+
 
 ## Auditable, Replicable and Reproducible
 
@@ -207,6 +215,7 @@ v
 class: middle, inverse
 
 background-image: url(https://i.imgur.com/modde9i.gif)
+background-size: cover
 
 ## `make your data available in code`
 
@@ -214,6 +223,7 @@ background-image: url(https://i.imgur.com/modde9i.gif)
 class: inverse
 
 background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
+background-size: cover
 
 # Pillars of Data Science in BC Government
 
@@ -235,6 +245,7 @@ background-size: cover
 ---
 
 background-image: url(img/dds.png)
+background-size: cover
 
 
 ???
@@ -343,7 +354,7 @@ theme_set(
       plot.title = element_blank(),
       axis.text = element_text(size = 18),
       axis.title = element_text(size = 18),
-      text=element_text(family="Lucida Console")
+      text=element_text(family="Palatino Linotype")
     )
 )
 ```
