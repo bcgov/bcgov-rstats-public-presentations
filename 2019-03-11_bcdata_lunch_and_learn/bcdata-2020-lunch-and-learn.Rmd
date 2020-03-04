@@ -2,7 +2,7 @@
 title: "Introduction to bcdata"
 subtitle: "An R package for getting data from the BC Data Catalogue"
 author: "Sam Albers, and Stephanie Hazlitt (Ministry of Citizens' Services), Andy Teucher (Ministry of Environment and Climate Change Strategy)"
-date: 2019-02-20
+date: 2019-03-11
 output:
   xaringan::moon_reader:
     seal: false
@@ -80,26 +80,19 @@ class: middle, inverse, no-number
 
 .large.right-title[
 <br><br><br>
-Sam Albers<small><sup>1</sup></small> 
+Sam Albers
 
-Stephanie Hazlitt<small><sup>1</sup></small>
+Stephanie Hazlitt
 
-Andy Teucher<small><sup>2</sup></small>
+Andy Teucher
 
 ------
 
 Exchange Lab Lunch and Learn
 
-2019-02-20
+2019-03-18
 ]
 
-.footnote-right[
-<br><br>
-1: Ministry of Citizens' Services
-
-2: Ministry of Environment & Climate Change Strategy
-
-]
 
 
 ---
@@ -112,8 +105,19 @@ background-image: url(http://vietkings.org/userfiles/Parthenon.jpg)
 --
 
 ## Data Acquisition
-## Machine Learning
+
+--
+## Data Processing
+
+--
+## Machine Learning & Statistics
+
+--
 ## Analytics
+
+--
+## Communication
+
 
 ---
 background-image: url(img/full-cycle.png)
@@ -127,11 +131,17 @@ background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe186
 
 # What happens when you are asked to reproduce an analysis?
 
-# What happens when a decision is audited?
+# Can you replicate the analysis with different data?
+
+# What happens when a data-driven decision is audited?
 
 ---
-background-image: url(img/mla.png)
+background-image: url(img/data-science-workflow.png)
 
+## Auditable, Replicable and Reproducible
+
+
+.footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
 
 ---
 class: middle
@@ -165,7 +175,15 @@ class: middle
 - You can run it interactively by typing directly into the console, or from a sequence of commands written in scripts. 
 - Scripts can be run against a dataset to produce a defined output, such as a chart or another dataset which contains the results of the analysis.
 ---
-background-image: url(img/mladanot.png)
+
+## poll: what programming languages do people use? what have they heard of?
+---
+background-image: url(img/data-science-workflow-not.png)
+
+## Not Auditable, Replicable and Reproducible
+
+
+.footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
 
 
 ???
@@ -182,13 +200,13 @@ The entire workflow can be done efficiently in **R**, including:
 - All your iteration happens in one place, and is recorded in scripts
 - **enables reproducible, repeatable, shareable analysis**
 
----
-background-image: url(img/mlada.png)
+v
+
 
 ---
 class: middle, inverse
 
-background-image: url(https://i.stack.imgur.com/c7bFc.jpg)
+background-image: url(https://i.imgur.com/modde9i.gif)
 
 ## `make your data available in code`
 
@@ -201,8 +219,14 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/Britis
 
 
 ## <span style="color:#e3a82b">Data Acquisition</span>
-## Machine Learning
+## Data Processing
+## Machine Learning & Statistics
 ## Analytics
+## Communication
+
+---
+
+## poll: when was the last time you used the bcdata catalogue?
 
 ---
 background-image: url(img/data-catalogue.png)
@@ -224,9 +248,10 @@ Way better than it was before
 - Can't be scripted, not repeatable
 
 ---
+class: middle, inverse
 # What's the problem here?
 
-## `Can't write your Data Acquisition step in code` 
+## `Can't get the data through code` 
 
 ---
 
@@ -305,15 +330,20 @@ class: inverse, middle
 
 ---
   
-## `bcdc_get_data()` - tabular
+## bcdc_get_data() - tabular
 
 ```{r echo=FALSE}
+library(extrafont)
+#font_import() ## takes a while to run
+loadfonts(device = "win")
+
 theme_set(
   theme_minimal() %+replace%
     theme(
       plot.title = element_blank(),
       axis.text = element_text(size = 18),
-      axis.title = element_text(size = 18)
+      axis.title = element_text(size = 18),
+      text=element_text(family="Lucida Console")
     )
 )
 ```
@@ -331,25 +361,83 @@ big_projects %>%
   group_by(CONSTRUCTION_TYPE) %>% 
   tally(ESTIMATED_COST) %>% 
   ggplot(aes(x = fct_reorder(CONSTRUCTION_TYPE, n), y = n)) +
-  labs(title = "Major Projects in British Columbia", y = "Cost  in Millions", x = "Construction Type") +
+  labs(title = "Major Projects in British Columbia", y = "", x = "") +
   geom_col() +
   coord_flip() +
-  scale_y_continuous(labels = scales::comma)
+  #scale_x_continuous(labels = scales::dollar)
+  scale_y_continuous(labels = scales::dollar)
 ```
 
+---
+class: inverse
+```{r, echo=FALSE}
+## ## background-image: url(https://www.herocollector.com/Content/ArticleImages/7a716739-72cb-40d5-acfc-dfc35783d8a5.jpg)
+```
 
+## How do we reduce the cognitive load for interactive programming?
+
+
+
+.pull-left[
+
+<center><img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/dplyr.png" style="width: 300px;"/></center>
+
+]
+
+.large.pull-right[
+> a consistent set of verbs that help you solve the most common data manipulation challenges
+
+
+]
+
+---
+
+
+## dplyr verbs
+
+Functions with English meanings that map directly to the action being taken when that function is called
+
+Installation: `install.packages("dplyr")`
+
+
+.pull-left[
+- `%>%` a special symbol to chain operations. Read it as "then"
+- `select()` picks variables based on their names.
+- `filter()` picks cases based on their values.
+- `summarise()` reduces multiple values down to a single summary.
+- `arrange()` changes the ordering of the rows.
+- `mutate()` adds new variables that are functions of existing variables
+
+For a offline tutorial: http://swcarpentry.github.io/r-novice-gapminder/13-dplyr/index.html
+]
+
+
+.pull-right[
+<center><img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_wrangling.png" style="width: 450px;"/></center>
+
+Artwork by [@allison_horst](https://twitter.com/allison_horst)
+] 
+
+---
+class: inverse, left, middle
+
+# dplyr code break
 
 ---
   
-## `bcdc_query_geodata()`  - spatial data
+## bcdc_query_geodata()  - spatial data
   
 ```{r, cache=TRUE}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc")
 ```
 
 ---
-  
-### Select columns (attributes) with `select()`
+class: inverse, left, middle
+# bcdata code break
+
+---
+
+### Select columns (attributes) with select()
 
 ```{r, cache=TRUE}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -363,7 +451,7 @@ Processing on server
 
 ---
   
-### Filter rows (features) with `filter()`
+### Filter rows (features) with filter()
   
 ```{r, cache=TRUE}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -373,7 +461,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 
 ---
   
-### Get the data with `collect()`
+### Get the data with collect()
 ```{r, echo=FALSE}
 mapviewOptions(legend.pos = 'topright')
 ```
@@ -454,6 +542,20 @@ crd_mun <- left_join(crd_mun, st_drop_geometry(grn_intersected_summary), by = "A
 mapview(crd_mun, zcol = "percent_green", layer = "Percent Green")
 ```
 
+---
+## Usage of bcdata
+
+### bcgov
+- https://github.com/bcgov/river-profiles
+- https://github.com/bcgov/gwater-report
+- https://github.com/bcgov/FAIB
+
+### private sector
+- https://github.com/poissonconsulting/fwabc
+
+### academia
+- https://github.com/starzomskilab/parks-gbif-tool
+
 
 ---
 class: middle, inverse
@@ -462,7 +564,10 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/
 
 # Reproducible ✔️ 
 
+# Repeatable ✔️ 
+
 # Auditable ✔️ 
+
 ---
 
 ## Kudos
@@ -483,6 +588,7 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/
     ]
 
 ---
+# Questions
   
 .large.right-column[
   <br/>
