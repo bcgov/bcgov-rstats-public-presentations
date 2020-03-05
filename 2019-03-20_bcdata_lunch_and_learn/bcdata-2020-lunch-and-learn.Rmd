@@ -94,8 +94,8 @@ Exchange Lab Lunch and Learn
 ]
 
 
-
 ---
+
 class: inverse
 
 background-image: url(http://vietkings.org/userfiles/Parthenon.jpg)
@@ -120,6 +120,7 @@ background-image: url(http://vietkings.org/userfiles/Parthenon.jpg)
 
 
 ---
+
 class: middle, inverse
 
 .pull-left[
@@ -127,11 +128,11 @@ class: middle, inverse
 ]
 
 .pull-right[
-<center><blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">Save me from myself and having to remember all this when files change <a href="https://t.co/hVeSFQOimj">pic.twitter.com/hVeSFQOimj</a></p>&mdash; Dr. Brianna McHorse 🏳️
-🌈 (@fossilosophy) <a href="https://twitter.com/fossilosophy/status/966408174470299648?ref_src=twsrc%5Etfw">February 21, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
-]
+![](img/workflow.png)
+
 
 ---
+
 class: middle, inverse
 
 background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe18696?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80)
@@ -155,7 +156,9 @@ background-image: url(img/data-science-workflow.png)
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
 
+
 ---
+
 class: middle
 
 # Write your analysis in code
@@ -222,7 +225,11 @@ background-size: cover
 
 # make your data available in code
 
+
+
 ---
+
+
 class: inverse
 
 background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
@@ -288,6 +295,9 @@ Data BC provides important APIs:
 - most warehouse objects with public record in the catalogue
 
 ---
+
+
+
 class: middle
 
 .Large.pull-left[
@@ -335,11 +345,30 @@ class: inverse, middle
 - Think landed in a good place
 - **Today focus on _getting_ data**
 
+
+
+---
+class: inverse
+
+background-image: url(https://www.herocollector.com/Content/ArticleImages/7a716739-72cb-40d5-acfc-dfc35783d8a5.jpg)
+background-size: cover
+
+
+## How do we reduce the cognitive load for interactive programming?
+
+
+
+.pull-right[
+
+<center><img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/dplyr.png" style="width: 300px;"/></center>
+
+]
+
 ---
   
 ## bcdc_get_data() - tabular
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 library(extrafont)
 #font_import() ## takes a while to run
 loadfonts(device = "win")
@@ -375,27 +404,7 @@ big_projects %>%
   scale_y_continuous(labels = scales::dollar)
 ```
 
----
-class: inverse
-```{r, echo=FALSE}
-## ## background-image: url(https://www.herocollector.com/Content/ArticleImages/7a716739-72cb-40d5-acfc-dfc35783d8a5.jpg)
-```
 
-## How do we reduce the cognitive load for interactive programming?
-
-
-
-.pull-left[
-
-<center><img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/dplyr.png" style="width: 300px;"/></center>
-
-]
-
-.large.pull-right[
-> a consistent set of verbs that help you solve the most common data manipulation challenges
-
-
-]
 
 ---
 
@@ -429,6 +438,7 @@ Artwork by [@allison_horst](https://twitter.com/allison_horst)
 class: inverse, left, middle
 
 # dplyr code break
+
 
 ---
   
