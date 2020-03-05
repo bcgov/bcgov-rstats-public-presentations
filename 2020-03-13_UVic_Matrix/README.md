@@ -5,14 +5,20 @@ This work is licensed under the Creative Commons Attribution 4.0 International L
 To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
 -->
 
-### [March 13, 2020: BC Stats -- Data Science for Policy & Operational Decisions]
+### March 13, 2020: BC Stats -- Data Science for Policy & Operational Decisions
 
 * part of the [University of Victoria's _Matrix Seminar Series_](https://onlineacademiccommunity.uvic.ca/matrix/events/)
 
-Julie Hawkins, Martin Monkman & Stephanie Yurchak, BC Stats, Ministry of Jobs, Economic Development and Competitiveness
+Julie Hawkins, Martin Monkman & Stephanie Yurchak
+
+BC Stats
+
+Ministry of Jobs, Economic Development and Competitiveness
 
 March 13, 2020
+
 2pm to 3pm
+
 ECS 660
 
 ### Abstract
