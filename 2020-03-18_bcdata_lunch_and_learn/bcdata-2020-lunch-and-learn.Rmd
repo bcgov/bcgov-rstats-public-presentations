@@ -2,7 +2,7 @@
 title: "Introduction to bcdata"
 subtitle: "An R package for getting data from the BC Data Catalogue"
 author: "Sam Albers, and Stephanie Hazlitt (Ministry of Citizens' Services), Andy Teucher (Ministry of Environment and Climate Change Strategy)"
-date: 2019-03-11
+date: 2019-03-18
 output:
   xaringan::moon_reader:
     seal: false
