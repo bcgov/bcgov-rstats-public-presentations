@@ -124,12 +124,12 @@ background-image: url(http://vietkings.org/userfiles/Parthenon.jpg)
 class: middle, inverse
 
 .pull-left[
-## A workflow?
+# A workflow?
 ]
 
 .pull-right[
 ![](img/workflow.png)
-
+]
 
 ---
 
@@ -139,11 +139,19 @@ background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe186
 
 # What happens when you are asked to reproduce an analysis?
 
---
+---
+
+class: middle, inverse
+
+background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe18696?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80)
 
 # Can you replicate the analysis with different data?
 
---
+---
+
+class: middle, inverse
+
+background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe18696?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80)
 
 # What happens when a data-driven decision is audited?
 
@@ -159,16 +167,14 @@ background-image: url(img/data-science-workflow.png)
 
 ---
 
-class: middle
-
 # Write your analysis in code
 
 .pull-left[
-  ![scale = 3](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
+   <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="python" style="width:800px;"/>
   ]
 
 .pull-right[
-  ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/620px-R_logo.svg.png)
+     <img src="https://www.r-project.org/logo/Rlogo.png" alt="python" style="width:300px;"/>
   ]
   
 
@@ -190,7 +196,16 @@ class: middle
 - Cross-platform
 ---
 
-## poll: what programming languages do people use? what have they heard of?
+# POLL: What programming languages do people use? 
+
+- python
+- R
+- C++
+- Java
+- SQL
+- Don't use a programming language
+- Other
+
 ---
 background-image: url(img/data-science-workflow-not.png)
 
@@ -246,7 +261,14 @@ background-size: cover
 
 ---
 
-## poll: when was the last time you used the bcdata catalogue?
+# POLL: When was the last time you used the B.C. Data Catalogue?
+
+- Yesterday
+- Last week
+- Last Month
+- Last Year
+- What is the B.C. Data Catalogue?
+
 
 ---
 background-image: url(img/data-catalogue.png)
@@ -324,12 +346,15 @@ and getting it into R
 - conversation
 
 ---
-class: inverse, middle
+class: inverse
 
 .pull-left[
+# What can we do?
+
 ## Search records in the catalogue
 ## Open a browser in R
 ## Get data
+
 ]
 
 
@@ -345,24 +370,6 @@ class: inverse, middle
 - Think landed in a good place
 - **Today focus on _getting_ data**
 
-
-
----
-class: inverse
-
-background-image: url(https://www.herocollector.com/Content/ArticleImages/7a716739-72cb-40d5-acfc-dfc35783d8a5.jpg)
-background-size: cover
-
-
-## How do we reduce the cognitive load for interactive programming?
-
-
-
-.pull-right[
-
-<center><img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/dplyr.png" style="width: 300px;"/></center>
-
-]
 
 ---
   
@@ -404,35 +411,25 @@ big_projects %>%
   scale_y_continuous(labels = scales::dollar)
 ```
 
+---
+class: inverse
 
+background-image: url(https://www.herocollector.com/Content/ArticleImages/7a716739-72cb-40d5-acfc-dfc35783d8a5.jpg)
+background-size: cover
+
+
+# How do we reduce the cognitive load for interactive programming?
 
 ---
 
 
-## dplyr verbs
-
-Functions with English meanings that map directly to the action being taken when that function is called
-
-Installation: `install.packages("dplyr")`
+# dplyr
 
 
-.pull-left[
-- `%>%` a special symbol to chain operations. Read it as "then"
-- `select()` picks variables based on their names.
-- `filter()` picks cases based on their values.
-- `summarise()` reduces multiple values down to a single summary.
-- `arrange()` changes the ordering of the rows.
-- `mutate()` adds new variables that are functions of existing variables
+<center><img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_wrangling.png" style="width: 700px;"/></center>
 
-For a offline tutorial: http://swcarpentry.github.io/r-novice-gapminder/13-dplyr/index.html
-]
+.footnote[Artwork by [@allison_horst](https://twitter.com/allison_horst)]
 
-
-.pull-right[
-<center><img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_wrangling.png" style="width: 450px;"/></center>
-
-Artwork by [@allison_horst](https://twitter.com/allison_horst)
-] 
 
 ---
 class: inverse, left, middle
@@ -485,7 +482,7 @@ mapviewOptions(legend.pos = 'topright')
 
 ```{r, cache=TRUE}
 crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
-  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME, FEATURE_AREA_SQM) %>% 
   filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
   collect() #<<
 ```
@@ -525,6 +522,23 @@ crd_greenspaces <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>%
 .footnote[https://catalogue.data.gov.bc.ca/dataset/local-and-regional-greenspaces]
 
 ---
+## Poll: Which municipality in the Capital Region District has the most parks by area?
+
+- Central Saanich
+- Colwood
+- Esquimalt
+- Highlands
+- Langford
+- Metchosin
+- North Saanich
+- Oak Bay
+- Saanich
+- Sidney
+- Sooke
+- Victoria
+- View Royal
+
+---
 ```{r echo=FALSE}
 mapviewOptions(leafletWidth = 1000, leafletHeight = 500)
 ```
@@ -539,29 +553,129 @@ muni_map +
 ```
 
 ---
+class: inverse
+
+background-image: url(https://images.unsplash.com/photo-1572093443093-e7f4e7e1029f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1936&q=80)
+background-cover: cover
+
 ## Find the amount of green space in each municipality
+
+--
   
 ```{r warning=FALSE}
 library(sf)
-grn_intersected <- st_intersection(crd_greenspaces, crd_mun)
-
-grn_intersected_summary <- group_by(grn_intersected, ADMIN_AREA_ABBREVIATION) %>% 
-  summarise(grn_area = sum(st_area(geometry)))
-
-crd_mun <- left_join(crd_mun, st_drop_geometry(grn_intersected_summary), by = "ADMIN_AREA_ABBREVIATION") %>% 
-  mutate(muni_area = st_area(geometry),
-         percent_green = (grn_area / muni_area) * 100)
+crd_mun_parks <- crd_greenspaces %>% 
+  st_intersection(crd_mun) %>% 
+  group_by(ADMIN_AREA_ABBREVIATION, FEATURE_AREA_SQM) %>% 
+  summarise(grn_area = sum(st_area(geometry))) %>% 
+  mutate(percent_green = (as.numeric(grn_area) / FEATURE_AREA_SQM))
 ```
 
 ---
-  
+## Percent Greenspace in Capitol Regional District
+
+```{r echo = FALSE, fig.width=15, fig.height=7}
+ggplot(crd_mun_parks) +
+  geom_col(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
+  coord_flip() +
+  guides(fill = FALSE) +
+  labs(x = "", y = "") +
+  scale_fill_distiller(palette = "Greens", direction = 1) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+---
+## Super important person: Ok great now do this for Metro Vancouver
+
+--
+
+<center><img src="https://media.giphy.com/media/3ohhwuQsXM631E3U0o/giphy.gif" style="width: 500px;"/></center>
+
+---
+
+## Percent Greenspace in Metro Vancouver
+
 ```{r}
-mapview(crd_mun, zcol = "percent_green", layer = "Percent Green")
+mv_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME, FEATURE_AREA_SQM) %>% 
+  filter(ADMIN_AREA_GROUP_NAME == "Metro Vancouver Regional District") %>% #<<
+  collect() 
+```
+
+```{r, eval=FALSE}
+all the other code...
+```
+
+```{r echo=FALSE, cache=TRUE}
+mv_mun <- ms_simplify(mv_mun) %>% st_make_valid()
+
+mv_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>% 
+  select(PARK_NAME, PARK_TYPE, PARK_PRIMARY_USE) %>% 
+  filter(INTERSECTS(mv_mun)) %>% #<<
+  collect()
+
+mv_greenspaces <- ms_simplify(mv_greenspaces) %>% st_make_valid() %>% 
+  st_collection_extract("POLYGON")
+
+mv_mun_parks <- mv_greenspaces %>% 
+  st_intersection(mv_mun) %>% 
+  group_by(ADMIN_AREA_ABBREVIATION, FEATURE_AREA_SQM) %>% 
+  summarise(grn_area = sum(st_area(geometry))) %>% 
+  mutate(percent_green = (as.numeric(grn_area) / FEATURE_AREA_SQM))
+```
+
+
+```{r, echo = FALSE}
+muni_map <- mapview(mv_mun, zcol = "ADMIN_AREA_ABBREVIATION", 
+                    layer = "Municipality")
+muni_map + 
+  mapview(mv_greenspaces, col.regions = "darkolivegreen")
 ```
 
 ---
-## Usage of bcdata
 
+## Percent Greenspace in Metro Vancouver
+
+```{r echo = FALSE, fig.width=15, fig.height=7}
+mv_mun_parks %>% 
+  arrange(desc(percent_green)) %>% 
+  filter(percent_green >= 0.1) %>% 
+  ggplot() +
+  geom_col(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
+  coord_flip() +
+  guides(fill = FALSE) +
+  labs(x = "", y = "", subtitle = "Top 'greenest' municipalities shown") +
+  scale_fill_distiller(palette = "Greens", direction = 1) +
+  scale_y_continuous(labels = scales::percent)
+```
+---
+class: middle, inverse
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg/1280px-Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg)
+background-size: cover
+
+# Reproducible ✔️ 
+
+# Repeatable ✔️ 
+
+# Auditable ✔️ 
+
+---
+
+class: inverse
+
+background-image: url(https://images.unsplash.com/photo-1516216628859-9bccecab13ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80)
+background-size: cover
+
+# Usage of bcdata
+
+## bcgov
+## private sector
+## academia
+
+
+
+???
 ### bcgov
 - https://github.com/bcgov/river-profiles
 - https://github.com/bcgov/gwater-report
@@ -573,17 +687,6 @@ mapview(crd_mun, zcol = "percent_green", layer = "Percent Green")
 ### academia
 - https://github.com/starzomskilab/parks-gbif-tool
 
-
----
-class: middle, inverse
-
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg/1280px-Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg)
-
-# Reproducible ✔️ 
-
-# Repeatable ✔️ 
-
-# Auditable ✔️ 
 
 ---
 
@@ -610,7 +713,6 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/
 .large.right-column[
   <br/>
 - Install from CRAN:
-- https://cran.r-project.org/package=bcdata
  - `install.packages("bcdata")`
 - Help & documentation:
  - https://bcgov.github.io/bcdata
