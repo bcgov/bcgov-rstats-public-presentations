@@ -585,7 +585,7 @@ ggplot(crd_mun_parks) +
 ```
 
 ---
-## Super important person: Ok great now do this for Metro Vancouver
+## Super important person: "Ok great now do this for Metro Vancouver"
 
 --
 
@@ -624,8 +624,10 @@ mv_mun_parks <- mv_greenspaces %>%
   mutate(percent_green = (as.numeric(grn_area) / FEATURE_AREA_SQM))
 ```
 
+--
 
 ```{r, echo = FALSE}
+mapviewOptions(leafletWidth = 1000, leafletHeight = 300)
 muni_map <- mapview(mv_mun, zcol = "ADMIN_AREA_ABBREVIATION", 
                     layer = "Municipality")
 muni_map + 
@@ -644,7 +646,7 @@ mv_mun_parks %>%
   geom_col(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
   coord_flip() +
   guides(fill = FALSE) +
-  labs(x = "", y = "", subtitle = "Top 'greenest' municipalities shown") +
+  labs(x = "", y = "") +
   scale_fill_distiller(palette = "Greens", direction = 1) +
   scale_y_continuous(labels = scales::percent)
 ```
