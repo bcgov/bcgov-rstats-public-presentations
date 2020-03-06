@@ -5,4 +5,4 @@
 Presented on 2020-03-18
 ============================
 
-https://bcgov.github.io/bcgov-rstats-public-presentations/2019-03-18_bcdata_lunch_and_learn/bcdata-2020-lunch-and-learn.html
+https://bcgov.github.io/bcgov-rstats-public-presentations/2020-03-18_bcdata_lunch_and_learn/bcdata-2020-lunch-and-learn.html
