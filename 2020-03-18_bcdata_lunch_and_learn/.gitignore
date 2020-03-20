@@ -1,9 +1,0 @@
-*.RData
-*.rdb
-*.rdx
-data/
-scratch/
-.DS_Store
-bcdata-2020-lunch-and-learn_cache
-*.docx
-*.svg
