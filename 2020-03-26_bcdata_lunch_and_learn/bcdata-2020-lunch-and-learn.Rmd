@@ -195,16 +195,12 @@ background-image: url(img/data-science-workflow.png)
 - Data analysis focus
 - Cross-platform
 ---
+class: inverse, middle
+
+background-image: url(https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)
+background-size: cover
 
 # POLL: What programming languages do people use? 
-
-- python
-- R
-- C++
-- Java
-- SQL
-- Don't use a programming language
-- Other
 
 ---
 background-image: url(img/data-science-workflow-not.png)
@@ -260,14 +256,14 @@ background-size: cover
 ## Communication
 
 ---
+class: inverse, middle
+
+background-image: url(https://images.unsplash.com/photo-1511721285502-9f81e79be874?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1868&q=80)
+background-size: cover
+
 
 # POLL: When was the last time you used the B.C. Data Catalogue?
 
-- Yesterday
-- Last week
-- Last Month
-- Last Year
-- What is the B.C. Data Catalogue?
 
 
 ---
@@ -349,7 +345,7 @@ and getting it into R
 class: inverse
 
 .pull-left[
-# What can we do?
+# What can bcdata do?
 
 ## Search records in the catalogue
 ## Open a browser in R
@@ -394,21 +390,23 @@ theme_set(
   
 ```{r, cache=TRUE}
 (big_projects <- bcdc_get_data(record = "major-projects-inventory-economic-points", 
-                              resource = '2b69cc4b-4076-4272-a5a0-1c731455e063'))
+                               resource = '2b69cc4b-4076-4272-a5a0-1c731455e063'))
 ```
 
 ---
 ## Major Projects in British Columbia
 ```{r echo=FALSE, fig.width=15, fig.height=7}
 big_projects %>% 
-  group_by(CONSTRUCTION_TYPE) %>% 
-  tally(ESTIMATED_COST) %>% 
-  ggplot(aes(x = fct_reorder(CONSTRUCTION_TYPE, n), y = n)) +
+  group_by(CONSTRUCTION_TYPE, REGION) %>% 
+  tally(ESTIMATED_COST) %>%
+  mutate(sum_n = sum(n, na.rm = TRUE)) %>% 
+  ggplot(aes(x = fct_reorder(CONSTRUCTION_TYPE, sum_n), y = n, fill = REGION)) +
   labs(title = "Major Projects in British Columbia", y = "", x = "") +
   geom_col() +
   coord_flip() +
-  #scale_x_continuous(labels = scales::dollar)
-  scale_y_continuous(labels = scales::dollar)
+  scale_y_continuous(labels = scales::dollar) +
+  scale_fill_viridis_d() +
+  theme(legend.position = "bottom")
 ```
 
 ---
@@ -522,21 +520,14 @@ crd_greenspaces <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>%
 .footnote[https://catalogue.data.gov.bc.ca/dataset/local-and-regional-greenspaces]
 
 ---
-## Poll: Which municipality in the Capital Region District has the most parks by area?
+class: inverse, middle
 
-- Central Saanich
-- Colwood
-- Esquimalt
-- Highlands
-- Langford
-- Metchosin
-- North Saanich
-- Oak Bay
-- Saanich
-- Sidney
-- Sooke
-- Victoria
-- View Royal
+background-image: url(https://images.unsplash.com/photo-1572093443093-e7f4e7e1029f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1936&q=80)
+background-size: cover
+
+# POLL: Which municipality in the Capital Region District has the most parks by area?
+
+
 
 ---
 ```{r echo=FALSE}
