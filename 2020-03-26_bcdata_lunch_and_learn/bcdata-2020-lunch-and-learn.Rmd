@@ -378,7 +378,7 @@ class: inverse
 ```{r, echo=FALSE}
 library(extrafont)
 #font_import() ## takes a while to run
-loadfonts(device = "win")
+loadfonts(device = ifelse(.Platform$OS.type == "windows", "win", "pdf"))
 
 theme_set(
   theme_minimal() %+replace%
