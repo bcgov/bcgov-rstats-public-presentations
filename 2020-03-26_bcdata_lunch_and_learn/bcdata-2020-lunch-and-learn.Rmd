@@ -159,7 +159,7 @@ background-image: url(https://images.unsplash.com/photo-1497002961800-ea7dbfe186
 background-image: url(img/data-science-workflow.png)
 
 
-## Auditable, Replicable and Reproducible
+# Auditable, Replicable and Reproducible
 
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
@@ -222,6 +222,8 @@ background-size: cover
 .footnote[Artwork by [@allison_horst](https://twitter.com/allison_horst)]
 
 
+
+
 ---
 class: inverse, left, middle
 
@@ -232,7 +234,7 @@ class: inverse, left, middle
 ---
 background-image: url(img/data-science-workflow-not.png)
 
-## Not Auditable, Replicable and Reproducible
+# Not Auditable, Replicable and Reproducible
 
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
@@ -312,6 +314,8 @@ Way better than it was before
 - Still a manual process
 - GUI
 - Can't be scripted, not repeatable
+
+
 
 ---
 class: inverse
@@ -429,13 +433,16 @@ bcdc_get_data(record = "major-projects-inventory-economic-points",
 ---
 ## Major Projects in British Columbia
 ```{r echo=FALSE, fig.width=15, fig.height=7}
+library(ggchicklet)
+
 big_projects %>% 
   group_by(CONSTRUCTION_TYPE, REGION) %>% 
   tally(ESTIMATED_COST) %>%
   mutate(sum_n = sum(n, na.rm = TRUE)) %>% 
   ggplot(aes(x = fct_reorder(CONSTRUCTION_TYPE, sum_n), y = n, fill = REGION)) +
   labs(title = "Major Projects in British Columbia", y = "", x = "") +
-  geom_col() +
+  geom_chicklet(width = 0.75) +
+  #geom_col() +
   coord_flip() +
   scale_y_continuous(labels = scales::dollar) +
   scale_fill_viridis_d(name = "") +
@@ -458,7 +465,7 @@ class: inverse, left, middle
 
 ---
 
-### Select columns (attributes) with select()
+## Select columns (attributes) with select()
 
 ```{r, cache=TRUE}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -472,7 +479,7 @@ Processing on server
 
 ---
   
-### Filter rows (features) with filter()
+## Filter rows (features) with filter()
   
 ```{r, cache=TRUE}
 bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
@@ -482,7 +489,7 @@ bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") 
 
 ---
   
-### Get the data with collect()
+## Get the data with collect()
 ```{r, echo=FALSE}
 mapviewOptions(legend.pos = 'topright')
 ```
@@ -504,11 +511,12 @@ crd_mun <- ms_simplify(crd_mun) %>% st_make_valid()
 mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", layer = "Municipality")
 ```
 
+
 ---
   
-### Let's find the 'greenest' city in the CRD
+## Let's find the 'greenest' city in the CRD
   
-In addition to normal logical predicates (`==`. `!=`, `>`, `<`, etc.),
+In addition to normal logical predicates (`==`, `!=`, `>`, `<`, etc.),
 `filter()` can take *geometric predicates*:
   
 `EQUALS`, `DISJOINT`, `INTERSECTS`, `TOUCHES`, `CROSSES`, `WITHIN`, `CONTAINS`, 
@@ -576,7 +584,7 @@ crd_mun_parks <- crd_greenspaces %>%
 
 ```{r echo = FALSE, fig.width=15, fig.height=7}
 ggplot(crd_mun_parks) +
-  geom_col(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
+  geom_chicklet(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
   coord_flip() +
   guides(fill = FALSE) +
   labs(x = "", y = "") +
@@ -584,12 +592,17 @@ ggplot(crd_mun_parks) +
   scale_y_continuous(labels = scales::percent)
 ```
 
+
+
+
 ---
 ## Super important person: "Ok great now do this for Metro Vancouver"
 
 --
 
 <center><img src="https://media.giphy.com/media/3ohhwuQsXM631E3U0o/giphy.gif" style="width: 500px;"/></center>
+
+
 
 ---
 
@@ -643,13 +656,15 @@ mv_mun_parks %>%
   arrange(desc(percent_green)) %>% 
   filter(percent_green >= 0.1) %>% 
   ggplot() +
-  geom_col(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
+  geom_chicklet(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
   coord_flip() +
   guides(fill = FALSE) +
   labs(x = "", y = "") +
   scale_fill_distiller(palette = "Greens", direction = 1) +
   scale_y_continuous(labels = scales::percent)
 ```
+
+
 ---
 class: middle, inverse
 
@@ -663,7 +678,6 @@ background-size: cover
 # Auditable ✔️ 
 
 ---
-
 class: inverse
 
 background-image: url(https://images.unsplash.com/photo-1516216628859-9bccecab13ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80)
@@ -678,6 +692,7 @@ background-size: cover
 
 
 ???
+
 ### bcgov
 - https://github.com/bcgov/river-profiles
 - https://github.com/bcgov/gwater-report
@@ -688,7 +703,6 @@ background-size: cover
 
 ### academia
 - https://github.com/starzomskilab/parks-gbif-tool
-
 
 ---
 
@@ -708,7 +722,9 @@ background-size: cover
 .wide-left[
   <img src="https://media.giphy.com/media/1Z02vuppxP1Pa/giphy.gif" width=600px/>
     ]
-
+    
+    
+    
 ---
 # Questions
   
