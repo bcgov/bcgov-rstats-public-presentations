@@ -720,8 +720,8 @@ background-size: cover
  - https://bcgov.github.io/bcdata
 - Issues/bugs:
  - https://github.com/bcgov/bcdata/issues
--Slides:
-  -https://bcgov.github.io/bcgov-rstats-public-presentations/2020-03-26_bcdata_lunch_and_learn/bcdata-2020-lunch-and-learn.html
+- Slides:
+ - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-03-26_bcdata_lunch_and_learn/bcdata-2020-lunch-and-learn.html
   ]
 
 .left-column[

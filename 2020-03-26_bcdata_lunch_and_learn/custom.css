@@ -10,6 +10,14 @@ pre {
   text-shadow: none;
 }
 
+.remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #FFFFFF; /* white */
+  opacity: 0; /* default: 0.5 */
+}
+
 
 .remark-code { font-family: 'Fira Code', 'Fira Code', Monaco, monospace;
   font-size: 75%;
