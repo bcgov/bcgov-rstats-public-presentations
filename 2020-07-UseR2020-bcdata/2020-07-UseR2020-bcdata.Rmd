@@ -1,0 +1,619 @@
+---
+title: "Introduction to bcdata"
+subtitle: "An R package for getting data from the BC Data Catalogue"
+author: "Sam Albers, and Stephanie Hazlitt (Ministry of Citizens' Services), Andy Teucher (Ministry of Environment and Climate Change Strategy)"
+date: 2019-03-26
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: ["default", "default-fonts", "hygge", "custom.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: '16:9'
+editor_options: 
+  chunk_output_type: console
+---
+
+layout: true
+
+---
+
+```{r include=FALSE, eval=FALSE}
+# Copyright 2019 Province of British Columbia
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+# http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
+# 
+# Abstract
+# 
+# The British Columbia government hosts over 2000 tabular and spatial data sets
+# in the B.C. Data Catalogue.  Most provincial spatial data is available through
+# the B.C. Data Catalogue under an open licence, via a Geoserver Web Feature
+# Service (WFS). WFS is a powerful and flexible service for distributing
+# geographic features over the web, that supports both spatial and non-spatial
+# querying.  Our package, bcdata, wraps this functionality and enables R users
+# to efficiently query and directly read spatial data from the B.C. Data
+# Catalogue into their R session. The bcdata package implements a novel
+# application of dbplyr using a web service backend, where a locally constructed
+# query is processed by a remote server. The data is only downloaded, and loaded
+# into R as an ‘sf’ object, once the query is complete and the user requests the
+# final result. This allows for fast and efficient spatial data retrieval using
+# familiar dplyr syntax. The package also provides functionality that enables
+# users to search and retrieve many other types of data and metadata from the
+# B.C. Data Catalogue, thereby connecting British Columbia open data holdings
+# with the vast capabilities of R.
+
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+options(width = 90)
+options(max_print = 5)
+options(silence_named_get_record_warning = TRUE)
+
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+options(crayon.enabled = TRUE)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  #echo = FALSE,
+  comment = "",
+  warning = FALSE,
+  message = FALSE,
+  fig.path = "graphics/prod/figs",
+  fig.width = 10,
+  fig.height = 5
+)
+
+
+
+options(scipen = 10)
+
+library(dplyr)
+library(bcdata)
+library(sf)
+library(mapview)
+library(lwgeom)
+library(rmapshaper)
+library(ggplot2)
+library(forcats)
+```
+
+
+class: middle, inverse, no-number
+
+.left-title[
+<img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
+]
+
+.large.right-title[
+
+Andy Teucher
+
+Sam Albers
+
+Stephanie Hazlitt
+
+------
+
+UseR! 2020
+
+.pull-left[
+![](img/BCID_V_rgb_rev.png)
+]
+
+.pull-right[
+![](img/userlogo_sm.png)
+]
+
+
+]
+
+---
+
+class: middle, inverse
+
+.pull-left[
+# A workflow?
+]
+
+.pull-right[
+!["Tweet showing non-optimal workflow"](img/workflow.png)
+]
+
+---
+
+
+# Auditable, Replicable and Reproducible
+
+!["Data Science Workflow diagram"](img/data-science-workflow.png)
+
+.footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
+
+---
+
+# Not Auditable, Replicable and Reproducible
+
+!["Data Science Workflow diagram with link between import and tidy broken"](img/data-science-workflow-not.png)
+
+.footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
+
+
+???
+
+# Why R?
+
+If we can add the data acquisition step to our code the whole cycle is reproducible
+
+---
+
+class: inverse, middle
+background-image: url(https://images.unsplash.com/photo-1511721285502-9f81e79be874?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1868&q=80)
+background-size: cover
+
+# The B.C. Data catalogue
+
+
+---
+
+background-image: url(img/data-catalogue.png)
+background-size: cover
+
+---
+
+background-image: url(img/dds.png)
+background-size: cover
+
+
+???
+
+BCGW Data Distribution Service
+
+Way better than it was before
+
+- Still a manual process
+- GUI
+- Can't be scripted, not repeatable
+
+
+
+---
+class: inverse
+# What's the problem here?
+
+--
+
+## Not getting the data through code 
+
+
+---
+
+# Application Programming Interfaces (APIs)
+  
+![](img/bc_api.png)
+
+???
+  
+  APIs
+
+Data BC provides important APIs:
+  - the catalogue
+- search and query data in the catalogue
+- Web mapping service
+- download spatial data 
+- image overlay (WMS) OR the features themselves as points, lines, polygons (WFS)
+- most warehouse objects with public record in the catalogue
+
+---
+
+
+
+class: middle
+
+.Large.pull-left[
+
+  # Let's make a package
+
+  one function()
+  
+  two function()
+  
+  I need a function()
+  ]
+
+.pull-right[
+  ![](img/rfbf.png)
+  ]
+
+???
+  
+  - As with most FOSS projects, initially made to solve personal problem, 
+and several people had the same problem
+- Solve (shared) friction point of manual searching and downloading data from BCDC
+and getting it into R
+- conversation
+
+---
+class: inverse
+
+.pull-left[
+# What can bcdata do?
+
+## Search records in the catalogue
+## Open a browser in R
+## Get data
+
+]
+
+
+.pull-right[
+  <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
+    ]
+
+???
+  
+- Collaboration
+- first R package (personally) - sat in a room with a whiteboard and mapped out desired functionality and syntax
+- Great approach
+- Think landed in a good place
+- **Today focus on _getting_ data**
+
+
+---
+  
+## bcdc_get_data() - tabular
+
+```{r, echo=FALSE}
+library(extrafont)
+#font_import() ## takes a while to run
+loadfonts(device = ifelse(.Platform$OS.type == "windows", "win", "pdf"))
+
+theme_set(
+  theme_minimal() %+replace%
+    theme(
+      plot.title = element_blank(),
+      axis.text = element_text(size = 18),
+      axis.title = element_text(size = 18),
+      text=element_text(family="Palatino Linotype")
+    )
+)
+```
+
+  
+```{r, echo = FALSE, cache=TRUE}
+big_projects <- bcdc_get_data(record = "major-projects-inventory-economic-points", 
+                               resource = '2b69cc4b-4076-4272-a5a0-1c731455e063')
+```
+
+```{r, eval = TRUE, cache=TRUE}
+bcdc_get_data(record = "major-projects-inventory-economic-points", 
+                               resource = '2b69cc4b-4076-4272-a5a0-1c731455e063')
+```
+
+---
+## Major Projects in British Columbia
+```{r echo=FALSE, fig.width=15, fig.height=7}
+library(ggchicklet)
+
+big_projects %>% 
+  group_by(CONSTRUCTION_TYPE, REGION) %>% 
+  tally(ESTIMATED_COST) %>%
+  mutate(sum_n = sum(n, na.rm = TRUE)) %>% 
+  ggplot(aes(x = fct_reorder(CONSTRUCTION_TYPE, sum_n), y = n, fill = REGION)) +
+  labs(title = "Major Projects in British Columbia", y = "", x = "") +
+  geom_chicklet(width = 0.75) +
+  #geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = scales::dollar) +
+  scale_fill_viridis_d(name = "") +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size=18))
+```
+
+
+---
+  
+## bcdc_query_geodata()  - spatial data
+  
+```{r, cache=TRUE}
+bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc")
+```
+
+---
+class: inverse, left, middle
+# bcdata code break
+
+---
+
+## Select columns (attributes) with select()
+
+```{r, cache=TRUE}
+bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) #<<
+```
+
+???
+  
+Familiar syntax
+Processing on server
+
+---
+  
+## Filter rows (features) with filter()
+  
+```{r, cache=TRUE}
+bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME) %>% 
+  filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") #<<
+```
+
+---
+  
+## Get the data with collect()
+```{r, echo=FALSE}
+mapviewOptions(legend.pos = 'topright')
+```
+
+```{r, cache=TRUE}
+crd_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME, FEATURE_AREA_SQM) %>% 
+  filter(ADMIN_AREA_GROUP_NAME == "Capital Regional District") %>% 
+  collect() #<<
+```
+
+
+```{r echo=FALSE}
+library(rmapshaper)
+crd_mun <- ms_simplify(crd_mun) %>% st_make_valid()
+```
+
+```{r}
+mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", layer = "Municipality")
+```
+
+
+---
+  
+## Let's find the 'greenest' city in the CRD
+  
+In addition to normal logical predicates (`==`, `!=`, `>`, `<`, etc.),
+`filter()` can take *geometric predicates*:
+  
+`EQUALS`, `DISJOINT`, `INTERSECTS`, `TOUCHES`, `CROSSES`, `WITHIN`, `CONTAINS`, 
+`OVERLAPS`, `DWITHIN`
+
+```{r, cache=TRUE}
+crd_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>% 
+  select(PARK_NAME, PARK_TYPE, PARK_PRIMARY_USE) %>% 
+  filter(INTERSECTS(crd_mun)) %>% #<<
+  collect()
+```
+
+```{r echo=FALSE}
+crd_greenspaces <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>% 
+  st_collection_extract("POLYGON")
+```
+
+.footnote[https://catalogue.data.gov.bc.ca/dataset/local-and-regional-greenspaces]
+
+---
+class: inverse, middle
+
+background-image: url(https://images.unsplash.com/photo-1572093443093-e7f4e7e1029f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1936&q=80)
+background-size: cover
+
+# POLL: Which municipality in the Capital Region District has the most parks by area?
+
+
+
+---
+```{r echo=FALSE}
+mapviewOptions(leafletWidth = 1000, leafletHeight = 500)
+```
+
+  
+```{r}
+muni_map <- mapview(crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", 
+                    layer = "Municipality")
+
+muni_map + 
+  mapview(crd_greenspaces, col.regions = "darkolivegreen")
+```
+
+---
+class: inverse
+
+background-image: url(https://images.unsplash.com/photo-1572093443093-e7f4e7e1029f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1936&q=80)
+background-cover: cover
+
+## Find the amount of green space in each municipality
+
+--
+  
+```{r warning=FALSE}
+library(sf)
+crd_mun_parks <- crd_greenspaces %>% 
+  st_intersection(crd_mun) %>% 
+  group_by(ADMIN_AREA_ABBREVIATION, FEATURE_AREA_SQM) %>% 
+  summarise(grn_area = sum(st_area(geometry))) %>% 
+  mutate(percent_green = (as.numeric(grn_area) / FEATURE_AREA_SQM))
+```
+
+---
+## Percent Greenspace in Capitol Regional District
+
+```{r echo = FALSE, fig.width=15, fig.height=7}
+ggplot(ungroup(crd_mun_parks)) +
+  geom_chicklet(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
+  coord_flip() +
+  guides(fill = FALSE) +
+  labs(x = "", y = "") +
+  scale_fill_distiller(palette = "Greens", direction = 1) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+
+
+
+---
+## Super important person: "Ok great now do this for Metro Vancouver"
+
+--
+
+<center><img src="https://media.giphy.com/media/3ohhwuQsXM631E3U0o/giphy.gif" style="width: 500px;"/></center>
+
+
+
+---
+
+## Percent Greenspace in Metro Vancouver
+
+```{r}
+mv_mun <- bcdc_query_geodata("municipalities-legally-defined-administrative-areas-of-bc") %>% 
+  select(ADMIN_AREA_ABBREVIATION, ADMIN_AREA_GROUP_NAME, FEATURE_AREA_SQM) %>% 
+  filter(ADMIN_AREA_GROUP_NAME == "Metro Vancouver Regional District") %>% #<<
+  collect() 
+```
+
+```{r, eval=FALSE}
+all the other code...
+```
+
+```{r echo=FALSE, cache=TRUE}
+mv_mun <- ms_simplify(mv_mun) %>% st_make_valid()
+
+mv_greenspaces <- bcdc_query_geodata("local-and-regional-greenspaces") %>% 
+  select(PARK_NAME, PARK_TYPE, PARK_PRIMARY_USE) %>% 
+  filter(INTERSECTS(mv_mun)) %>% #<<
+  collect()
+
+mv_greenspaces <- ms_simplify(mv_greenspaces) %>% st_make_valid() %>% 
+  st_collection_extract("POLYGON")
+
+mv_mun_parks <- mv_greenspaces %>% 
+  st_intersection(mv_mun) %>% 
+  group_by(ADMIN_AREA_ABBREVIATION, FEATURE_AREA_SQM) %>% 
+  summarise(grn_area = sum(st_area(geometry))) %>% 
+  mutate(percent_green = (as.numeric(grn_area) / FEATURE_AREA_SQM))
+```
+
+--
+
+```{r, echo = FALSE}
+mapviewOptions(leafletWidth = 1000, leafletHeight = 300)
+muni_map <- mapview(mv_mun, zcol = "ADMIN_AREA_ABBREVIATION", 
+                    layer = "Municipality")
+muni_map + 
+  mapview(mv_greenspaces, col.regions = "darkolivegreen")
+```
+
+---
+
+## Percent Greenspace in Metro Vancouver
+
+```{r echo = FALSE, fig.width=15, fig.height=7}
+mv_mun_parks %>% 
+  ungroup() %>% 
+  arrange(desc(percent_green)) %>% 
+  filter(percent_green >= 0.1) %>% 
+  ggplot() +
+  geom_chicklet(aes(x = fct_reorder(ADMIN_AREA_ABBREVIATION, percent_green), y = percent_green, fill = percent_green)) +
+  coord_flip() +
+  guides(fill = FALSE) +
+  labs(x = "", y = "") +
+  scale_fill_distiller(palette = "Greens", direction = 1) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+
+---
+class: middle, inverse
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg/1280px-Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg)
+background-size: cover
+
+# Reproducible ✔️ 
+
+# Repeatable ✔️ 
+
+# Auditable ✔️ 
+
+---
+class: inverse
+
+background-image: url(https://images.unsplash.com/photo-1516216628859-9bccecab13ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80)
+background-size: cover
+
+# Usage of bcdata
+
+## bcgov
+## private sector
+## academia
+
+
+
+???
+
+### bcgov
+- https://github.com/bcgov/river-profiles
+- https://github.com/bcgov/gwater-report
+- https://github.com/bcgov/FAIB
+
+### private sector
+- https://github.com/poissonconsulting/fwabc
+
+### academia
+- https://github.com/starzomskilab/parks-gbif-tool
+
+---
+
+## Kudos
+
+.large.wide-right[
+- BC Data Catalogue Team
+
+- Michelle Douville
+
+- Simon Norris
+
+- Our bosses for giving us time/space for innovation and collaboration
+  ]
+  
+
+.wide-left[
+  <img src="https://media.giphy.com/media/1Z02vuppxP1Pa/giphy.gif" width=600px/>
+    ]
+    
+    
+    
+---
+# Questions
+  
+.large.right-column[
+  <br/>
+- Install from CRAN:
+ - `install.packages("bcdata")`
+- Help & documentation:
+ - https://bcgov.github.io/bcdata
+- Issues/bugs:
+ - https://github.com/bcgov/bcdata/issues
+- Slides:
+ - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-03-26_bcdata_lunch_and_learn/bcdata-2020-lunch-and-learn.html
+  ]
+
+.left-column[
+  <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" />
+    ]
+
+
