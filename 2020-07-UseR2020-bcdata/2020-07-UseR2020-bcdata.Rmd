@@ -152,8 +152,6 @@ class: middle, inverse
 
 ???
 
-# Why R?
-
 If we can add the data acquisition step to our code the whole cycle is reproducible
 
 ---
