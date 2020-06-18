@@ -40,3 +40,12 @@
  translations for much of the WFS functionality.
  
 - bcdc_query_geodata() Demo
+ - select
+    - most dplyr::select uses (aka tidyselect) work
+ - collect
+ - filter
+   - logical predicates
+   - spatial predicates
+   - raw CQL (https://docs.geoserver.org/stable/en/user/tutorials/cql/cql_tutorial.html)
+ 
+ 

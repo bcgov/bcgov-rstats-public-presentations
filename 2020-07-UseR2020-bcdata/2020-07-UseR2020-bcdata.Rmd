@@ -76,18 +76,37 @@ knitr::opts_chunk$set(
   fig.height = 5
 )
 
-
-
 options(scipen = 10)
 
 library(dplyr)
 library(bcdata)
 library(sf)
 library(mapview)
-library(lwgeom)
 library(rmapshaper)
 library(ggplot2)
-library(forcats)
+library(rnaturalearth)
+
+bc <- bcdata::bcdc_query_geodata("b9bd93e1-0226-4351-b943-05c6f80bd5da") %>% 
+  filter(REGION_CODE == "59") %>% 
+  collect()
+
+gg_bc <- function() {
+  ggplot() + 
+  geom_sf(data = bc, fill = "#eeeeee")
+}
+
+theme_set(theme_void() +
+  theme(panel.background = element_rect(fill = "transparent", color = NA),
+        plot.background = element_rect(fill = "transparent", color = NA), 
+        plot.margin = unit(c(0,0,0,0), units = "cm"),
+        panel.spacing = unit(0, units = "cm")))
+
+hack_print <- function(...) {
+  out <- capture.output(...)
+  out <- gsub("administrative-areas-of-bc", "admin...", out)
+  out <- gsub("on this object ", "", out)
+  cat(out[!grepl("dimension:|bbox", out)], sep = "\n")
+}
 ```
 
 
@@ -120,22 +139,11 @@ UseR! 2020
 
 ]
 
----
-
-class: middle, inverse
-
-.pull-left[
-# A workflow?
-]
-
-.pull-right[
-!["Tweet showing non-optimal workflow"](img/workflow.png)
-]
 
 ---
 
 
-# Auditable, Replicable and Reproducible
+# Reproducible data science
 
 !["Data Science Workflow diagram"](img/data-science-workflow.png)
 
@@ -143,7 +151,7 @@ class: middle, inverse
 
 ---
 
-# Not Auditable, Replicable and Reproducible
+# !(Reproducible data science)
 
 !["Data Science Workflow diagram with link between import and tidy broken"](img/data-science-workflow-not.png)
 
@@ -152,7 +160,10 @@ class: middle, inverse
 
 ???
 
-If we can add the data acquisition step to our code the whole cycle is reproducible
+If the data acquisition step is manual then collaborators, reviewers, etc can't import, 
+and the entire workflow is not reproducible
+
+If we can add the data acquisition step in code the whole cycle is reproducible
 
 ---
 
@@ -160,13 +171,46 @@ class: inverse, middle
 background-image: url(https://images.unsplash.com/photo-1511721285502-9f81e79be874?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1868&q=80)
 background-size: cover
 
+.pull-left[
 # The B.C. Data catalogue
+]
 
+.pull-right[
+```{r echo=FALSE, fig.height=8, fig.width=7, dev.args=list(bg="transparent"), cache=TRUE}
+na <- ne_countries(country = c("Canada","United States of America", "Mexico"), returnclass = "sf") %>% 
+  st_transform('PROJCS["North_America_Albers_Equal_Area_Conic",GEOGCS["GCS_North_American_1983",DATUM["North_American_Datum_1983",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Albers_Conic_Equal_Area"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["longitude_of_center",-96],PARAMETER["Standard_Parallel_1",20],PARAMETER["Standard_Parallel_2",60],PARAMETER["latitude_of_center",40],UNIT["Meter",1],AUTHORITY["EPSG","102008"]]')
+
+cities <- st_sf(
+  name = c("St. Louis", "Victoria"),
+  st_sfc(st_point(c(-90.1994, 38.6570)), 
+         st_point(c(-123.3565, 48.4284)), 
+         crs = 4326)
+)
+
+ggplot() + 
+  geom_sf(data = na) +
+  geom_sf(data = ms_simplify(bc, keep = 0.1), fill = "#a0d080") +
+  geom_sf(data = cities, size = 4) + 
+  geom_sf_text(aes(label = name), data = cities, 
+               nudge_x = -900000, nudge_y = -100000, 
+               size = 10, colour = c("black", "white")) +
+  coord_sf(xlim = c(-4000000, 2989998))
+```
+]
 
 ---
 
 background-image: url(img/data-catalogue.png)
 background-size: cover
+
+
+???
+- British Columbia is really big (almost 1M sq km)
+- Lots of data
+- Group I work in analyses & reports on status and trends of BC's environment
+- Heavy users of BCgov data, heavy proponents of open data and open science
+- Thousands of data sets, mostly under an open license
+- tabular and spatial
 
 ---
 
@@ -178,12 +222,12 @@ background-size: cover
 
 BCGW Data Distribution Service
 
-Way better than it was before
+Very handy, can download large spatial data files
+Can specify projections and Area of Interest
 
 - Still a manual process
 - GUI
 - Can't be scripted, not repeatable
-
 
 
 ---
@@ -245,7 +289,7 @@ and getting it into R
 ---
 class: inverse, middle
 
-.large.wide-left[
+.wide-left[
 <br/>
 - **`bcdc_browse()`** 
   - Open the catalogue
@@ -267,7 +311,7 @@ class: inverse, middle
 ???
 
 - Collaboration
-- first R package (personally) - sat in a room with a whiteboard and mapped out desired functionality and syntax
+- first R package - sat in a room with a whiteboard and mapped out desired functionality and syntax
 - Great approach
 - Think landed in a good place
 - **Today focus on _getting_ data**
@@ -276,8 +320,6 @@ class: inverse, middle
 exclude: false
 
 ## `bcdc_search()`
-
-Search the B.C. Data Catalogue
 
 ```{r}
 library(bcdata)
@@ -298,9 +340,7 @@ exclude: false
 
 ```{r}
 library(bcdata)
-bcdc_get_record(
-  "bc-schools-programs-offered-in-schools"
-  )
+bcdc_get_record("bc-schools-programs-offered-in-schools")
 ```
 
 ---
@@ -317,7 +357,8 @@ bcdc_get_data(
 
 ```{r echo=FALSE}
 set.seed(1)
-bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', resource = 'a393f8cf-51ec-42c6-8449-4cea4c75385c') %>% 
+bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', 
+              resource = 'a393f8cf-51ec-42c6-8449-4cea4c75385c') %>% 
   mutate_if(is.logical, function(x) {
     x[is.na(x)] <- FALSE
     x}) %>% 
@@ -331,25 +372,64 @@ bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524', resource = 'a393f
 
 ## `bcdc_get_data()` - spatial data
 
-.pull-left[
 ```{r}
-ferries <- bcdc_get_data(
-  "ferry-terminals", 
-  "40d2b150-06a8-488c-8d88-d9df978d696d"
-)
+ferries <- bcdc_get_data("ferry-terminals", 
+  "40d2b150-06a8-488c-8d88-d9df978d696d")
+```
 
-library(mapview)
-mapview(ferries)
+.pull-left[
+```{r eval=FALSE}
+gg_bc() + 
+geom_sf(data = ferries, 
+        colour = "darkred")
+```
+]
+
+.pull-right[
+```{r echo=FALSE, fig.height=7}
+gg_bc() + 
+  geom_sf(data = ferries, 
+          colour = "darkred")
 ```
 ]
 
 ---
 
-## Select columns (attributes) with select()
+## Query spatial data with `bcdc_query_geodata()`
 
-```{r, cache=TRUE}
+```{r, eval=FALSE}
 bcdc_query_geodata(
-  "municipalities-legally-defined-administrative-areas-of-bc"
+"municipalities-legally-defined-administrative-areas-of-bc"
+)
+```
+
+???
+
+Object returned here is not the data itself, but a "promise"
+to get the data, need to run collect() - like dbplyr.
+
+---
+
+```{r, cache=FALSE, echo=FALSE}
+hack_print({
+bcdc_query_geodata(
+"municipalities-legally-defined-administrative-areas-of-bc"
+)
+})
+```
+
+???
+
+printing the object shows a brief preview (6 rows) with
+some additional information
+
+---
+
+## Select columns with `select()`
+
+```{r, eval=FALSE}
+bcdc_query_geodata(
+"municipalities-legally-defined-administrative-areas-of-bc"
 ) %>% 
   select(ADMIN_AREA_ABBREVIATION, #<<
          ADMIN_AREA_GROUP_NAME) #<<
@@ -361,12 +441,28 @@ Familiar syntax
 Processing on server
 
 ---
-  
-## Filter rows (features) with filter()
-  
-```{r, cache=TRUE}
+
+```{r, cache=FALSE, echo=FALSE}
+hack_print({
 bcdc_query_geodata(
-  "municipalities-legally-defined-administrative-areas-of-bc"
+"municipalities-legally-defined-administrative-areas-of-bc"
+) %>% 
+  select(ADMIN_AREA_ABBREVIATION,
+         ADMIN_AREA_GROUP_NAME)
+})
+```
+
+???
+
+Some sticky columns always come along for the ride
+
+---
+
+## Filter rows (features) with `filter()`
+  
+```{r, eval=FALSE}
+bcdc_query_geodata(
+"municipalities-legally-defined-administrative-areas-of-bc"
 ) %>% 
   select(ADMIN_AREA_ABBREVIATION, 
          ADMIN_AREA_GROUP_NAME) %>% 
@@ -376,15 +472,29 @@ bcdc_query_geodata(
 ```
 
 ---
-  
-## Get the data with collect()
-```{r, echo=FALSE}
-mapviewOptions(legend.pos = 'topright')
+
+```{r, cache=FALSE, echo=FALSE}
+hack_print({
+  bcdc_query_geodata(
+"municipalities-legally-defined-administrative-areas-of-bc"
+) %>% 
+  select(ADMIN_AREA_ABBREVIATION, 
+         ADMIN_AREA_GROUP_NAME) %>% 
+  filter(
+    ADMIN_AREA_GROUP_NAME == "Capital Regional District"
+  )
+})
 ```
+
+
+---
+  
+## Finally, get the data with `collect()`
+
 
 ```{r, cache=TRUE}
 crd_mun <- bcdc_query_geodata(
-  "municipalities-legally-defined-administrative-areas-of-bc"
+"municipalities-legally-defined-administrative-areas-of-bc"
 ) %>% 
   select(ADMIN_AREA_ABBREVIATION, 
          ADMIN_AREA_GROUP_NAME, 
@@ -395,32 +505,47 @@ crd_mun <- bcdc_query_geodata(
   collect() #<<
 ```
 
+---
+```{r}
+class(crd_mun)
+```
+
 
 ```{r echo=FALSE}
 library(rmapshaper)
 crd_mun <- ms_simplify(crd_mun) %>% st_make_valid()
 ```
 
+???
+
+Now we have a real sf object we can work with that has
+just the rows and columns we asked for
+
 ---
 
-```{r}
-mapview(crd_mun, 
-        zcol = "ADMIN_AREA_ABBREVIATION", 
-        layer = "Municipality")
+
+```{r fig.align="center", fig.height=6}
+ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) + 
+  geom_sf() +
+  scale_fill_viridis_d()
 ```
 
 
 ---
   
 ## Let's find the greenspaces within the CRD
-  
-In addition to normal logical predicates 
+
+In addition to normal logical predicates
 (`==`, `!=`, `>`, `<`, `%in%`, etc.),
 `filter()` can take *geometric predicates*:
   
 `EQUALS`, `DISJOINT`, `INTERSECTS`, `TOUCHES`, 
 `CROSSES`, `WITHIN`, `CONTAINS`, `OVERLAPS`, 
 `DWITHIN`, `BBOX`
+
+---
+  
+## Let's get the greenspaces within the CRD
 
 ```{r, cache=TRUE}
 crd_greenspaces <- bcdc_query_geodata(
@@ -438,35 +563,34 @@ crd_greenspaces <- ms_simplify(crd_greenspaces) %>% st_make_valid() %>%
 
 .footnote[https://catalogue.data.gov.bc.ca/dataset/local-and-regional-greenspaces]
 
----
-```{r echo=FALSE}
-mapviewOptions(leafletWidth = 1000, leafletHeight = 500)
-```
+???
 
-  
-```{r}
-muni_map <- mapview(
-  crd_mun, zcol = "ADMIN_AREA_ABBREVIATION", 
-  layer = "Municipality")
-
-muni_map + 
-  mapview(crd_greenspaces, col.regions = "darkolivegreen")
-```
-
-
+Rather than downloading all of the greenspaces in BC (A LOT)
+and then filtering, we are getting the server to do the filtering
+for us and just downloading what we need.
 
 ---
+
+```{r fig.align="center", fig.height=6}
+ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) + 
+  geom_sf() + scale_fill_viridis_d() + 
+  geom_sf(data = crd_greenspaces, fill = "darkolivegreen")
+```
+
+---
+
+
+
+
+---
+
 
 ## Kudos
 
 .large.wide-right[
 - BC Data Catalogue Team
 
-- Michelle Douville
-
-- Simon Norris
-
-- Our bosses for giving us time/space for innovation and collaboration
+- Our employer for giving us time/space for innovation and collaboration
   ]
   
 
@@ -475,10 +599,8 @@ muni_map +
     ]
     
 ---
-# Questions
-  
-.large.right-column[
-  <br/>
+
+.right-column[
 - Install from CRAN:
  - `install.packages("bcdata")`
 - Help & documentation:
@@ -486,7 +608,7 @@ muni_map +
 - Issues/bugs:
  - https://github.com/bcgov/bcdata/issues
 - Slides:
- - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-03-26_bcdata_lunch_and_learn/bcdata-2020-lunch-and-learn.html
+ - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-07-UseR2020-bcdata/2020-07-UseR2020-bcdata.html
   ]
 
 .left-column[

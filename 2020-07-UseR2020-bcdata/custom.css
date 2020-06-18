@@ -1,11 +1,10 @@
 pre {
   /* wrap code instead of scroll */
-  /* white-space: pre-wrap; */
+  white-space: pre-wrap;
 }
 
-.remark-slide .inverse thead,
-.remark-slide .inverse tfoot,
-.remark-slide .inverse tr:nth-child(even) {
+.remark-slide table {
+  font-size: 20pt !important;
   color: #272822;
   text-shadow: none;
 }
@@ -21,6 +20,10 @@ pre {
 
 .remark-code { font-family: 'Fira Code', 'Fira Code', Monaco, monospace;
   font-size: 22pt;
+}
+
+.remark-code, .remark-inline-code {
+  color: #0000BB;
 }
 
 body { font-family: 'Palatino Linotype', 'Droid Serif',  'Book Antiqua', 'Palatino', 'Microsoft YaHei', 'Songti SC', serif; }
@@ -45,6 +48,12 @@ h3 {
 
 .large {
   font-size: 28pt;
+}
+
+.remark-slide-content {
+  font-size: 24pt;
+  padding-right: 2em;
+  padding-left: 2em;
 }
 
 .no-number .remark-slide-number {
@@ -77,10 +86,15 @@ h3 {
   float: left;
 }
 
+.remark-slide .inverse .wide-left, 
+.remark-slide .inverse .wide-right,
+.remark-slide .inverse .remark-inline-code {
+  color: #d6d6d6;
+}
+
 .wide-right {
   width: 35%;
   float: right;
-  padding-top: 2em;
 }
 
 .footnote-right {
