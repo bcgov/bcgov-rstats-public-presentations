@@ -26,8 +26,9 @@ layout: true
 
 class: middle, inverse, no-number
 
-.left-title[
+.left-title[.no-margin[
 &lt;img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" /&gt;
+]
 ]
 
 .large.right-title[
@@ -53,16 +54,35 @@ UseR! 2020
 
 ]
 
+---
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
+background-size: cover
 
 ---
 
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
+background-size: cover
+
+.pull-left[
+![](graphics/prod/figsunnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+???
+
+- British Columbia is really big (almost 1M sq km)
+- Lots of data
+- I work in Ministry of Environment and Climate Change Strategy
+- Group I work in analyses &amp; reports on status and trends of BC's environment
+- Heavy users of BCgov data, heavy proponents of open data and open science
+
+---
 
 # Reproducible data science
 
 !["Data Science Workflow diagram"](img/data-science-workflow.png)
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
-
 ---
 
 # !(Reproducible data science)
@@ -85,13 +105,7 @@ class: inverse, middle
 background-image: url(https://images.unsplash.com/photo-1511721285502-9f81e79be874?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1868&amp;q=80)
 background-size: cover
 
-.pull-left[
 # The B.C. Data catalogue
-]
-
-.pull-right[
-![](graphics/prod/figsunnamed-chunk-2-1.png)&lt;!-- --&gt;
-]
 
 ---
 
@@ -100,10 +114,6 @@ background-size: cover
 
 
 ???
-- British Columbia is really big (almost 1M sq km)
-- Lots of data
-- Group I work in analyses &amp; reports on status and trends of BC's environment
-- Heavy users of BCgov data, heavy proponents of open data and open science
 - Thousands of data sets, mostly under an open license
 - tabular and spatial
 
@@ -149,12 +159,12 @@ Data BC provides important APIs:
   - search and query data in the catalogue
 - Web mapping service
   - download spatial data 
-    - image overlay (WMS) OR the features themselves as points, lines, polygons (WFS)
-    - most warehouse objects with public record in the catalogue
+    - image overlay (WMS) AND
+    - most importantly the features themselves as points, lines, polygons (WFS)
+      - powerful and flexible service for distributing geographic features over the web
+      supports both spatial and non-spatial querying via REST API
 
 ---
-
-
 
 class: middle
 
@@ -175,26 +185,26 @@ class: middle
 
 ???
   
-  - As with most FOSS projects, initially made to solve personal problem, 
+- As with many FOSS projects, initially made to solve personal problem, 
 and several people had the same problem
 - Solve (shared) friction point of manual searching and downloading data from BCDC
 and getting it into R
-- conversation
+- Collaboration
+- first R package sat in a room with a whiteboard and mapped out desired functionality and syntax
+- Great approach
+- Think landed in a good place
 
 ---
 class: inverse, middle
 
-.wide-left[
-&lt;br/&gt;
-- **`bcdc_browse()`** 
-  - Open the catalogue
+.large.wide-left[
 - **`bcdc_search()`** 
   - Search catalogue records
 - **`bcdc_get_record()`** 
   - Print a catalogue record
-- .large[**`bcdc_get_data()`**]
+- .Large[**`bcdc_get_data()`**]
   - Get catalogue data
-- .large[**`bcdc_query_geodata()`**]
+- .Large[**`bcdc_query_geodata()`**]
   - Query B.C. geospatial data
 ]
 
@@ -205,16 +215,12 @@ class: inverse, middle
 
 ???
 
-- Collaboration
-- first R package - sat in a room with a whiteboard and mapped out desired functionality and syntax
-- Great approach
-- Think landed in a good place
 - **Today focus on _getting_ data**
 
 ---
-exclude: false
+exclude: true
 
-## `bcdc_search()`
+# `bcdc_search()`
 
 
 ```r
@@ -260,20 +266,17 @@ Access a single record by calling bcdc_get_record(ID)
 ```
 
 ---
-exclude: false
 
-## `bcdc_get_record()`
-
-Get the metadata for a record in the B.C. Data Catalogue
-
-![](img/bc-school-programs.png)
-
+.no-margin[
+!["Image of BC data catalogue record for school programs"](img/schools-record.png)
+]
 ---
-exclude: false
+exclude: true
+
+# `bcdc_get_record()`
 
 
 ```r
-library(bcdata)
 bcdc_get_record("bc-schools-programs-offered-in-schools")
 ```
 
@@ -306,7 +309,7 @@ You can access the 'Resources' data frame using bcdc_tidy_resources()
 ---
 exclude: false
 
-## `bcdc_get_data()` - tabular data
+# `bcdc_get_data()` - tabular data
 
 ```r
 bcdc_get_data(
@@ -366,7 +369,7 @@ bcdc_get_data(
 
 ---
 
-## `bcdc_get_data()` - spatial data
+# `bcdc_get_data()` - spatial data
 
 
 ```r
@@ -383,13 +386,13 @@ geom_sf(data = ferries,
 ```
 ]
 
-.pull-right[
+.pull-right.no-margin[
 ![](graphics/prod/figsunnamed-chunk-8-1.png)&lt;!-- --&gt;
 ]
 
 ---
 
-## Query spatial data with `bcdc_query_geodata()`
+# Query spatial data with `bcdc_query_geodata()`
 
 
 ```r
@@ -430,11 +433,12 @@ CRS:            3005
 
 ???
 
-Object returned here is not the data itself, but a "promise"
-to get the data, need to run collect() - like dbplyr.
+printing the object shows a brief preview (6 rows) with
+some additional information
+
 ---
 
-## Select columns with `select()`
+# Select columns with `select()`
 
 
 ```r
@@ -444,6 +448,11 @@ bcdc_query_geodata(
 * select(ADMIN_AREA_ABBREVIATION,
 *        ADMIN_AREA_GROUP_NAME)
 ```
+
+.large[**tidyselect** helpers work:
+
+.center[`starts_with()`, `matches()`, `one_of()` etc.]
+]
 
 ???
   
@@ -471,9 +480,13 @@ CRS:            3005
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;POLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
 
+???
+
+Some sticky columns always come along for the ride
+
 ---
 
-## Filter rows (features) with `filter()`
+# Filter rows (features) with `filter()`
   
 
 ```r
@@ -486,6 +499,8 @@ bcdc_query_geodata(
 *   ADMIN_AREA_GROUP_NAME == "Capital Regional District"
 * )
 ```
+
+.large[.center[`==`, `!=`, `&gt;`, `&lt;`, `between()`, `%in%`, `is.na()`, etc.]]
 
 ---
 
@@ -508,13 +523,9 @@ CRS:            3005
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;MULTIPOLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
 
-???
-
-Some sticky columns always come along for the ride
-
 ---
   
-## Finally, get the data with `collect()`
+# Finally, get the data with `collect()`
 
 
 
@@ -531,43 +542,26 @@ crd_mun &lt;- bcdc_query_geodata(
 * collect()
 ```
 
+???
+
+- Same as dbplyr
+
 ---
 
 ```r
 class(crd_mun)
 [1] "bcdc_sf"    "sf"         "tbl_df"     "tbl"        "data.frame"
-crd_mun
 ```
 
-&lt;PRE class="fansi fansi-output"&gt;&lt;CODE&gt;Simple feature collection with 13 features and 6 fields
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: 1164434 ymin: 368738.7 xmax: 1203024 ymax: 412959
-CRS:            3005
-&lt;span style='color: #555555;'&gt;# A tibble: 13 x 7&lt;/span&gt;&lt;span&gt;
-   id    LGL_ADMIN_AREA_… ADMIN_AREA_ABBR… ADMIN_AREA_GROU… FEATURE_AREA_SQM OBJECTID
- &lt;/span&gt;&lt;span style='color: #555555;'&gt;*&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;                       &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;dbl&amp;gt;&lt;/span&gt;&lt;span&gt;    &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt;
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 1&lt;/span&gt;&lt;span&gt; WHSE…              258 Central Saanich  Capital Regiona…        51&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;696&lt;/span&gt;&lt;span&gt;342.      446
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 2&lt;/span&gt;&lt;span&gt; WHSE…              259 Colwood          Capital Regiona…        21&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;127&lt;/span&gt;&lt;span&gt;590.      447
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 3&lt;/span&gt;&lt;span&gt; WHSE…              260 Esquimalt        Capital Regiona…        10&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;823&lt;/span&gt;&lt;span&gt;121.      448
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 4&lt;/span&gt;&lt;span&gt; WHSE…              261 Highlands        Capital Regiona…        40&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;936&lt;/span&gt;&lt;span&gt;222.      449
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 5&lt;/span&gt;&lt;span&gt; WHSE…              262 Langford         Capital Regiona…        43&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;102&lt;/span&gt;&lt;span&gt;531.      450
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 6&lt;/span&gt;&lt;span&gt; WHSE…              263 Metchosin        Capital Regiona…        77&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;507&lt;/span&gt;&lt;span&gt;974.      451
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 7&lt;/span&gt;&lt;span&gt; WHSE…              264 North Saanich    Capital Regiona…        47&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;028&lt;/span&gt;&lt;span&gt;497.      452
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 8&lt;/span&gt;&lt;span&gt; WHSE…              265 Oak Bay          Capital Regiona…        15&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;719&lt;/span&gt;&lt;span&gt;635.      453
-&lt;/span&gt;&lt;span style='color: #555555;'&gt; 9&lt;/span&gt;&lt;span&gt; WHSE…              266 Saanich          Capital Regiona…       114&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;072&lt;/span&gt;&lt;span&gt;275.      454
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;10&lt;/span&gt;&lt;span&gt; WHSE…              267 Sidney           Capital Regiona…         7&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;298&lt;/span&gt;&lt;span&gt;951.      455
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;11&lt;/span&gt;&lt;span&gt; WHSE…              268 Sooke            Capital Regiona…        68&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;157&lt;/span&gt;&lt;span&gt;826.      456
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;12&lt;/span&gt;&lt;span&gt; WHSE…              269 Victoria         Capital Regiona…        21&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;202&lt;/span&gt;&lt;span&gt;922.      457
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;13&lt;/span&gt;&lt;span&gt; WHSE…              270 View Royal       Capital Regiona…        17&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;019&lt;/span&gt;&lt;span&gt;662.      458
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;MULTIPOLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
 
 
 
+???
+
+- Now we have a real sf object we can work with that has
+just the rows and columns we asked for
 
 ---
-
 
 
 ```r
@@ -578,22 +572,42 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 &lt;img src="graphics/prod/figsunnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
-
 ---
   
-## Let's find the greenspaces within the CRD
+# `filter()` with *geometric* predicates
 
 In addition to normal logical predicates
-(`==`, `!=`, `&gt;`, `&lt;`, `%in%`, etc.),
-`filter()` can take *geometric predicates*:
   
-`EQUALS`, `DISJOINT`, `INTERSECTS`, `TOUCHES`, 
-`CROSSES`, `WITHIN`, `CONTAINS`, `OVERLAPS`, 
-`DWITHIN`, `BBOX`
+.pull-left[
+.right[
+`EQUALS()`
+
+`DISJOINT()`
+
+`INTERSECTS()`
+
+`TOUCHES()`
+
+`CROSSES()`
+]
+]
+
+.pull-right[
+`WITHIN()`
+
+`CONTAINS()`
+
+`OVERLAPS()`
+
+`DWITHIN()`
+
+`BBOX()`
+]
+
 
 ---
   
-## Let's find the greenspaces within the CRD
+# Find the greenspaces within the CRD
 
 
 ```r
@@ -609,6 +623,12 @@ crd_greenspaces &lt;- bcdc_query_geodata(
 
 .footnote[https://catalogue.data.gov.bc.ca/dataset/local-and-regional-greenspaces]
 
+???
+
+Rather than downloading all of the greenspaces in BC (A LOT)
+and then filtering, we are getting the server to do the filtering
+for us and just downloading what we need.
+
 ---
 
 
@@ -622,20 +642,33 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 ---
 
-## Kudos
+# bcdata
+
+- Programmatic access to thousands of data sets from the B.C. Data Catalogue
+- Novel interface to a WFS service
+- Familiar dplyr/dbplyr syntax
+- Perform spatial and non-spatial queries
+- processing on the server - only download what you need
+
+---
+
+# Kudos
 
 .large.wide-right[
+- Collaborators Sam Albers and Stephanie Hazlitt
 - BC Data Catalogue Team
-
-- Our employer for giving us time/space for innovation and collaboration
-  ]
-  
+- Our employers for encouraging innovation and collaboration
+]
 
 .wide-left[
   &lt;img src="https://media.giphy.com/media/1Z02vuppxP1Pa/giphy.gif" width=600px/&gt;
-    ]
+]
     
 ---
+
+.left-column[
+  &lt;img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" /&gt;
+]
 
 .right-column[
 - Install from CRAN:
@@ -646,12 +679,13 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
  - https://github.com/bcgov/bcdata/issues
 - Slides:
  - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-07-UseR2020-bcdata/2020-07-UseR2020-bcdata.html
-  ]
+]
 
-.left-column[
-  &lt;img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" /&gt;
-    ]
+[@andyteucher](https://twitter.com/andyteucher) 
 
+[@big_bad_sam](https://twitter.com/big_bad_sam) 
+
+[@stephhazlitt](https://twitter.com/stephhazlitt)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

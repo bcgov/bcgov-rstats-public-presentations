@@ -17,6 +17,10 @@ pre {
   opacity: 0; /* default: 0.5 */
 }
 
+.footnote {
+	bottom: 1em;
+}
+
 
 .remark-code { font-family: 'Fira Code', 'Fira Code', Monaco, monospace;
   font-size: 22pt;
@@ -102,4 +106,8 @@ h3 {
   float: right;
   text-align: center;
   font-size: 80%;
+}
+
+.no-margin p {
+  margin: 0;
 }

@@ -112,8 +112,9 @@ hack_print <- function(...) {
 
 class: middle, inverse, no-number
 
-.left-title[
+.left-title[.no-margin[
 <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" alt="bcdata" />
+]
 ]
 
 .large.right-title[
@@ -139,16 +140,54 @@ UseR! 2020
 
 ]
 
+---
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
+background-size: cover
 
 ---
 
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
+background-size: cover
+
+.pull-left[
+```{r echo=FALSE, fig.height=9, fig.width=8, dev.args=list(bg="transparent"), cache=TRUE}
+na <- ne_countries(country = c("Canada","United States of America", "Mexico"), returnclass = "sf") %>% 
+  st_transform('PROJCS["North_America_Albers_Equal_Area_Conic",GEOGCS["GCS_North_American_1983",DATUM["North_American_Datum_1983",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Albers_Conic_Equal_Area"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["longitude_of_center",-96],PARAMETER["Standard_Parallel_1",20],PARAMETER["Standard_Parallel_2",60],PARAMETER["latitude_of_center",40],UNIT["Meter",1],AUTHORITY["EPSG","102008"]]')
+
+cities <- st_sf(
+  name = c("St. Louis", "Victoria"),
+  st_sfc(st_point(c(-90.1994, 38.6570)), 
+         st_point(c(-123.3565, 48.4284)), 
+         crs = 4326)
+)
+
+ggplot() + 
+  geom_sf(data = na) +
+  geom_sf(data = ms_simplify(bc, keep = 0.1), fill = "#a0d080") +
+  geom_sf(data = cities, size = 4) + 
+  geom_sf_text(aes(label = name), data = cities, 
+               nudge_x = -900000, nudge_y = -100000, 
+               size = 12, colour = c("black", "white")) +
+  coord_sf(xlim = c(-4000000, 2989998), expand = FALSE)
+```
+]
+
+???
+
+- British Columbia is really big (almost 1M sq km)
+- Lots of data
+- I work in Ministry of Environment and Climate Change Strategy
+- Group I work in analyses & reports on status and trends of BC's environment
+- Heavy users of BCgov data, heavy proponents of open data and open science
+
+---
 
 # Reproducible data science
 
 !["Data Science Workflow diagram"](img/data-science-workflow.png)
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
-
 ---
 
 # !(Reproducible data science)
@@ -171,32 +210,7 @@ class: inverse, middle
 background-image: url(https://images.unsplash.com/photo-1511721285502-9f81e79be874?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1868&q=80)
 background-size: cover
 
-.pull-left[
 # The B.C. Data catalogue
-]
-
-.pull-right[
-```{r echo=FALSE, fig.height=8, fig.width=7, dev.args=list(bg="transparent"), cache=TRUE}
-na <- ne_countries(country = c("Canada","United States of America", "Mexico"), returnclass = "sf") %>% 
-  st_transform('PROJCS["North_America_Albers_Equal_Area_Conic",GEOGCS["GCS_North_American_1983",DATUM["North_American_Datum_1983",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Albers_Conic_Equal_Area"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["longitude_of_center",-96],PARAMETER["Standard_Parallel_1",20],PARAMETER["Standard_Parallel_2",60],PARAMETER["latitude_of_center",40],UNIT["Meter",1],AUTHORITY["EPSG","102008"]]')
-
-cities <- st_sf(
-  name = c("St. Louis", "Victoria"),
-  st_sfc(st_point(c(-90.1994, 38.6570)), 
-         st_point(c(-123.3565, 48.4284)), 
-         crs = 4326)
-)
-
-ggplot() + 
-  geom_sf(data = na) +
-  geom_sf(data = ms_simplify(bc, keep = 0.1), fill = "#a0d080") +
-  geom_sf(data = cities, size = 4) + 
-  geom_sf_text(aes(label = name), data = cities, 
-               nudge_x = -900000, nudge_y = -100000, 
-               size = 10, colour = c("black", "white")) +
-  coord_sf(xlim = c(-4000000, 2989998))
-```
-]
 
 ---
 
@@ -205,10 +219,6 @@ background-size: cover
 
 
 ???
-- British Columbia is really big (almost 1M sq km)
-- Lots of data
-- Group I work in analyses & reports on status and trends of BC's environment
-- Heavy users of BCgov data, heavy proponents of open data and open science
 - Thousands of data sets, mostly under an open license
 - tabular and spatial
 
@@ -254,12 +264,12 @@ Data BC provides important APIs:
   - search and query data in the catalogue
 - Web mapping service
   - download spatial data 
-    - image overlay (WMS) OR the features themselves as points, lines, polygons (WFS)
-    - most warehouse objects with public record in the catalogue
+    - image overlay (WMS) AND
+    - most importantly the features themselves as points, lines, polygons (WFS)
+      - powerful and flexible service for distributing geographic features over the web
+      supports both spatial and non-spatial querying via REST API
 
 ---
-
-
 
 class: middle
 
@@ -280,26 +290,26 @@ class: middle
 
 ???
   
-  - As with most FOSS projects, initially made to solve personal problem, 
+- As with many FOSS projects, initially made to solve personal problem, 
 and several people had the same problem
 - Solve (shared) friction point of manual searching and downloading data from BCDC
 and getting it into R
-- conversation
+- Collaboration
+- first R package sat in a room with a whiteboard and mapped out desired functionality and syntax
+- Great approach
+- Think landed in a good place
 
 ---
 class: inverse, middle
 
-.wide-left[
-<br/>
-- **`bcdc_browse()`** 
-  - Open the catalogue
+.large.wide-left[
 - **`bcdc_search()`** 
   - Search catalogue records
 - **`bcdc_get_record()`** 
   - Print a catalogue record
-- .large[**`bcdc_get_data()`**]
+- .Large[**`bcdc_get_data()`**]
   - Get catalogue data
-- .large[**`bcdc_query_geodata()`**]
+- .Large[**`bcdc_query_geodata()`**]
   - Query B.C. geospatial data
 ]
 
@@ -310,16 +320,12 @@ class: inverse, middle
 
 ???
 
-- Collaboration
-- first R package - sat in a room with a whiteboard and mapped out desired functionality and syntax
-- Great approach
-- Think landed in a good place
 - **Today focus on _getting_ data**
 
 ---
-exclude: false
+exclude: true
 
-## `bcdc_search()`
+# `bcdc_search()`
 
 ```{r}
 library(bcdata)
@@ -327,26 +333,23 @@ bcdc_search("school programs")
 ```
 
 ---
-exclude: false
 
-## `bcdc_get_record()`
-
-Get the metadata for a record in the B.C. Data Catalogue
-
-![](img/bc-school-programs.png)
-
+.no-margin[
+!["Image of BC data catalogue record for school programs"](img/schools-record.png)
+]
 ---
-exclude: false
+exclude: true
+
+# `bcdc_get_record()`
 
 ```{r}
-library(bcdata)
 bcdc_get_record("bc-schools-programs-offered-in-schools")
 ```
 
 ---
 exclude: false
 
-## `bcdc_get_data()` - tabular data
+# `bcdc_get_data()` - tabular data
 
 ```r
 bcdc_get_data(
@@ -370,7 +373,7 @@ bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524',
 
 ---
 
-## `bcdc_get_data()` - spatial data
+# `bcdc_get_data()` - spatial data
 
 ```{r}
 ferries <- bcdc_get_data("ferry-terminals", 
@@ -385,7 +388,7 @@ geom_sf(data = ferries,
 ```
 ]
 
-.pull-right[
+.pull-right.no-margin[
 ```{r echo=FALSE, fig.height=7}
 gg_bc() + 
   geom_sf(data = ferries, 
@@ -395,7 +398,7 @@ gg_bc() +
 
 ---
 
-## Query spatial data with `bcdc_query_geodata()`
+# Query spatial data with `bcdc_query_geodata()`
 
 ```{r, eval=FALSE}
 bcdc_query_geodata(
@@ -425,7 +428,7 @@ some additional information
 
 ---
 
-## Select columns with `select()`
+# Select columns with `select()`
 
 ```{r, eval=FALSE}
 bcdc_query_geodata(
@@ -434,6 +437,11 @@ bcdc_query_geodata(
   select(ADMIN_AREA_ABBREVIATION, #<<
          ADMIN_AREA_GROUP_NAME) #<<
 ```
+
+.large[**tidyselect** helpers work:
+
+.center[`starts_with()`, `matches()`, `one_of()` etc.]
+]
 
 ???
   
@@ -458,7 +466,7 @@ Some sticky columns always come along for the ride
 
 ---
 
-## Filter rows (features) with `filter()`
+# Filter rows (features) with `filter()`
   
 ```{r, eval=FALSE}
 bcdc_query_geodata(
@@ -470,6 +478,8 @@ bcdc_query_geodata(
     ADMIN_AREA_GROUP_NAME == "Capital Regional District" #<<
   ) #<<
 ```
+
+.large[.center[`==`, `!=`, `>`, `<`, `between()`, `%in%`, `is.na()`, etc.]]
 
 ---
 
@@ -486,10 +496,9 @@ hack_print({
 })
 ```
 
-
 ---
   
-## Finally, get the data with `collect()`
+# Finally, get the data with `collect()`
 
 
 ```{r, cache=TRUE}
@@ -505,6 +514,10 @@ crd_mun <- bcdc_query_geodata(
   collect() #<<
 ```
 
+???
+
+- Same as dbplyr
+
 ---
 ```{r}
 class(crd_mun)
@@ -518,11 +531,10 @@ crd_mun <- ms_simplify(crd_mun) %>% st_make_valid()
 
 ???
 
-Now we have a real sf object we can work with that has
+- Now we have a real sf object we can work with that has
 just the rows and columns we asked for
 
 ---
-
 
 ```{r fig.align="center", fig.height=6}
 ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) + 
@@ -530,22 +542,42 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
   scale_fill_viridis_d()
 ```
 
-
 ---
   
-## Let's find the greenspaces within the CRD
+# `filter()` with *geometric* predicates
 
 In addition to normal logical predicates
-(`==`, `!=`, `>`, `<`, `%in%`, etc.),
-`filter()` can take *geometric predicates*:
   
-`EQUALS`, `DISJOINT`, `INTERSECTS`, `TOUCHES`, 
-`CROSSES`, `WITHIN`, `CONTAINS`, `OVERLAPS`, 
-`DWITHIN`, `BBOX`
+.pull-left[
+.right[
+`EQUALS()`
+
+`DISJOINT()`
+
+`INTERSECTS()`
+
+`TOUCHES()`
+
+`CROSSES()`
+]
+]
+
+.pull-right[
+`WITHIN()`
+
+`CONTAINS()`
+
+`OVERLAPS()`
+
+`DWITHIN()`
+
+`BBOX()`
+]
+
 
 ---
   
-## Let's get the greenspaces within the CRD
+# Find the greenspaces within the CRD
 
 ```{r, cache=TRUE}
 crd_greenspaces <- bcdc_query_geodata(
@@ -579,26 +611,33 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 ---
 
+# bcdata
 
-
+- Programmatic access to thousands of data sets from the B.C. Data Catalogue
+- Novel interface to a WFS service
+- Familiar dplyr/dbplyr syntax
+- Perform spatial and non-spatial queries
+- processing on the server - only download what you need
 
 ---
 
-
-## Kudos
+# Kudos
 
 .large.wide-right[
+- Collaborators Sam Albers and Stephanie Hazlitt
 - BC Data Catalogue Team
-
-- Our employer for giving us time/space for innovation and collaboration
-  ]
-  
+- Our employers for encouraging innovation and collaboration
+]
 
 .wide-left[
   <img src="https://media.giphy.com/media/1Z02vuppxP1Pa/giphy.gif" width=600px/>
-    ]
+]
     
 ---
+
+.left-column[
+  <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" />
+]
 
 .right-column[
 - Install from CRAN:
@@ -609,10 +648,11 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
  - https://github.com/bcgov/bcdata/issues
 - Slides:
  - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-07-UseR2020-bcdata/2020-07-UseR2020-bcdata.html
-  ]
+]
 
-.left-column[
-  <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" />
-    ]
+[@andyteucher](https://twitter.com/andyteucher) 
 
+[@big_bad_sam](https://twitter.com/big_bad_sam) 
+
+[@stephhazlitt](https://twitter.com/stephhazlitt)
 
