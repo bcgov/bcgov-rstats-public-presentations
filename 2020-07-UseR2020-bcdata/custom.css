@@ -55,7 +55,7 @@ h3 {
 }
 
 .remark-slide-content {
-  font-size: 24pt;
+  font-size: 26pt;
   padding-right: 2em;
   padding-left: 2em;
 }
@@ -101,13 +101,18 @@ h3 {
   float: right;
 }
 
-.footnote-right {
-  width: 35%;
+.affiliations {
   float: right;
   text-align: center;
-  font-size: 80%;
+  font-size: 70%;
 }
 
-.no-margin p {
+.affiliations p {
+  margin-top: 0;
+}
+
+.no-margin p, .no-margin ul {
   margin: 0;
 }
+
+

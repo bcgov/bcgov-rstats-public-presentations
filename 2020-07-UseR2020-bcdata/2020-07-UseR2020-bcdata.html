@@ -33,11 +33,11 @@ class: middle, inverse, no-number
 
 .large.right-title[
 
-Andy Teucher
+Andy Teucher&lt;small&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/small&gt;
 
-Sam Albers
+Sam Albers&lt;small&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/small&gt; 
 
-Stephanie Hazlitt
+Stephanie Hazlitt&lt;small&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/small&gt;
 
 ------
 
@@ -50,8 +50,11 @@ UseR! 2020
 .pull-right[
 ![](img/userlogo_sm.png)
 ]
+]
 
-
+.affiliations[
+1: Ministry of Environment &amp; Climate Change Strategy&amp;nbsp;&amp;nbsp;&amp;nbsp;
+2: Ministry of Citizens' Services
 ]
 
 ---
@@ -414,7 +417,7 @@ to get the data, need to run collect() - like dbplyr.
 ─────────────────────────────────────────────────────────────────────────────────────────────────────
 Simple feature collection with 6 features and 20 fields
 geometry type:  POLYGON
-CRS:            3005
+projected CRS:  NAD83 / BC Albers
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# A tibble: 6 x 21&lt;/span&gt;&lt;span&gt;
   id    LGL_ADMIN_AREA_… ADMIN_AREA_NAME ADMIN_AREA_ABBR… ADMIN_AREA_BOUN…
   &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;           &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;           
@@ -467,7 +470,7 @@ Processing on server
 ─────────────────────────────────────────────────────────────────────────────────────────────────────
 Simple feature collection with 6 features and 5 fields
 geometry type:  POLYGON
-CRS:            3005
+projected CRS:  NAD83 / BC Albers
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# A tibble: 6 x 6&lt;/span&gt;&lt;span&gt;
   id    LGL_ADMIN_AREA_… ADMIN_AREA_ABBR… ADMIN_AREA_GROU… OBJECTID
   &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;               &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt;
@@ -510,7 +513,7 @@ bcdc_query_geodata(
 ─────────────────────────────────────────────────────────────────────────────────────────────────────
 Simple feature collection with 6 features and 5 fields
 geometry type:  MULTIPOLYGON
-CRS:            3005
+projected CRS:  NAD83 / BC Albers
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# A tibble: 6 x 6&lt;/span&gt;&lt;span&gt;
   id    LGL_ADMIN_AREA_… ADMIN_AREA_ABBR… ADMIN_AREA_GROU… OBJECTID
   &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;               &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt;
@@ -547,11 +550,27 @@ crd_mun &lt;- bcdc_query_geodata(
 - Same as dbplyr
 
 ---
-
-```r
-class(crd_mun)
-[1] "bcdc_sf"    "sf"         "tbl_df"     "tbl"        "data.frame"
-```
+&lt;PRE class="fansi fansi-output"&gt;&lt;CODE&gt;Simple feature collection with 13 features and 6 fields
+geometry type:  MULTIPOLYGON
+projected CRS:  NAD83 / BC Albers
+&lt;span style='color: #555555;'&gt;# A tibble: 13 x 7&lt;/span&gt;&lt;span&gt;
+   id    LGL_ADMIN_AREA_… ADMIN_AREA_ABBR… ADMIN_AREA_GROU… FEATURE_AREA_SQM OBJECTID
+ &lt;/span&gt;&lt;span style='color: #555555;'&gt;*&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;                       &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;dbl&amp;gt;&lt;/span&gt;&lt;span&gt;    &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt;
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 1&lt;/span&gt;&lt;span&gt; WHSE…              258 Central Saanich  Capital Regiona…        51&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;696&lt;/span&gt;&lt;span&gt;342.      446
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 2&lt;/span&gt;&lt;span&gt; WHSE…              259 Colwood          Capital Regiona…        21&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;127&lt;/span&gt;&lt;span&gt;590.      447
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 3&lt;/span&gt;&lt;span&gt; WHSE…              260 Esquimalt        Capital Regiona…        10&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;823&lt;/span&gt;&lt;span&gt;121.      448
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 4&lt;/span&gt;&lt;span&gt; WHSE…              261 Highlands        Capital Regiona…        40&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;936&lt;/span&gt;&lt;span&gt;222.      449
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 5&lt;/span&gt;&lt;span&gt; WHSE…              262 Langford         Capital Regiona…        43&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;102&lt;/span&gt;&lt;span&gt;531.      450
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 6&lt;/span&gt;&lt;span&gt; WHSE…              263 Metchosin        Capital Regiona…        77&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;507&lt;/span&gt;&lt;span&gt;974.      451
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 7&lt;/span&gt;&lt;span&gt; WHSE…              264 North Saanich    Capital Regiona…        47&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;028&lt;/span&gt;&lt;span&gt;497.      452
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 8&lt;/span&gt;&lt;span&gt; WHSE…              265 Oak Bay          Capital Regiona…        15&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;719&lt;/span&gt;&lt;span&gt;635.      453
+&lt;/span&gt;&lt;span style='color: #555555;'&gt; 9&lt;/span&gt;&lt;span&gt; WHSE…              266 Saanich          Capital Regiona…       114&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;072&lt;/span&gt;&lt;span&gt;275.      454
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;10&lt;/span&gt;&lt;span&gt; WHSE…              267 Sidney           Capital Regiona…         7&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;298&lt;/span&gt;&lt;span&gt;951.      455
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;11&lt;/span&gt;&lt;span&gt; WHSE…              268 Sooke            Capital Regiona…        68&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;157&lt;/span&gt;&lt;span&gt;826.      456
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;12&lt;/span&gt;&lt;span&gt; WHSE…              269 Victoria         Capital Regiona…        21&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;202&lt;/span&gt;&lt;span&gt;922.      457
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;13&lt;/span&gt;&lt;span&gt; WHSE…              270 View Royal       Capital Regiona…        17&lt;/span&gt;&lt;span style='text-decoration: underline;'&gt;019&lt;/span&gt;&lt;span&gt;662.      458
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;MULTIPOLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
 
 
 
@@ -644,25 +663,28 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 # bcdata
 
+.large[
 - Programmatic access to thousands of data sets from the B.C. Data Catalogue
 - Novel interface to a WFS service
 - Familiar dplyr/dbplyr syntax
 - Perform spatial and non-spatial queries
 - processing on the server - only download what you need
+]
 
 ---
 
-# Kudos
+.pull-left[
+  &lt;img src="https://media.giphy.com/media/26gsjCZpPolPr3sBy/giphy.gif" width=500px/&gt;
+]
 
-.large.wide-right[
-- Collaborators Sam Albers and Stephanie Hazlitt
+.large.pull-right[
+- Collaborators:
+  - Sam Albers 
+  - Stephanie Hazlitt
 - BC Data Catalogue Team
 - Our employers for encouraging innovation and collaboration
 ]
 
-.wide-left[
-  &lt;img src="https://media.giphy.com/media/1Z02vuppxP1Pa/giphy.gif" width=600px/&gt;
-]
     
 ---
 
@@ -673,7 +695,7 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 .right-column[
 - Install from CRAN:
  - `install.packages("bcdata")`
-- Help &amp; documentation:
+- Documentation:
  - https://bcgov.github.io/bcdata
 - Issues/bugs:
  - https://github.com/bcgov/bcdata/issues
@@ -681,12 +703,11 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
  - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-07-UseR2020-bcdata/2020-07-UseR2020-bcdata.html
 ]
 
-[@andyteucher](https://twitter.com/andyteucher) 
-
-[@big_bad_sam](https://twitter.com/big_bad_sam) 
-
+&lt;br/&gt;
+&lt;br/&gt;
+[@andyteucher](https://twitter.com/andyteucher)
+[@big_bad_sam](https://twitter.com/big_bad_sam)
 [@stephhazlitt](https://twitter.com/stephhazlitt)
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

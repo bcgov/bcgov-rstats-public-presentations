@@ -119,11 +119,11 @@ class: middle, inverse, no-number
 
 .large.right-title[
 
-Andy Teucher
+Andy Teucher<small><sup>1</sup></small>
 
-Sam Albers
+Sam Albers<small><sup>2</sup></small> 
 
-Stephanie Hazlitt
+Stephanie Hazlitt<small><sup>2</sup></small>
 
 ------
 
@@ -136,8 +136,11 @@ UseR! 2020
 .pull-right[
 ![](img/userlogo_sm.png)
 ]
+]
 
-
+.affiliations[
+1: Ministry of Environment & Climate Change Strategy&nbsp;&nbsp;&nbsp;
+2: Ministry of Citizens' Services
 ]
 
 ---
@@ -519,8 +522,8 @@ crd_mun <- bcdc_query_geodata(
 - Same as dbplyr
 
 ---
-```{r}
-class(crd_mun)
+```{r echo = FALSE}
+hack_print(crd_mun)
 ```
 
 
@@ -613,25 +616,28 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 # bcdata
 
+.large[
 - Programmatic access to thousands of data sets from the B.C. Data Catalogue
 - Novel interface to a WFS service
 - Familiar dplyr/dbplyr syntax
 - Perform spatial and non-spatial queries
 - processing on the server - only download what you need
+]
 
 ---
 
-# Kudos
+.pull-left[
+  <img src="https://media.giphy.com/media/26gsjCZpPolPr3sBy/giphy.gif" width=500px/>
+]
 
-.large.wide-right[
-- Collaborators Sam Albers and Stephanie Hazlitt
+.large.pull-right[
+- Collaborators:
+  - Sam Albers 
+  - Stephanie Hazlitt
 - BC Data Catalogue Team
 - Our employers for encouraging innovation and collaboration
 ]
 
-.wide-left[
-  <img src="https://media.giphy.com/media/1Z02vuppxP1Pa/giphy.gif" width=600px/>
-]
     
 ---
 
@@ -642,7 +648,7 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 .right-column[
 - Install from CRAN:
  - `install.packages("bcdata")`
-- Help & documentation:
+- Documentation:
  - https://bcgov.github.io/bcdata
 - Issues/bugs:
  - https://github.com/bcgov/bcdata/issues
@@ -650,9 +656,8 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
  - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-07-UseR2020-bcdata/2020-07-UseR2020-bcdata.html
 ]
 
-[@andyteucher](https://twitter.com/andyteucher) 
-
-[@big_bad_sam](https://twitter.com/big_bad_sam) 
-
+<br/>
+<br/>
+[@andyteucher](https://twitter.com/andyteucher)
+[@big_bad_sam](https://twitter.com/big_bad_sam)
 [@stephhazlitt](https://twitter.com/stephhazlitt)
-
