@@ -57,10 +57,11 @@ UseR! 2020
 2: Ministry of Citizens' Services
 ]
 
----
+???
 
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
-background-size: cover
+- tell you about our newest package bcdata
+- for retrieving public data from British Columbia data repositories, 
+especially spatial data
 
 ---
 
@@ -77,7 +78,7 @@ background-size: cover
 - Lots of data
 - I work in Ministry of Environment and Climate Change Strategy
 - Group I work in analyses &amp; reports on status and trends of BC's environment
-- Heavy users of BCgov data, heavy proponents of open data and open science
+- Big proponents of open data and open science
 
 ---
 
@@ -86,6 +87,12 @@ background-size: cover
 !["Data Science Workflow diagram"](img/data-science-workflow.png)
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
+
+???
+
+- "Program" is the important part
+Writing all of the steps in code makes it reproducible
+
 ---
 
 # !(Reproducible data science)
@@ -96,6 +103,8 @@ background-size: cover
 
 
 ???
+
+- All too often data is not easily available for programmatic import
 
 If the data acquisition step is manual then collaborators, reviewers, etc can't import, 
 and the entire workflow is not reproducible
@@ -110,6 +119,10 @@ background-size: cover
 
 # The B.C. Data catalogue
 
+???
+
+- introduce
+
 ---
 
 background-image: url(img/data-catalogue.png)
@@ -117,6 +130,7 @@ background-size: cover
 
 
 ???
+
 - Thousands of data sets, mostly under an open license
 - tabular and spatial
 
@@ -128,14 +142,11 @@ background-size: cover
 
 ???
 
-BCGW Data Distribution Service
+If you want to work with data you can point and click and 
+download all sorts
 
 Very handy, can download large spatial data files
 Can specify projections and Area of Interest
-
-- Still a manual process
-- GUI
-- Can't be scripted, not repeatable
 
 
 ---
@@ -146,6 +157,11 @@ class: inverse
 
 ## Not getting the data through code breaks the reproducibility
 
+???
+
+- Still a manual process
+- GUI
+- Can't be scripted, not repeatable
 
 ---
 
@@ -155,9 +171,9 @@ class: inverse
 
 ???
 
-APIs
+Luckly also APIs
 
-Data BC provides important APIs:
+Data BC provides two important APIs:
 - the catalogue
   - search and query data in the catalogue
 - Web mapping service
@@ -193,9 +209,6 @@ and several people had the same problem
 - Solve (shared) friction point of manual searching and downloading data from BCDC
 and getting it into R
 - Collaboration
-- first R package sat in a room with a whiteboard and mapped out desired functionality and syntax
-- Great approach
-- Think landed in a good place
 
 ---
 class: inverse, middle
@@ -218,7 +231,7 @@ class: inverse, middle
 
 ???
 
-- **Today focus on _getting_ data**
+- Today focus on _getting_ data
 
 ---
 exclude: true
@@ -231,7 +244,7 @@ library(bcdata)
 bcdc_search("school programs")
 List of B.C. Data Catalogue Records
 
-Number of records: 26 (Showing the top 10)
+Number of records: 27 (Showing the top 10)
 Titles:
 1: BC Schools - Programs Offered in Schools (txt, xlsx)
  ID: b1f27d1c-244a-410e-a361-931fac62a524
@@ -257,12 +270,12 @@ Titles:
 8: Graduate Tuition Fees for Arts Programs at B.C. Public Post-Secondary Institutions (xls, csv)
  ID: 522b4fac-8030-4ea8-ada8-aeb4b85c7658
  Name: graduate-tuition-fees-for-arts-programs-at-b-c-public-post-secondary-institutions
-9: International Tuition Fees at Public Post-Secondary Institutions by Economic Development Region (xlsx, csv)
+9: Mandatory Fees at Public Post-Secondary Institutions by Economic Development Region (xlsx, csv)
+ ID: e4d0558d-0269-4377-9a92-3bc0ab4054d2
+ Name: mandatory-fees-at-public-post-secondary-institutions-by-economic-development-region
+10: International Tuition Fees at Public Post-Secondary Institutions by Economic Development Region (xlsx, csv)
  ID: 6e317257-54fe-44d1-89a6-1fcd81f5a484
- Name: international-tuition-fees-at-public-post-secondary-institutions-by-economic-development-region
-10: Welcome BC Settlement Service Providers - Interactive Web Map Data (xls, csv)
- ID: 5d544eb3-cb2c-4204-bd8d-452341e52c8b
- Name: welcome-bc-settlement-service-providers-interactive-web-map-data 
+ Name: international-tuition-fees-at-public-post-secondary-institutions-by-economic-development-region 
 
 Access a single record by calling bcdc_get_record(ID)
       with the ID from the desired record.
@@ -273,6 +286,9 @@ Access a single record by calling bcdc_get_record(ID)
 .no-margin[
 !["Image of BC data catalogue record for school programs"](img/schools-record.png)
 ]
+
+???
+
 ---
 exclude: true
 
@@ -308,6 +324,8 @@ You can access the 'Resources' data frame using bcdc_tidy_resources()
 
 &lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
+
+???
 
 ---
 exclude: false
@@ -370,7 +388,11 @@ bcdc_get_data(
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+???
+
 ---
+
+exclude: true
 
 # `bcdc_get_data()` - spatial data
 
@@ -393,6 +415,8 @@ geom_sf(data = ferries,
 ![](graphics/prod/figsunnamed-chunk-8-1.png)&lt;!-- --&gt;
 ]
 
+???
+
 ---
 
 # Query spatial data with `bcdc_query_geodata()`
@@ -406,6 +430,15 @@ bcdc_query_geodata(
 
 ???
 
+- WFS: 
+  - standard for accessing geospatial data over the web
+  - offers direct fine-grained access to geographic information at the feature and feature property level
+  - https://www.ogc.org/standards/wfs
+  - Implemented by Geoserver (http://geoserver.org/)
+  - very flexible interface allowing non-spatial and spatial querying
+  - means processing is done on the server and you can query and download just 
+  what you need
+
 Object returned here is not the data itself, but a "promise"
 to get the data, need to run collect() - like dbplyr.
 
@@ -416,22 +449,22 @@ to get the data, need to run collect() - like dbplyr.
 ● At most six rows of the record are printed here
 ─────────────────────────────────────────────────────────────────────────────────────────────────────
 Simple feature collection with 6 features and 20 fields
-geometry type:  POLYGON
+geometry type:  MULTIPOLYGON
 projected CRS:  NAD83 / BC Albers
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# A tibble: 6 x 21&lt;/span&gt;&lt;span&gt;
   id    LGL_ADMIN_AREA_… ADMIN_AREA_NAME ADMIN_AREA_ABBR… ADMIN_AREA_BOUN…
   &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;           &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;           
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;1&lt;/span&gt;&lt;span&gt; WHSE…               63 The Corporatio… Dawson Creek     Legal           
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;2&lt;/span&gt;&lt;span&gt; WHSE…               64 City of Fort S… Fort St John     Legal           
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;3&lt;/span&gt;&lt;span&gt; WHSE…               65 District of Hu… Hudson's Hope    Legal           
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;4&lt;/span&gt;&lt;span&gt; WHSE…               66 The Corporatio… Pouce Coupe      Legal           
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;5&lt;/span&gt;&lt;span&gt; WHSE…               67 District of Ta… Taylor           Legal           
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;6&lt;/span&gt;&lt;span&gt; WHSE…               73 Village of Que… Queen Charlotte  Legal           
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;1&lt;/span&gt;&lt;span&gt; WHSE…               84 District of La… Lake Country     Legal           
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;2&lt;/span&gt;&lt;span&gt; WHSE…               85 The Corporatio… Peachland        Legal           
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;3&lt;/span&gt;&lt;span&gt; WHSE…               86 City of West K… West Kelowna     Legal           
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;4&lt;/span&gt;&lt;span&gt; WHSE…               90 City of Abbots… Abbotsford       Legal           
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;5&lt;/span&gt;&lt;span&gt; WHSE…               91 City of Chilli… Chilliwack       Legal           
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;6&lt;/span&gt;&lt;span&gt; WHSE…               92 Village of Har… Harrison Hot Sp… Legal           
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 16 more variables: ADMIN_AREA_GROUP_NAME &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, CHANGE_REQUESTED_ORG &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;,&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;#   UPDATE_TYPE &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, WHEN_UPDATED &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;date&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, MAP_STATUS &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, OIC_MO_NUMBER &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;,&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;#   OIC_MO_YEAR &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, OIC_MO_TYPE &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, WEBSITE_URL &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, IMAGE_URL &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;,&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;#   AFFECTED_ADMIN_AREA_ABRVN &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, FEATURE_AREA_SQM &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;dbl&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, FEATURE_LENGTH_M &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;dbl&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;,&lt;/span&gt;&lt;span&gt;
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;#   OBJECTID &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, SE_ANNO_CAD_DATA &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;POLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;#   OBJECTID &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, SE_ANNO_CAD_DATA &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span style='color: #555555;'&gt;, geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;MULTIPOLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
 
 ???
@@ -469,18 +502,18 @@ Processing on server
 ● At most six rows of the record are printed here
 ─────────────────────────────────────────────────────────────────────────────────────────────────────
 Simple feature collection with 6 features and 5 fields
-geometry type:  POLYGON
+geometry type:  MULTIPOLYGON
 projected CRS:  NAD83 / BC Albers
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# A tibble: 6 x 6&lt;/span&gt;&lt;span&gt;
   id    LGL_ADMIN_AREA_… ADMIN_AREA_ABBR… ADMIN_AREA_GROU… OBJECTID
   &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;               &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt;
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;1&lt;/span&gt;&lt;span&gt; WHSE…               63 Dawson Creek     Peace River Reg…      345
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;2&lt;/span&gt;&lt;span&gt; WHSE…               64 Fort St John     Peace River Reg…      346
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;3&lt;/span&gt;&lt;span&gt; WHSE…               65 Hudson's Hope    Peace River Reg…      347
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;4&lt;/span&gt;&lt;span&gt; WHSE…               66 Pouce Coupe      Peace River Reg…      348
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;5&lt;/span&gt;&lt;span&gt; WHSE…               67 Taylor           Peace River Reg…      349
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;6&lt;/span&gt;&lt;span&gt; WHSE…               73 Queen Charlotte  North Coast Reg…      350
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;POLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;1&lt;/span&gt;&lt;span&gt; WHSE…               84 Lake Country     Regional Distri…      676
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;2&lt;/span&gt;&lt;span&gt; WHSE…               85 Peachland        Regional Distri…      677
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;3&lt;/span&gt;&lt;span&gt; WHSE…               86 West Kelowna     Regional Distri…      678
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;4&lt;/span&gt;&lt;span&gt; WHSE…               90 Abbotsford       Fraser Valley R…      679
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;5&lt;/span&gt;&lt;span&gt; WHSE…               91 Chilliwack       Fraser Valley R…      680
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;6&lt;/span&gt;&lt;span&gt; WHSE…               92 Harrison Hot Sp… Fraser Valley R…      681
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;MULTIPOLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
 
 ???
@@ -505,6 +538,8 @@ bcdc_query_geodata(
 
 .large[.center[`==`, `!=`, `&gt;`, `&lt;`, `between()`, `%in%`, `is.na()`, etc.]]
 
+???
+
 ---
 
 &lt;PRE class="fansi fansi-output"&gt;&lt;CODE&gt;Querying &lt;span style='color: #BB0000;'&gt;'municipalities-legally-defined-admin...'&lt;/span&gt;&lt;span&gt; record
@@ -517,14 +552,16 @@ projected CRS:  NAD83 / BC Albers
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# A tibble: 6 x 6&lt;/span&gt;&lt;span&gt;
   id    LGL_ADMIN_AREA_… ADMIN_AREA_ABBR… ADMIN_AREA_GROU… OBJECTID
   &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;            &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;chr&amp;gt;&lt;/span&gt;&lt;span&gt;               &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;int&amp;gt;&lt;/span&gt;&lt;span&gt;
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;1&lt;/span&gt;&lt;span&gt; WHSE…              258 Central Saanich  Capital Regiona…      446
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;2&lt;/span&gt;&lt;span&gt; WHSE…              259 Colwood          Capital Regiona…      447
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;3&lt;/span&gt;&lt;span&gt; WHSE…              260 Esquimalt        Capital Regiona…      448
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;4&lt;/span&gt;&lt;span&gt; WHSE…              261 Highlands        Capital Regiona…      449
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;5&lt;/span&gt;&lt;span&gt; WHSE…              262 Langford         Capital Regiona…      450
-&lt;/span&gt;&lt;span style='color: #555555;'&gt;6&lt;/span&gt;&lt;span&gt; WHSE…              263 Metchosin        Capital Regiona…      451
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;1&lt;/span&gt;&lt;span&gt; WHSE…              258 Central Saanich  Capital Regiona…      766
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;2&lt;/span&gt;&lt;span&gt; WHSE…              259 Colwood          Capital Regiona…      767
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;3&lt;/span&gt;&lt;span&gt; WHSE…              260 Esquimalt        Capital Regiona…      768
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;4&lt;/span&gt;&lt;span&gt; WHSE…              261 Highlands        Capital Regiona…      769
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;5&lt;/span&gt;&lt;span&gt; WHSE…              262 Langford         Capital Regiona…      770
+&lt;/span&gt;&lt;span style='color: #555555;'&gt;6&lt;/span&gt;&lt;span&gt; WHSE…              263 Metchosin        Capital Regiona…      771
 &lt;/span&gt;&lt;span style='color: #555555;'&gt;# … with 1 more variable: geometry &lt;/span&gt;&lt;span style='color: #555555;font-style: italic;'&gt;&amp;lt;MULTIPOLYGON [m]&amp;gt;&lt;/span&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/CODE&gt;&lt;/PRE&gt;
+
+???
 
 ---
   
@@ -591,6 +628,8 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 &lt;img src="graphics/prod/figsunnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
+???
+
 ---
   
 # `filter()` with *geometric* predicates
@@ -623,6 +662,7 @@ In addition to normal logical predicates
 `BBOX()`
 ]
 
+???
 
 ---
   
@@ -659,6 +699,8 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 
 &lt;img src="graphics/prod/figsunnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
+???
+
 ---
 
 # bcdata
@@ -670,6 +712,10 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 - Perform spatial and non-spatial queries
 - processing on the server - only download what you need
 ]
+
+???
+
+- next steps - standalone wfs package use with other WFS services
 
 ---
 
@@ -685,6 +731,7 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 - Our employers for encouraging innovation and collaboration
 ]
 
+???
     
 ---
 
@@ -708,6 +755,8 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 [@andyteucher](https://twitter.com/andyteucher)
 [@big_bad_sam](https://twitter.com/big_bad_sam)
 [@stephhazlitt](https://twitter.com/stephhazlitt)
+
+???
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

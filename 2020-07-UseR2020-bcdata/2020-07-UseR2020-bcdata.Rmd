@@ -143,10 +143,11 @@ UseR! 2020
 2: Ministry of Citizens' Services
 ]
 
----
+???
 
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d5/British_Columbia_Parliament_Building%2C_Victoria%2C_British_Columbia%2C_Canada.jpg)
-background-size: cover
+- tell you about our newest package bcdata
+- for retrieving public data from British Columbia data repositories, 
+especially spatial data
 
 ---
 
@@ -182,7 +183,7 @@ ggplot() +
 - Lots of data
 - I work in Ministry of Environment and Climate Change Strategy
 - Group I work in analyses & reports on status and trends of BC's environment
-- Heavy users of BCgov data, heavy proponents of open data and open science
+- Big proponents of open data and open science
 
 ---
 
@@ -191,6 +192,12 @@ ggplot() +
 !["Data Science Workflow diagram"](img/data-science-workflow.png)
 
 .footnote[https://rstudio-education.github.io/tidyverse-cookbook/]
+
+???
+
+- "Program" is the important part
+Writing all of the steps in code makes it reproducible
+
 ---
 
 # !(Reproducible data science)
@@ -201,6 +208,8 @@ ggplot() +
 
 
 ???
+
+- All too often data is not easily available for programmatic import
 
 If the data acquisition step is manual then collaborators, reviewers, etc can't import, 
 and the entire workflow is not reproducible
@@ -215,6 +224,10 @@ background-size: cover
 
 # The B.C. Data catalogue
 
+???
+
+- introduce
+
 ---
 
 background-image: url(img/data-catalogue.png)
@@ -222,6 +235,7 @@ background-size: cover
 
 
 ???
+
 - Thousands of data sets, mostly under an open license
 - tabular and spatial
 
@@ -233,14 +247,11 @@ background-size: cover
 
 ???
 
-BCGW Data Distribution Service
+If you want to work with data you can point and click and 
+download all sorts
 
 Very handy, can download large spatial data files
 Can specify projections and Area of Interest
-
-- Still a manual process
-- GUI
-- Can't be scripted, not repeatable
 
 
 ---
@@ -251,6 +262,11 @@ class: inverse
 
 ## Not getting the data through code breaks the reproducibility
 
+???
+
+- Still a manual process
+- GUI
+- Can't be scripted, not repeatable
 
 ---
 
@@ -260,9 +276,9 @@ class: inverse
 
 ???
 
-APIs
+Luckly also APIs
 
-Data BC provides important APIs:
+Data BC provides two important APIs:
 - the catalogue
   - search and query data in the catalogue
 - Web mapping service
@@ -298,9 +314,6 @@ and several people had the same problem
 - Solve (shared) friction point of manual searching and downloading data from BCDC
 and getting it into R
 - Collaboration
-- first R package sat in a room with a whiteboard and mapped out desired functionality and syntax
-- Great approach
-- Think landed in a good place
 
 ---
 class: inverse, middle
@@ -323,7 +336,7 @@ class: inverse, middle
 
 ???
 
-- **Today focus on _getting_ data**
+- Today focus on _getting_ data
 
 ---
 exclude: true
@@ -340,6 +353,9 @@ bcdc_search("school programs")
 .no-margin[
 !["Image of BC data catalogue record for school programs"](img/schools-record.png)
 ]
+
+???
+
 ---
 exclude: true
 
@@ -348,6 +364,8 @@ exclude: true
 ```{r}
 bcdc_get_record("bc-schools-programs-offered-in-schools")
 ```
+
+???
 
 ---
 exclude: false
@@ -374,7 +392,11 @@ bcdc_get_data(record = 'b1f27d1c-244a-410e-a361-931fac62a524',
   knitr::kable(format = "html")
 ```
 
+???
+
 ---
+
+exclude: true
 
 # `bcdc_get_data()` - spatial data
 
@@ -399,6 +421,8 @@ gg_bc() +
 ```
 ]
 
+???
+
 ---
 
 # Query spatial data with `bcdc_query_geodata()`
@@ -410,6 +434,15 @@ bcdc_query_geodata(
 ```
 
 ???
+
+- WFS: 
+  - standard for accessing geospatial data over the web
+  - offers direct fine-grained access to geographic information at the feature and feature property level
+  - https://www.ogc.org/standards/wfs
+  - Implemented by Geoserver (http://geoserver.org/)
+  - very flexible interface allowing non-spatial and spatial querying
+  - means processing is done on the server and you can query and download just 
+  what you need
 
 Object returned here is not the data itself, but a "promise"
 to get the data, need to run collect() - like dbplyr.
@@ -484,6 +517,8 @@ bcdc_query_geodata(
 
 .large[.center[`==`, `!=`, `>`, `<`, `between()`, `%in%`, `is.na()`, etc.]]
 
+???
+
 ---
 
 ```{r, cache=FALSE, echo=FALSE}
@@ -498,6 +533,8 @@ hack_print({
   )
 })
 ```
+
+???
 
 ---
   
@@ -545,6 +582,8 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
   scale_fill_viridis_d()
 ```
 
+???
+
 ---
   
 # `filter()` with *geometric* predicates
@@ -577,6 +616,7 @@ In addition to normal logical predicates
 `BBOX()`
 ]
 
+???
 
 ---
   
@@ -612,6 +652,8 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
   geom_sf(data = crd_greenspaces, fill = "darkolivegreen")
 ```
 
+???
+
 ---
 
 # bcdata
@@ -623,6 +665,10 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 - Perform spatial and non-spatial queries
 - processing on the server - only download what you need
 ]
+
+???
+
+- next steps - standalone wfs package use with other WFS services
 
 ---
 
@@ -638,6 +684,7 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 - Our employers for encouraging innovation and collaboration
 ]
 
+???
     
 ---
 
@@ -661,3 +708,5 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 [@andyteucher](https://twitter.com/andyteucher)
 [@big_bad_sam](https://twitter.com/big_bad_sam)
 [@stephhazlitt](https://twitter.com/stephhazlitt)
+
+???

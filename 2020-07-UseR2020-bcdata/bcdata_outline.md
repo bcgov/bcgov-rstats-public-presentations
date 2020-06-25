@@ -6,7 +6,7 @@
   - many records, non-spatial and spatial
   - searchable interface, downloadable by point and click
 
-- but manual download means link between "aquire" and "import" is broken
+- but manual download means link between "acquire" and "import" is broken
 
 - APIs
   - catalogue API
@@ -15,8 +15,6 @@
   - WFS for spatial data
   
 - Catalogue API Demo:
-  - search
-  - bcdc_get_record()
   - bcdc_get_data()
   
 - WFS: 
