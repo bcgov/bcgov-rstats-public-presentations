@@ -1,0 +1,10 @@
+*.RData
+*.rdb
+*.rdx
+data/
+scratch/
+.DS_Store
+2020-07-UseR2020-bcdata_cache
+*.docx
+*.svg
+2020-07-UseR2020-bcdata*.pdf

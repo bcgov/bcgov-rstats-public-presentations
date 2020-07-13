@@ -1,0 +1,118 @@
+pre {
+  /* wrap code instead of scroll */
+  white-space: pre-wrap;
+}
+
+.remark-slide table {
+  font-size: 20pt !important;
+  color: #272822;
+  text-shadow: none;
+}
+
+.remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #FFFFFF; /* white */
+  opacity: 0; /* default: 0.5 */
+}
+
+.footnote {
+	bottom: 1em;
+}
+
+
+.remark-code { font-family: 'Fira Code', 'Fira Code', Monaco, monospace;
+  font-size: 22pt;
+}
+
+.remark-code, .remark-inline-code {
+  color: #0000BB;
+}
+
+body { font-family: 'Palatino Linotype', 'Droid Serif',  'Book Antiqua', 'Palatino', 'Microsoft YaHei', 'Songti SC', serif; }
+
+
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 36pt;
+}
+
+h2 {
+  font-size: 34pt;
+}
+
+h3 {
+  font-size: 32pt;
+}
+
+.large {
+  font-size: 28pt;
+}
+
+.remark-slide-content {
+  font-size: 26pt;
+  padding-right: 2em;
+  padding-left: 2em;
+}
+
+.no-number .remark-slide-number {
+  display: none;
+}
+
+.left-title {
+  color: #777;
+  width: 60%;
+  height: 92%;
+  float: left;
+}
+
+.right-title {
+  width: 35%;
+  float: right;
+  text-align: center;
+  padding-top: 2em;
+}
+
+.right-title p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.wide-left {
+  color: #777;
+  width: 60%;
+  height: 92%;
+  float: left;
+}
+
+.remark-slide .inverse .wide-left, 
+.remark-slide .inverse .wide-right,
+.remark-slide .inverse .remark-inline-code {
+  color: #d6d6d6;
+}
+
+.wide-right {
+  width: 35%;
+  float: right;
+}
+
+.affiliations {
+  float: right;
+  text-align: center;
+  font-size: 70%;
+}
+
+.affiliations p {
+  margin-top: 0;
+}
+
+.no-margin p, .no-margin ul {
+  margin: 0;
+}
+
+
