@@ -25,7 +25,7 @@ To share practices, inspire each other & support continuous learning using [R](h
 
 2020-03-13: [BCStats Data Science (University of Victoria; Julie Hawkins, Martin Monkman & Stephanie Yurchak)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2020-03-13_UVic_Matrix)
 
-2019-11-27: [bcdata package (B.C. Gis Community of Pracice; Andy Teucher)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2019-11-27_bcdata_GIS_CoP_F2F)
+2019-11-27: [bcdata package (B.C. GIS Community of Pracice; Andy Teucher)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2019-11-27_bcdata_GIS_CoP_F2F)
 
 2018-05-15: [R in BCStats (StatCan Economics Statistics Forum; Martin Monkman)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-05-15_StatCan_EconStatsForum)
 
