@@ -689,7 +689,12 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
 ---
 
 .left-column[
-  <img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" />
+<img src="https://github.com/bcgov/bcdata/raw/master/inst/sticker/bcdata.png" width=600px alt="bcdata" />
+
+<br/>
+[@andyteucher](https://twitter.com/andyteucher)
+[@big_bad_sam](https://twitter.com/big_bad_sam)
+[@stephhazlitt](https://twitter.com/stephhazlitt)
 ]
 
 .right-column[
@@ -703,10 +708,5 @@ ggplot(crd_mun, aes(fill = ADMIN_AREA_ABBREVIATION)) +
  - https://bcgov.github.io/bcgov-rstats-public-presentations/2020-07-UseR2020-bcdata/2020-07-UseR2020-bcdata.html
 ]
 
-<br/>
-<br/>
-[@andyteucher](https://twitter.com/andyteucher)
-[@big_bad_sam](https://twitter.com/big_bad_sam)
-[@stephhazlitt](https://twitter.com/stephhazlitt)
 
 ???
