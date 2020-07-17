@@ -19,10 +19,19 @@ To share practices, inspire each other & support continuous learning using [R](h
 
 ### Presentations
 
+2020-07: [bcdata package (UseR!2020; Andy Teucher)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2020-07-UseR2020-bcdata)
+
+2020-03-26: [bcdata package (Exchange Lab Lunch and Learn; Sam Albers)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2020-03-26_bcdata_lunch_and_learn)
+
+2020-03-13: [BCStats Data Science (University of Victoria; Julie Hawkins, Martin Monkman & Stephanie Yurchak)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2020-03-13_UVic_Matrix)
+
+2019-11-27: [bcdata package (B.C. Gis Community of Pracice; Andy Teucher)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2019-11-27_bcdata_GIS_CoP_F2F)
+
+2018-05-15: [R in BCStats (StatCan Economics Statistics Forum; Martin Monkman)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-05-15_StatCan_EconStatsForum)
+
 2018-11-05: [UBC GEM 580 lecture (Andy Teucher)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-11-05_UBC_GEM580)
 
 2018-11-07: [EARL Seattle (Martin Monkman)](https://github.com/bcgov/bcgov-rstats-public-presentations/tree/master/2018-11-07_EARL_Seattle)
-
 
 ***
 
