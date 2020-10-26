@@ -1,9 +1,5 @@
-<!-- 
-Add a project state badge
+![img](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
 
-See <https://github.com/BCDevExchange/Our-Project-Docs/blob/master/discussion/projectstates.md> 
-If you have bcgovr installed and you use RStudio, click the 'Insert BCDevex Badge' Addin.
--->
 
 bcgov-rstats-public-presentations
 ============================
