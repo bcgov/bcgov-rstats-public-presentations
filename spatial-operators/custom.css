@@ -1,0 +1,70 @@
+pre {
+  /* wrap code instead of scroll */
+  /* white-space: pre-wrap; */
+}
+
+.remark-slide .inverse thead,
+.remark-slide .inverse tfoot,
+.remark-slide .inverse tr:nth-child(even) {
+  color: #272822;
+  text-shadow: none;
+}
+
+.remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #FFFFFF; /* white */
+  opacity: 0; /* default: 0.5 */
+}
+
+
+.remark-code { font-family: 'Fira Code', 'Fira Code', Monaco, monospace;
+  font-size: 75%;
+}
+
+body { font-family: 'Palatino Linotype', 'Droid Serif',  'Book Antiqua', 'Palatino', 'Microsoft YaHei', 'Songti SC', serif; }
+
+
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
+
+.no-number .remark-slide-number {
+  display: none;
+}
+
+.left-title {
+  color: #777;
+  width: 60%;
+  height: 92%;
+  float: left;
+}
+
+.right-title {
+  width: 35%;
+  float: right;
+  text-align: center;
+  padding-top: 2em;
+}
+
+.wide-left {
+  color: #777;
+  width: 60%;
+  height: 92%;
+  float: left;
+}
+
+.wide-right {
+  width: 35%;
+  float: right;
+  padding-top: 2em;
+}
+
+.footnote-right {
+  width: 35%;
+  float: right;
+  text-align: center;
+  font-size: 80%;
+}
