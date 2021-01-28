@@ -1,0 +1,594 @@
+---
+title: "Introduction to Geometric Predicates and Operators"
+author: "Sam Albers"
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: ["default", "default-fonts", "hygge", "custom.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+# Copyright 2019 Province of British Columbia
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+# http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
+```
+
+background-image: url(background.png)
+background-size: cover
+
+# Introduction to Geometric Predicates and Operators
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+options(width = 90)
+options(max_print = 5)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  #echo = FALSE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE,
+  fig.path = "graphics/prod/figs"
+)
+
+options(scipen = 10)
+```
+
+```{r, pck-load, warning=FALSE, message=FALSE, include = FALSE}
+library(knitr)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(bcdata)
+library(bcmaps)
+library(tmap)
+
+tmap_options(frame = FALSE)
+```
+
+```{r hacks, warning=FALSE, echo=FALSE}
+scale_colour_continuous <- scale_colour_viridis_c
+scale_fill_continuous <- scale_fill_viridis_c
+scale_colour_discrete <- scale_colour_viridis_d
+scale_fill_discrete <- scale_fill_viridis_d
+
+
+# read wrapper functions so slides render and work locally without
+# explicitly using here::here()
+st_read <- function(dsn, layer, ...) {
+  sf::st_read(dsn = here::here(dsn), layer = layer, ...)
+}
+
+read_sf <- function(..., quiet = TRUE, stringsAsFactors = FALSE,
+  as_tibble = TRUE) {
+  st_read(..., quiet = quiet, stringsAsFactors = stringsAsFactors, 
+        as_tibble = as_tibble)
+}
+
+read.csv <- function(file, ...) {
+  utils::read.csv(file = here(file), ...)
+}
+
+theme_set(theme_void())
+```
+
+---
+## Common Spatial Problems
+
+### "Which watersheds were impacted by this fire?"
+
+### "What portion of the electrical grid is within the Lower Fraser Watershed"
+
+---
+
+## Simple Features are:
+
+### A common storage and data model for spatial data
+### Handles points, lines and polygons
+
+## sf package
+
+### "Support for simple features, a standardized way to encode spatial vector data"
+
+### An R package for dealing with spatial data
+
+
+---
+## Review: Spatial Data in R
+
+
+### Loading data with bcdata and bcmaps
+```{r eval=FALSE}
+bcdc_get_data("layer name")
+bcdc_query_geodata("layer name") 
+```
+
+or
+
+```{r eval=FALSE}
+wsc_drainages()
+```
+
+### sf data format
+
+```{r}
+#> Simple feature collection with 1 feature and 1 field
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1036351 ymin: 441199.7 xmax: 1036351 ymax: 441199.7
+#> projected CRS:  NAD83 / BC Albers #<<
+#> # A tibble: 1 x 2
+#>   NAME               geometry
+#>   <chr>           <POINT [m]>
+#> 1 Ucluelet (1036351 441199.7) 
+```
+
+---
+## Review: Spatial Data in R
+
+
+### Loading data with bcdata and bcmaps
+```{r eval=FALSE}
+bcdc_get_data("layer name") 
+bcdc_query_geodata("layer name") 
+```
+
+or 
+
+```{r eval=FALSE}
+wsc_drainages()
+```
+
+### sf data format
+
+```{r}
+#> Simple feature collection with 1 feature and 1 field
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1036351 ymin: 441199.7 xmax: 1036351 ymax: 441199.7
+#> projected CRS:  NAD83 / BC Albers 
+#> # A tibble: 1 x 2
+#>   NAME               geometry
+#>   <chr>           <POINT [m]>
+#> 1 Ucluelet (1036351 441199.7) #<<
+```
+
+
+
+---
+## Grabbing our data
+To illustrate the concepts of spatial operators and predicates we need to first load data into R. 
+```{r, cache=TRUE}
+library(bcdata)
+
+lines <- bcdc_get_data('bc-transmission-lines')
+
+big_fire <- bcdc_query_geodata('fire-perimeters-historical') %>%
+  filter(FIRE_NUMBER %in% c('C10784')) %>% 
+  collect()
+
+library(bcmaps)
+
+bc <- bc_neighbours()
+
+ws <- wsc_drainages() %>% 
+  st_intersection(bc_bound())
+cities <- bc_cities()
+```
+
+
+---
+## Borders, Fires, and Electricity
+
+```{r fig.align="center", out.height = "%100", echo=FALSE, cache=TRUE}
+
+#out.width= "90%", 
+ws_plot <- tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(ws) +
+  tm_fill(col = 'SUB_DRAINAGE_AREA_NAME', alpha = 0.7, legend.show = FALSE, palette = "viridis") +
+  tm_layout(title = "ws (polygons)", title.position = c('left', 'bottom'))
+
+fire_plot <- tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(big_fire) +
+  tm_polygons(col = 'orange', alpha = 0.5) +
+  tm_layout(title = "big_fire (polygons)", title.position = c('left', 'bottom'))
+
+
+lines_plot <- tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(lines) +
+  tm_lines(col = '#FFFF33') +
+  tm_layout(title = "lines (lines)", title.position = c('left', 'bottom'))
+
+city_plot <- tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(cities) +
+  tm_dots(col = "black") +
+  tm_layout(title = "cities (points)", title.position = c('left', 'bottom'))
+
+tmap_arrange(ws_plot, fire_plot, lines_plot, city_plot, nrow = 2)
+
+  
+
+```
+
+
+---
+
+## Using with dplyr with spatial data (Part 1)
+```{r}
+ws %>% 
+  filter(FEATURE_AREA_SQM > 1E10) %>%  ## >10000 KM^2
+  select(SUB_SUB_DRAINAGE_AREA_NAME)
+```
+
+
+---
+## Geometry Predicates
+
+.pull-left[
+- `st_intersects`: touch or overlap
+- `st_disjoint`: !intersects
+- `st_touches`: touch
+- `st_crosses`: cross (don't touch)
+- `st_within`: within
+- `st_contains`: contains
+- `st_overlaps`: overlaps
+- `st_covers`: cover
+- `st_covered_by`: covered by
+- `st_equals`: equals
+- `st_equals_exact`: equals, with some fuzz
+]
+
+.pull-right[
+### Used for subsetting
+### Based on PostGIS
+### Very similar to ESRI naming
+]
+
+
+
+---
+
+## Geometry Predicates - `st_intersects`
+.pull-left[
+### Which watersheds were impacted by this fire?
+
+
+```{r}
+intersects <- ws %>% 
+  st_filter(big_fire, .predicate = st_intersects)
+```
+
+
+```{r, echo=FALSE, cache=TRUE}
+ws_plot2 <- tm_fill(col = 'SUB_SUB_DRAINAGE_AREA_NAME', alpha = 0.7, legend.show = FALSE, palette = "viridis")
+```
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+library(tmap)
+
+tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(intersects) +
+  ws_plot2 +
+  tm_shape(big_fire) +
+  tm_polygons(col = 'orange')
+```
+]
+
+---
+
+## Geometry Predicates - `st_disjoint`
+.pull-left[
+```{r}
+disjoint <- ws %>% 
+  st_filter(big_fire, .predicate = st_disjoint)
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(disjoint) +
+  ws_plot2 +
+  tm_shape(big_fire) +
+  tm_polygons(col = 'orange')
+```
+]
+
+
+---
+
+## Geometry Predicates - `st_contains`
+.pull-left[
+```{r}
+contains <- ws %>% 
+  st_filter(big_fire, .predicate = st_contains)
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(big_fire) +
+  tm_polygons(col = 'orange')
+```
+]
+
+---
+
+## Geometry Predicates - `st_crosses`
+.pull-left[
+```{r}
+crosses <- ws %>% 
+  st_filter(lines, .predicate = st_crosses)
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(crosses) +
+  ws_plot2 +
+  tm_shape(lines) +
+  tm_lines(col = '#FFFF33') 
+```
+]
+
+---
+
+## Geometry Predicates - `st_covered_by`
+.pull-left[
+```{r}
+covered_by <- cities %>% 
+  st_filter(intersects, .predicate = st_covered_by)
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(bc) +
+  tm_polygons(col = 'white') +
+  tm_shape(intersects) +
+  ws_plot2 +
+  tm_shape(covered_by) +
+  tm_dots(size = 0.5) 
+```
+]
+
+---
+## Geometric Predicates - Quiz
+
+The object `intersects` are the polygons that **intersect** the object `big_fire`. We calculated that object in a previous step.
+
+_Filter the `lines` data to only include those power lines that **cross** the watersheds that intersect with the `big_fire` object._
+
+1. `lines %>% filter(intersects)`
+2. `lines %>% st_filter(intersects)`
+3. `intersects %>% st_filter(lines, .predicate = st_crosses)`
+4. `lines %>% st_filter(intersects, .predicate = st_crosses)`
+
+
+---
+## Geometric Operators
+
+.pull-left[
+- `st_union`: combine geometries
+- `st_intersection`: create a new feature over intersecting elements
+- `st_difference`: create a new feature over element differences
+]
+
+.pull-right[
+### Used to _create new spatial data_
+]
+---
+
+## What portion of the electrical grid is within the Lower Fraser Watershed?
+
+.pull-left[
+```{r }
+lower_fraser <- ws %>% 
+  filter(SUB_SUB_DRAINAGE_AREA_NAME == "Lower Fraser - Coast") 
+```
+
+```{r echo=FALSE}
+lower_fraser
+```
+
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(ws) +
+  tm_borders(col = "black") +
+  tm_shape(lower_fraser) +
+  tm_fill(col = "purple", alpha = 0.5)
+```
+]
+
+---
+## Geometric Operators - `st_intersection`
+
+.pull-left[
+```{r}
+lower_fraser_lines <- lines %>% 
+  st_intersection(lower_fraser)
+```
+
+```{r echo=FALSE}
+lower_fraser_lines
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(lower_fraser) +
+  tm_fill(col = "purple", alpha = 0.5) +
+  tm_shape(lower_fraser_lines) +
+  tm_lines(col = '#FFFF33') +
+  tm_shape(ws) +
+  tm_borders(col = "black")
+```
+]
+
+---
+## Geometric Operators - `st_union`
+
+.pull-left[
+```{r eval=FALSE}
+ws
+```
+
+```{r echo=FALSE}
+ws %>% 
+  select(SUB_SUB_DRAINAGE_AREA_NAME)
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+ws %>% 
+  tm_shape() +
+  tm_fill(col = "SUB_DRAINAGE_AREA_NAME", legend.show = FALSE, palette = "viridis") +
+  tm_shape(ws) +
+  tm_borders(col = "black")
+```
+]
+
+---
+## Geometric Operators - `st_union`
+
+.pull-left[
+```{r cache=TRUE}
+ws_union <- st_union(ws)
+```
+
+```{r echo=FALSE}
+ws_union
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+tm_shape(ws_union) +
+  tm_polygons(col = "purple", alpha = 0.5)
+```
+]
+
+---
+## Using with dplyr with spatial data (Part 2)
+
+.pull-left[
+```{r eval=FALSE}
+ws
+```
+
+```{r echo=FALSE}
+ws %>% 
+  select(SUB_SUB_DRAINAGE_AREA_NAME)
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+ws %>% 
+  tm_shape() +
+  tm_fill(col = "SUB_DRAINAGE_AREA_NAME", legend.show = FALSE, palette = "viridis") +
+  tm_shape(ws) +
+  tm_borders(col = "black")
+```
+]
+
+---
+
+## Using with dplyr with spatial data (Part 2)
+
+.pull-left[
+```{r}
+ws_summarised <- ws %>% 
+  group_by(SUB_DRAINAGE_AREA_NAME) %>% 
+  summarise()
+```
+
+```{r, echo=FALSE}
+ws_summarised
+```
+
+]
+
+.pull-right[
+```{r, out.height = "%100", echo=FALSE}
+ws_summarised %>% 
+  tm_shape() +
+  tm_polygons(col = "SUB_DRAINAGE_AREA_NAME", legend.show = FALSE, palette = "viridis")
+```
+]
+
+---
+
+## Geometric Operators - Quiz
+
+_Create a new data set of all power lines in the "Williston Lake" watershed. 
+
+```{r eval=FALSE}
+williston_lake <- ws %>% 
+  filter(SUB_DRAINAGE_AREA_NAME == "Williston Lake")
+williston_lines <- williston_lake %>% 
+  st_intersection(lines)
+```
+
+```{r eval=FALSE}
+williston_lake <- ws %>% 
+  filter(SUB_DRAINAGE_AREA_NAME == "Williston Lake")
+williston_lines <- williston_lake %>% 
+  st_intersects(lines)
+```
+
+```{r eval=FALSE}
+williston_lake <- ws %>% 
+  filter(SUB_DRAINAGE_AREA_NAME == "Williston Lake")
+williston_lines <- lines %>% 
+  st_intersects(williston_lake)
+```
+
+
+---
+## Geometric Predicates and Operators
+
+### Predicates: Subset data
+
+### Operators: Create new data

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to Geometric Predicates and Operators</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sam Albers" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+background-image: url(background.png)
+background-size: cover
+
+# Introduction to Geometric Predicates and Operators
+
+
+
+
+
+
+
+---
+## Common Spatial Problems
+
+### "Which watersheds were impacted by this fire?"
+
+### "What portion of the electrical grid is within the Lower Fraser Watershed"
+
+---
+
+## Simple Features are:
+
+### A common storage and data model for spatial data
+### Handles points, lines and polygons
+
+## sf package
+
+### "Support for simple features, a standardized way to encode spatial vector data"
+
+### An R package for dealing with spatial data
+
+
+---
+## Review: Spatial Data in R
+
+
+### Loading data with bcdata and bcmaps
+
+```r
+bcdc_get_data("layer name")
+bcdc_query_geodata("layer name") 
+```
+
+or
+
+
+```r
+wsc_drainages()
+```
+
+### sf data format
+
+
+```r
+#&gt; Simple feature collection with 1 feature and 1 field
+#&gt; geometry type:  POINT
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 1036351 ymin: 441199.7 xmax: 1036351 ymax: 441199.7
+*#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 1 x 2
+#&gt;   NAME               geometry
+#&gt;   &lt;chr&gt;           &lt;POINT [m]&gt;
+#&gt; 1 Ucluelet (1036351 441199.7) 
+```
+
+---
+## Review: Spatial Data in R
+
+
+### Loading data with bcdata and bcmaps
+
+```r
+bcdc_get_data("layer name") 
+bcdc_query_geodata("layer name") 
+```
+
+or 
+
+
+```r
+wsc_drainages()
+```
+
+### sf data format
+
+
+```r
+#&gt; Simple feature collection with 1 feature and 1 field
+#&gt; geometry type:  POINT
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 1036351 ymin: 441199.7 xmax: 1036351 ymax: 441199.7
+#&gt; projected CRS:  NAD83 / BC Albers 
+#&gt; # A tibble: 1 x 2
+#&gt;   NAME               geometry
+#&gt;   &lt;chr&gt;           &lt;POINT [m]&gt;
+*#&gt; 1 Ucluelet (1036351 441199.7)
+```
+
+
+
+---
+## Grabbing our data
+To illustrate the concepts of spatial operators and predicates we need to first load data into R. 
+
+```r
+library(bcdata)
+
+lines &lt;- bcdc_get_data('bc-transmission-lines')
+
+big_fire &lt;- bcdc_query_geodata('fire-perimeters-historical') %&gt;%
+  filter(FIRE_NUMBER %in% c('C10784')) %&gt;% 
+  collect()
+
+library(bcmaps)
+
+bc &lt;- bc_neighbours()
+
+ws &lt;- wsc_drainages() %&gt;% 
+  st_intersection(bc_bound())
+cities &lt;- bc_cities()
+```
+
+
+---
+## Borders, Fires, and Electricity
+
+&lt;img src="graphics/prod/figsunnamed-chunk-9-1.png" height="%100" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Using with dplyr with spatial data (Part 1)
+
+```r
+ws %&gt;% 
+  filter(FEATURE_AREA_SQM &gt; 1E10) %&gt;%  ## &gt;10000 KM^2
+  select(SUB_SUB_DRAINAGE_AREA_NAME)
+#&gt; Simple feature collection with 67 features and 1 field
+#&gt; geometry type:  GEOMETRY
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 275942.4 ymin: 464442.4 xmax: 1809296 ymax: 1735252
+#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 67 x 2
+#&gt;    SUB_SUB_DRAINAGE_AREA_NAME                                                     geometry
+#&gt;    &lt;chr&gt;                                                                    &lt;GEOMETRY [m]&gt;
+#&gt;  1 Lower Skeena               POLYGON ((688416.6 1059663, 688225.2 1059655, 687998.7 1059~
+#&gt;  2 Lower Skeena               MULTIPOLYGON (((693364.6 1056285, 693207.6 1056269, 692941.~
+#&gt;  3 Lower Skeena               POLYGON ((694600.1 1049864, 694576.7 1049852, 694504.3 1049~
+#&gt;  4 Lower Skeena               MULTIPOLYGON (((722306.2 1036710, 722234.2 1037155, 721852.~
+#&gt;  5 Lower Skeena               POLYGON ((714305.3 1036082, 714203.5 1036084, 713569 103609~
+#&gt;  6 Lower Skeena               MULTIPOLYGON (((694671.8 1021937, 694645.9 1021967, 694288.~
+#&gt;  7 Lower Skeena               POLYGON ((726556.7 1020707, 726449.1 1020653, 726039 102044~
+#&gt;  8 Lower Skeena               MULTIPOLYGON (((700695.8 1017550, 700512.2 1017496, 700360.~
+#&gt;  9 Southern Williston Lake -~ POLYGON ((1244186 1060040, 1244185 1060039, 1244158 1060015~
+#&gt; 10 Upper Peace - Kiskatinaw   POLYGON ((1378421 1175096, 1378333 1175080, 1378362 1174740~
+#&gt; # ... with 57 more rows
+```
+
+
+---
+## Geometry Predicates
+
+.pull-left[
+- `st_intersects`: touch or overlap
+- `st_disjoint`: !intersects
+- `st_touches`: touch
+- `st_crosses`: cross (don't touch)
+- `st_within`: within
+- `st_contains`: contains
+- `st_overlaps`: overlaps
+- `st_covers`: cover
+- `st_covered_by`: covered by
+- `st_equals`: equals
+- `st_equals_exact`: equals, with some fuzz
+]
+
+.pull-right[
+### Used for subsetting
+### Based on PostGIS
+### Very similar to ESRI naming
+]
+
+
+
+---
+
+## Geometry Predicates - `st_intersects`
+.pull-left[
+### Which watersheds were impacted by this fire?
+
+
+
+```r
+intersects &lt;- ws %&gt;% 
+  st_filter(big_fire, .predicate = st_intersects)
+```
+
+
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-13-1.png" height="%100" /&gt;
+]
+
+---
+
+## Geometry Predicates - `st_disjoint`
+.pull-left[
+
+```r
+disjoint &lt;- ws %&gt;% 
+  st_filter(big_fire, .predicate = st_disjoint)
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-15-1.png" height="%100" /&gt;
+]
+
+
+---
+
+## Geometry Predicates - `st_contains`
+.pull-left[
+
+```r
+contains &lt;- ws %&gt;% 
+  st_filter(big_fire, .predicate = st_contains)
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-17-1.png" height="%100" /&gt;
+]
+
+---
+
+## Geometry Predicates - `st_crosses`
+.pull-left[
+
+```r
+crosses &lt;- ws %&gt;% 
+  st_filter(lines, .predicate = st_crosses)
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-19-1.png" height="%100" /&gt;
+]
+
+---
+
+## Geometry Predicates - `st_covered_by`
+.pull-left[
+
+```r
+covered_by &lt;- cities %&gt;% 
+  st_filter(intersects, .predicate = st_covered_by)
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-21-1.png" height="%100" /&gt;
+]
+
+---
+## Geometric Predicates - Quiz
+
+The object `intersects` are the polygons that **intersect** the object `big_fire`. We calculated that object in a previous step.
+
+_Filter the `lines` data to only include those power lines that **cross** the watersheds that intersect with the `big_fire` object._
+
+1. `lines %&gt;% filter(intersects)`
+2. `lines %&gt;% st_filter(intersects)`
+3. `intersects %&gt;% st_filter(lines, .predicate = st_crosses)`
+4. `lines %&gt;% st_filter(intersects, .predicate = st_crosses)`
+
+
+---
+## Geometric Operators
+
+.pull-left[
+- `st_union`: combine geometries
+- `st_intersection`: create a new feature over intersecting elements
+- `st_difference`: create a new feature over element differences
+]
+
+.pull-right[
+### Used to _create new spatial data_
+]
+---
+
+## What portion of the electrical grid is within the Lower Fraser Watershed?
+
+.pull-left[
+
+```r
+lower_fraser &lt;- ws %&gt;% 
+  filter(SUB_SUB_DRAINAGE_AREA_NAME == "Lower Fraser - Coast") 
+```
+
+
+```
+#&gt; Simple feature collection with 2 features and 14 fields
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 1203307 ymin: 446947.3 xmax: 1346304 ymax: 551963.7
+#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 2 x 15
+#&gt;   id    SUB_SUB_DRAINAG~ SUB_SUB_DRAINAG~ SUB_SUB_DRAINAG~ SUB_DRAINAGE_AR~
+#&gt; * &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
+#&gt; 1 WHSE~              128 08MH             Lower Fraser - ~ 08M             
+#&gt; 2 WHSE~              128 08MH             Lower Fraser - ~ 08M             
+#&gt; # ... with 10 more variables: SUB_DRAINAGE_AREA_NAME &lt;chr&gt;, MAJOR_DRAINAGE_AREA_CD &lt;chr&gt;,
+#&gt; #   MAJOR_DRAINAGE_AREA_NAME &lt;chr&gt;, OCEAN_DRAINAGE_AREA_NAME &lt;chr&gt;,
+#&gt; #   FEATURE_AREA_SQM &lt;dbl&gt;, FEATURE_LENGTH_M &lt;dbl&gt;, OBJECTID &lt;int&gt;,
+#&gt; #   SE_ANNO_CAD_DATA &lt;chr&gt;, island &lt;chr&gt;, geometry &lt;POLYGON [m]&gt;
+```
+
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-24-1.png" height="%100" /&gt;
+]
+
+---
+## Geometric Operators - `st_intersection`
+
+.pull-left[
+
+```r
+lower_fraser_lines &lt;- lines %&gt;% 
+  st_intersection(lower_fraser)
+```
+
+
+```
+#&gt; Simple feature collection with 173 features and 24 fields
+#&gt; geometry type:  GEOMETRY
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 1203348 ymin: 447879.6 xmax: 1292417 ymax: 490817.7
+#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 173 x 25
+#&gt;    id    TRANSMISSION_LI~ CIRCUIT_NAME CIRCUIT_DESCRIP~ VOLTAGE OWNER SOURCE_DATE
+#&gt;  * &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;     
+#&gt;  1 WHSE~              307 &lt;NA&gt;         &lt;NA&gt;             &lt;NA&gt;    Unkn~ 2016-12-14 
+#&gt;  2 WHSE~              591 60L060       NEL - Newell -&gt;~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  3 WHSE~              620 5L041        KLY - Kelly Lak~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  4 WHSE~              624 5L081        NIC - Nicola -&gt;~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  5 WHSE~              629 60L015       SFL - Stave Fal~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  6 WHSE~              606 5L052        ING - Ingledow ~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  7 WHSE~              607 5L051        ING - Ingledow ~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  8 WHSE~              608 2L077        CBN - Clayburn ~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt;  9 WHSE~              609 2L078        ALZ - Atchelitz~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt; 10 WHSE~              612 5L045        CKY - Cheekye -~ &lt;NA&gt;    &lt;NA&gt;  2018-12-18 
+#&gt; # ... with 163 more rows, and 18 more variables: FEATURE_LENGTH_M &lt;dbl&gt;, OBJECTID &lt;int&gt;,
+#&gt; #   SE_ANNO_CAD_DATA &lt;chr&gt;, id.1 &lt;chr&gt;, SUB_SUB_DRAINAGE_1M_ID &lt;int&gt;,
+#&gt; #   SUB_SUB_DRAINAGE_AREA_CD &lt;chr&gt;, SUB_SUB_DRAINAGE_AREA_NAME &lt;chr&gt;,
+#&gt; #   SUB_DRAINAGE_AREA_CD &lt;chr&gt;, SUB_DRAINAGE_AREA_NAME &lt;chr&gt;,
+#&gt; #   MAJOR_DRAINAGE_AREA_CD &lt;chr&gt;, MAJOR_DRAINAGE_AREA_NAME &lt;chr&gt;,
+#&gt; #   OCEAN_DRAINAGE_AREA_NAME &lt;chr&gt;, FEATURE_AREA_SQM &lt;dbl&gt;, FEATURE_LENGTH_M.1 &lt;dbl&gt;,
+#&gt; #   OBJECTID.1 &lt;int&gt;, SE_ANNO_CAD_DATA.1 &lt;chr&gt;, island &lt;chr&gt;, geometry &lt;LINESTRING [m]&gt;
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-27-1.png" height="%100" /&gt;
+]
+
+---
+## Geometric Operators - `st_union`
+
+.pull-left[
+
+```r
+ws
+```
+
+
+```
+#&gt; Simple feature collection with 289 features and 1 field
+#&gt; geometry type:  GEOMETRY
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 275942.4 ymin: 368917.1 xmax: 1867410 ymax: 1735252
+#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 289 x 2
+#&gt;    SUB_SUB_DRAINAGE_AREA_~                                                        geometry
+#&gt;    &lt;chr&gt;                                                                    &lt;GEOMETRY [m]&gt;
+#&gt;  1 Lower Nass              POLYGON ((682242.6 1075371, 682252.8 1075385, 682254.2 1075411~
+#&gt;  2 Lower Skeena            POLYGON ((688416.6 1059663, 688225.2 1059655, 687998.7 1059800~
+#&gt;  3 Lower Skeena            MULTIPOLYGON (((693364.6 1056285, 693207.6 1056269, 692941.5 1~
+#&gt;  4 Lower Skeena            POLYGON ((694600.1 1049864, 694576.7 1049852, 694504.3 1049818~
+#&gt;  5 Graham Island           POLYGON ((544481.3 1043611, 544556.3 1043847, 545302.5 1044235~
+#&gt;  6 Lower Skeena            MULTIPOLYGON (((722306.2 1036710, 722234.2 1037155, 721852.5 1~
+#&gt;  7 Lower Skeena            POLYGON ((714305.3 1036082, 714203.5 1036084, 713569 1036093, ~
+#&gt;  8 Graham Island           MULTIPOLYGON (((539643.7 1032990, 539785.3 1033040, 540216.3 1~
+#&gt;  9 Moresby Island          POLYGON ((587567.1 922377.7, 587598.3 922399.5, 587617.5 92238~
+#&gt; 10 Lower Skeena            MULTIPOLYGON (((694671.8 1021937, 694645.9 1021967, 694288.9 1~
+#&gt; # ... with 279 more rows
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-30-1.png" height="%100" /&gt;
+]
+
+---
+## Geometric Operators - `st_union`
+
+.pull-left[
+
+```r
+ws_union &lt;- st_union(ws)
+```
+
+
+```
+#&gt; Geometry set for 1 feature 
+#&gt; geometry type:  MULTIPOLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 275942.4 ymin: 368917.1 xmax: 1867410 ymax: 1735252
+#&gt; projected CRS:  NAD83 / BC Albers
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-33-1.png" height="%100" /&gt;
+]
+
+---
+## Using with dplyr with spatial data (Part 2)
+
+.pull-left[
+
+```r
+ws
+```
+
+
+```
+#&gt; Simple feature collection with 289 features and 1 field
+#&gt; geometry type:  GEOMETRY
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 275942.4 ymin: 368917.1 xmax: 1867410 ymax: 1735252
+#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 289 x 2
+#&gt;    SUB_SUB_DRAINAGE_AREA_~                                                        geometry
+#&gt;    &lt;chr&gt;                                                                    &lt;GEOMETRY [m]&gt;
+#&gt;  1 Lower Nass              POLYGON ((682242.6 1075371, 682252.8 1075385, 682254.2 1075411~
+#&gt;  2 Lower Skeena            POLYGON ((688416.6 1059663, 688225.2 1059655, 687998.7 1059800~
+#&gt;  3 Lower Skeena            MULTIPOLYGON (((693364.6 1056285, 693207.6 1056269, 692941.5 1~
+#&gt;  4 Lower Skeena            POLYGON ((694600.1 1049864, 694576.7 1049852, 694504.3 1049818~
+#&gt;  5 Graham Island           POLYGON ((544481.3 1043611, 544556.3 1043847, 545302.5 1044235~
+#&gt;  6 Lower Skeena            MULTIPOLYGON (((722306.2 1036710, 722234.2 1037155, 721852.5 1~
+#&gt;  7 Lower Skeena            POLYGON ((714305.3 1036082, 714203.5 1036084, 713569 1036093, ~
+#&gt;  8 Graham Island           MULTIPOLYGON (((539643.7 1032990, 539785.3 1033040, 540216.3 1~
+#&gt;  9 Moresby Island          POLYGON ((587567.1 922377.7, 587598.3 922399.5, 587617.5 92238~
+#&gt; 10 Lower Skeena            MULTIPOLYGON (((694671.8 1021937, 694645.9 1021967, 694288.9 1~
+#&gt; # ... with 279 more rows
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-36-1.png" height="%100" /&gt;
+]
+
+---
+
+## Using with dplyr with spatial data (Part 2)
+
+.pull-left[
+
+```r
+ws_summarised &lt;- ws %&gt;% 
+  group_by(SUB_DRAINAGE_AREA_NAME) %&gt;% 
+  summarise()
+```
+
+
+```
+#&gt; Simple feature collection with 30 features and 1 field
+#&gt; geometry type:  GEOMETRY
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 275942.4 ymin: 368917.1 xmax: 1867410 ymax: 1735252
+#&gt; projected CRS:  NAD83 / BC Albers
+#&gt; # A tibble: 30 x 2
+#&gt;    SUB_DRAINAGE_AREA_NAME                                                         geometry
+#&gt;    &lt;chr&gt;                                                                    &lt;GEOMETRY [m]&gt;
+#&gt;  1 Alsek                     MULTIPOLYGON (((340223 1600644, 342546.7 1600390, 342546.7 1~
+#&gt;  2 Bow                       MULTIPOLYGON (((1802516 635700.6, 1802475 635681.5, 1802414 ~
+#&gt;  3 Central Coastal Waters o~ MULTIPOLYGON (((857552.4 753876.9, 857461.4 754103.6, 857510~
+#&gt;  4 Central Liard             POLYGON ((904634.2 1486017, 904510.1 1485947, 904395.4 14858~
+#&gt;  5 Central Liard - Petitot   POLYGON ((1340147 1625597, 1340062 1625592, 1339885 1625606,~
+#&gt;  6 Columbia - U.S.A.         POLYGON ((1376860 456393.7, 1376893 456458.2, 1376982 456583~
+#&gt;  7 Fort Nelson               POLYGON ((1234085 1380780, 1234062 1380772, 1233823 1380739,~
+#&gt;  8 Hay                       MULTIPOLYGON (((1361450 1374854, 1361322 1375278, 1361317 13~
+#&gt;  9 Headwaters Yukon          POLYGON ((725553.3 1678066, 725554.7 1678061, 725562.5 16780~
+#&gt; 10 Lower Fraser              MULTIPOLYGON (((1213627 459566.1, 1211284 459178.3, 1209594 ~
+#&gt; # ... with 20 more rows
+```
+
+]
+
+.pull-right[
+&lt;img src="graphics/prod/figsunnamed-chunk-39-1.png" height="%100" /&gt;
+]
+
+---
+
+## Geometric Operators - Quiz
+
+_Create a new data set of all power lines in the "Williston Lake" watershed. 
+
+
+```r
+williston_lake &lt;- ws %&gt;% 
+  filter(SUB_DRAINAGE_AREA_NAME == "Williston Lake")
+williston_lines &lt;- williston_lake %&gt;% 
+  st_intersection(lines)
+```
+
+
+```r
+williston_lake &lt;- ws %&gt;% 
+  filter(SUB_DRAINAGE_AREA_NAME == "Williston Lake")
+williston_lines &lt;- williston_lake %&gt;% 
+  st_intersects(lines)
+```
+
+
+```r
+williston_lake &lt;- ws %&gt;% 
+  filter(SUB_DRAINAGE_AREA_NAME == "Williston Lake")
+williston_lines &lt;- lines %&gt;% 
+  st_intersects(williston_lake)
+```
+
+
+---
+## Geometric Predicates and Operators
+
+### Predicates: Subset data
+
+### Operators: Create new data
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
